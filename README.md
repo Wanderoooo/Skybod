@@ -4,7 +4,6 @@
 
 **GOAL:** <ins>Assist pilots in pre-flight & post-flight documentations and procedures</ins>
 
-
 ## **KEY Functionalities:**
 - Allow users to book aeroplanes & instructors:
   - Displays aeroplane call-signs, types, availability, ratings, and price
@@ -45,4 +44,12 @@ interface with optional tutorial can enhance learning and pre-flight and post-fl
 - As a user, I want to be able to check my booking status (booked/cancelled)
 - As a user, I want to be able to record & save flight data in my pilot log
 
-
+## **Stretch Goals**
+- Live weather cameras, visuals on weather at departing airport
+- Check LIVE ground conditions: runway, wind, crosswind
+- Provides a checklist to pilots that includes preflight checks (ex. Fuel level, walk-around etc.)
+- Simple flying loading screen, automatically record flight time & ground time & fuel used.
+- Simple radio call simulation (for familiarization & practice)
+- Simple maps of arriving and departing airports, including radio frequencies to call/monitor.
+- Log of ATC-pilot communication en route.
+- Booking/cancellation reminders & notice
