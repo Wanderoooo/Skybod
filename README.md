@@ -20,18 +20,6 @@
   - File flight plan to Air Traffic Control
   - Automatically records flight data during flight, allow post-flight documentation in PILOT LOGS (gives user data, user needs to calculate flight & ground time, etc)
 
-
-## **SUPPLEMENTARY Functionalities:**
-- Live airport cameras:
-- Live weather cameras, visuals on weather (randomly generated)
-- Check LIVE ground conditions: runway, wind, crosswind (randomly generated)
-- Provides a checklist to pilots that includes preflight checks (ex. Fuel level, walk-around etc.)
-- Simple flying loading screen, automatically record flight time & ground time & fuel used.
-- Simple radio call simulation (for familiarization & practice)
-- Simple maps of arriving and departing airports, including radio frequencies to call/monitor.
-- Log of ATC-pilot communication en route.
-- Booking reminders
-
 ## *Built for pilots, built for flight*
 Skybod Flight Planner is built for young and experienced pilots alike, including:
 - Recreational pilots
@@ -50,7 +38,7 @@ interface with optional tutorial can enhance learning and pre-flight and post-fl
 ## User Stories
 
 - As a user, I want to be able to book aeroplanes of my desired type & specialized instructors
-- As a user, I want to be able to create, edit, and remove bookings
+- As a user, I want to be able to create, edit, and remove bookings from a list of bookings
 - As a user, I want to be able to check current weather & weather forecast
 - As a user, I want to be able to save my license and medical # in my profile for booking confirmation
 - As a user, I want to be able to check my booking status (booked/cancelled)
