@@ -19,27 +19,27 @@ public class Booking {
     }
 
     public Pilot getPilot() {
-        return null;
+        return pilot;
     }
 
     public Plane getPlane() {
-        return null;
+        return plane;
     }
 
     public Instructor getInstructor() {
-        return null;
+        return instructor;
     }
 
     public Weather getWx() {
-        return null;
+        return wx;
     }
 
     public Preflight getPref() {
-        return null;
+        return pref;
     }
 
     public Postflight getPostf() {
-        return null;
+        return postf;
     }
 
     public void setInstructor(Instructor instructor) {
