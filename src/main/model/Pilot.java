@@ -8,9 +8,9 @@ public class Pilot {
     private String name;
     private HashSet<String> ratings;
     private int medNum;
+    private boolean isStudent;
     private Booking booking;
     private ArrayList<PilotLog> pl;
-    private boolean isStudent;
 
     // EFFECT: create a pilot profile with name, ratings, medical number, and
     // whether they are a student.
