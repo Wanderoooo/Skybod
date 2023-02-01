@@ -1,7 +1,6 @@
 package model;
 
 public class Booking {
-    private Pilot pilot;
     private Plane plane;
     private Instructor instructor;
     private Weather wx;
@@ -16,10 +15,6 @@ public class Booking {
 
     public Booking() {
         // stub
-    }
-
-    public Pilot getPilot() {
-        return pilot;
     }
 
     public Plane getPlane() {
@@ -44,10 +39,6 @@ public class Booking {
 
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
-    }
-
-    public void setPilot(Pilot pilot) {
-        this.pilot = pilot;
     }
 
     public void setPlane(Plane plane) {

@@ -6,7 +6,7 @@ public class PlaneDocuments {
     private ArrayList<PlaneFlightLog> fl;
     private Insurance insurance;
     private WeightBalance wb;
-    private PlaneReg pr;
+    private DateTime pr;
 
     // EFFECT: create a plane profile with plane's flight log, insurance,
     // weight and balance, and registration
@@ -22,7 +22,7 @@ public class PlaneDocuments {
         return insurance;
     }
 
-    public PlaneReg getPr() {
+    public DateTime getPr() {
         return pr;
     }
 
@@ -38,11 +38,11 @@ public class PlaneDocuments {
         this.insurance = insurance;
     }
 
-    public void setPr(PlaneReg pr) {
-        this.pr = pr;
-    }
-
     public void setWb(WeightBalance wb) {
         this.wb = wb;
+    }
+
+    public void setPr(DateTime pr) {
+        this.pr = pr;
     }
 }

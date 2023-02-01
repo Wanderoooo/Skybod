@@ -1,24 +1,38 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Plane {
     private String type;
     private String callSign;
-    private ArrayList<Availability> avails;
+    private ArrayList<DateTime> avails;
     private int hourlyRentalRate;
     private int hourlyFuelRate;
     private PlaneDocuments pd;
+    private double fuelAmount;
+    private double maxFuel;
 
 
     // EFFECT: create a plane profile with plane type, call sign, availability for booking,
-    // hourly rental and fuel rate, and plane documents
+    // hourly rental and fuel rate, fuel amount in plane, and plane documents
     public Plane() {
         // stub
     }
 
-    public ArrayList<Availability> getAvails() {
+    // REQUIRES: 0 < amount <= maxFuel, and fuelAmount + amount <= maxFuel
+    public void addFuel(double amount) {
+        // stub
+    }
+
+    public double getMaxFuel() {
+        return maxFuel;
+    }
+
+    public double getFuelAmount() {
+        return fuelAmount;
+    }
+
+    public ArrayList<DateTime> getAvails() {
         return avails;
     }
 
@@ -42,7 +56,7 @@ public class Plane {
         return type;
     }
 
-    public void setAvails(ArrayList<Availability> avails) {
+    public void setAvails(ArrayList<DateTime> avails) {
         this.avails = avails;
     }
 
@@ -64,5 +78,13 @@ public class Plane {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setFuelAmount(double fuelAmount) {
+        this.fuelAmount = fuelAmount;
+    }
+
+    public void setMaxFuel(double maxFuel) {
+        this.maxFuel = maxFuel;
     }
 }

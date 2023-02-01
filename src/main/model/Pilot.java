@@ -1,18 +1,35 @@
 package model;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Pilot {
     private String name;
     private HashSet<String> ratings;
     private int medNum;
+    private Booking booking;
+    private ArrayList<PilotLog> pl;
     private boolean isStudent;
 
     // EFFECT: create a pilot profile with name, ratings, medical number, and
     // whether they are a student.
     public Pilot() {
         // stub
+    }
+
+    // MODIFIES: this
+    // EFFECT: adds new flight data to pilot log
+    public void updatePL() {
+        // stub
+    }
+
+    public ArrayList<PilotLog> getPl() {
+        return pl;
+    }
+
+    public Booking getBooking() {
+        return booking;
     }
 
     public String getName() {
@@ -45,5 +62,13 @@ public class Pilot {
 
     public void setStudent(boolean student) {
         isStudent = student;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
+
+    public void setPl(ArrayList<PilotLog> pl) {
+        this.pl = pl;
     }
 }
