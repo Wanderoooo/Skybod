@@ -13,10 +13,17 @@ public class Plane {
     private double maxFuel;
 
 
-    // EFFECT: create a plane profile with plane type, call sign, availability for booking,
+    // EFFECT: create a plane profile with empty plane type, call sign, availability for booking,
     // hourly rental and fuel rate, fuel amount in plane, and plane documents
     public Plane() {
-        // stub
+        type = "";
+        callSign = "";
+        avails = new ArrayList<>();
+        hourlyRentalRate = 0;
+        hourlyFuelRate = 0;
+        pd = new PlaneDocuments();
+        fuelAmount = 0.0;
+        maxFuel = 0.0;
     }
 
     // REQUIRES: 0 < amount <= maxFuel, and fuelAmount + amount <= maxFuel

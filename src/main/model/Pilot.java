@@ -15,7 +15,12 @@ public class Pilot {
     // EFFECT: create a pilot profile with name, ratings, medical number, and
     // whether they are a student.
     public Pilot() {
-        // stub
+        name = "";
+        ratings = new HashSet<>();
+        medNum = 0;
+        isStudent = false;
+        booking = null;
+        pl = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -25,7 +30,7 @@ public class Pilot {
     }
 
     public void addRating(String r) {
-        // stub
+        ratings.add(r);
     }
 
     public ArrayList<PilotLog> getPl() {
