@@ -11,71 +11,171 @@ public class FlightPlanner {
     private static final String WX = "WX";
     private static final String PREFLIGHT = "PREFLIGHT";
     private static final String POSTFLIGHT = "POSTFLIGHT";
+    private static final String BOOK = "BOOK";
+    private static final String CANCEL = "CANCEL";
+    private static final String MENU = "MENU";
+    private static final String QUIT = "QUIT";
+    private static final String PREV = "PREV";
+    private static final String FLIGHT = "FLIGHT";
+    private static final String GROUND = "GROUND";
+    private String choice;
+    private Scanner sc;
     private String quit;
 
     // EFFECT: create flight planner based on user input
     public FlightPlanner() {
-        Scanner name = new Scanner(System.in);
-        Scanner rating = new Scanner(System.in);
-        Scanner add = new Scanner(System.in);
-        Scanner mednum = new Scanner(System.in);
-        Scanner isStud = new Scanner(System.in);
-        Scanner options = new Scanner(System.in);
+        setUp();
 
+        while (!quit.equals(QUIT)) {
+
+            switch (quit) {
+                case BOOKING:
+                    flightBook();
+                    break;
+                case WX:
+                    flightWX();
+                    break;
+                case PREFLIGHT:
+                    flightPre();
+                    break;
+                case POSTFLIGHT:
+                    flightPost();
+                    break;
+                default:
+                    System.out.println("That was not a valid option, please enter an option below:");
+            }
+
+            System.out.println("To manage booking - 'BOOKING' "
+                    + "To check weather - 'WX' "
+                    + "To preflight - 'PREFLIGHT' "
+                    + "To postflight - 'POSTFLIGHT' "
+                    + "To quit - 'QUIT' ");
+
+            quit = sc.next().toUpperCase();
+
+        }
+
+        System.out.println("Thanks for using Skybod Flight Planner! See you next time!");
+    }
+
+    public void flightBook() {
+        System.out.println("To book - 'BOOK'"
+                + "To cancel existing booking - 'CANCEL'"
+                + "To return to menu - 'MENU'");
+        choice = sc.next().toUpperCase();
+
+        while (!choice.equals(MENU)) {
+
+            switch (choice) {
+                case BOOK:
+                    bookGroundFlight();
+                    break;
+                case CANCEL:
+                    // stub
+                    break;
+                case MENU:
+                default:
+                    System.out.println("That's not a valid option, try again:");
+            }
+
+            System.out.println("To book - 'BOOK'"
+                    + "To cancel existing booking - 'CANCEL'"
+                    + "To return to menu - 'MENU'");
+            choice = sc.next();
+        }
+    }
+
+    public void setUp() {
+        sc = new Scanner(System.in);
         Pilot pilot = new Pilot();
+
         System.out.println("Welcome to Skybod Aviation! Let's get you set up:");
         System.out.println("Enter your full name");
-        pilot.setName(name.next());
+        String name = sc.next();
+        pilot.setName(name);
 
-        System.out.println("What are your ratings? - VFR, IFR, Multi, Float");
-        String choice = "add";
+        System.out.println("What are your ratings? - VFR, IFR, Multi, Float, None");
+        choice = "add";
+        int n = 2;
 
         while (choice.equals("add")) {
-            pilot.getRatings().add(rating.next()); // how to add ratings without designing arb. # scanners
+            // add check user doesn't type random shit
+            choice = sc.next();
+            pilot.addRating(choice);
             System.out.println("type 'add' to add more ratings, any other key to continue");
-            choice = add.next();
+            choice = sc.next();
+
+            if (choice.equals("add")) {
+                System.out.println("Enter your " + n + "th rating");
+                n++;
+            }
         }
 
         System.out.println("Enter your TC medical number");
-        pilot.setMedNum(mednum.nextInt());
+        int mednum = sc.nextInt();
+        pilot.setMedNum(mednum);
 
         System.out.println("Are you a student? "
-                + "Student - enter true"
+                + "Student - enter true\n"
                 + "Otherwise - enter false");
 
-        pilot.setStudent(isStud.nextBoolean());
-
+        boolean isStud = sc.nextBoolean();
+        pilot.setStudent(isStud);
         System.out.println("Great! You are all set up!"
                 + "To manage booking - 'BOOKING' "
                 + "To check weather - 'WX' "
                 + "To preflight - 'PREFLIGHT' "
-                + "To postflight - 'POSTFLIGHT' ");
+                + "To postflight - 'POSTFLIGHT' "
+                + "To quit - 'QUIT' ");
 
-        quit = options.next().toUpperCase();
+        quit = sc.next().toUpperCase();
+    }
 
-        while (!quit.equals("QUIT")) {
-            switch (quit) {
-                case BOOKING:
-                    // stub
+    public void flightWX() {
+        // stub
+    }
+
+    public void flightPre() {
+        // stub
+    }
+
+    public void flightPost() {
+        // stub
+    }
+
+    public void bookGroundFlight() {
+        System.out.println("For ground session - 'GROUND"
+                + "For flight lesson - 'FLIGHT'"
+                + "To return to previous options - 'PREV' ");
+
+        choice = sc.next();
+
+        while (!choice.equals(PREV)) {
+            switch (choice) {
+                case FLIGHT:
+                    bookFlight();
                     break;
-                case WX:
-                    // stub
-                    break;
-                case PREFLIGHT:
-                    // stub
-                    break;
-                case POSTFLIGHT:
-                    // stub
+                case GROUND:
+                    bookGround();
                     break;
                 default:
-                    System.out.println("That was not a valid option, please enter an option below:"
-                            + "To manage booking - 'BOOKING' "
-                            + "To check weather - 'WX' "
-                            + "To preflight - 'PREFLIGHT' "
-                            + "To postflight - 'POSTFLIGHT' ");
-
-                    quit = options.next().toUpperCase();
+                    System.out.println("That's not a valid option, try again:");
             }
+
+            System.out.println("For ground session - 'GROUND"
+                    + "For flight lesson - 'FLIGHT'"
+                    + "To return to previous options - 'PREV' ");
+
+            choice = sc.next();
         }
     }
+
+    public void bookFlight() {
+        // stub
+    }
+
+    public void bookGround() {
+        // stub
+    }
+
 }

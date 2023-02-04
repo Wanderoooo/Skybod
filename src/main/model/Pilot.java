@@ -24,6 +24,10 @@ public class Pilot {
         // stub
     }
 
+    public void addRating(String r) {
+        // stub
+    }
+
     public ArrayList<PilotLog> getPl() {
         return pl;
     }
