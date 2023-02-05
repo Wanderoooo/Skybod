@@ -47,7 +47,7 @@ public class DayTime {
     // REQUIRES: d must be a day name: monday - sunday.
     // EFFECT: prints out availability on given day
     public void printDayAvail(String d) {
-        System.out.print(d.substring(0, 1).toUpperCase() + d.substring(1).toLowerCase() + ":");
+        System.out.print(d.substring(0, 1).toUpperCase() + d.substring(1).toLowerCase() + ": ");
         ArrayList<String> givenDay = findDay(d);
         for (String t: givenDay) {
             System.out.print(t + "   ");

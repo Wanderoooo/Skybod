@@ -27,16 +27,9 @@ public class FlightPlanner {
     private String choice;
     private Scanner sc;
     private String quit;
-    private Plane cessna172;
-    private Plane cessna152;
-    private Plane piper;
-    private Plane cirrus;
-    private Plane diamond;
-    private Instructor james;
-    private Instructor nelly;
-    private Instructor toren;
-    private Instructor ash;
-    private Instructor zor;
+    private ArrayList<Plane> lop;
+    private ArrayList<Instructor> loi;
+    private Booking booking;
 
     // here declared as field due to difference in method (& duplication of DateTime if
     // declared as local var)
@@ -205,10 +198,10 @@ public class FlightPlanner {
                     bookGround();
                     break;
                 default:
-                    System.out.println("That's not a valid option, try again:");
+                    System.out.print("That's not a valid option, try again:");
             }
 
-            System.out.println("For ground session - 'GROUND'\n"
+            System.out.println("\nFor ground session - 'GROUND'\n"
                     + "For flight lesson - 'FLIGHT'\n"
                     + "To return to previous options - 'PREV'");
 
@@ -217,7 +210,41 @@ public class FlightPlanner {
     }
 
     public void bookFlight() {
-        // stub
+        booking = new Booking();
+        System.out.println("Select your airplane type:\n"
+                + "Piper-Seneca\n"
+                + "Cessna-152\n"
+                + "Diamond-DA40\n"
+                + "Cirrus-SR22T");
+
+        String type = sc.next();
+        for (Plane p : lop) {
+            if (p.getType().equalsIgnoreCase(type)) {
+                booking.setPlane(p);
+            }
+        }
+
+        // integrate a while-loop
+        if (!booking.getPlane().equals(null)) {
+            System.out.println("Enter day which you'd like to make your booking on:\n"
+                    + "Monday - Friday");
+        } else {
+            System.out.println("The plane type you requested is not available");
+        }
+
+        choice = sc.next();
+        System.out.println(type + booking.getPlane().getCallSign() + "'s availability on " + choice + ":");
+        booking.getPlane().getAvails().printDayAvail(choice);
+
+        System.out.println("To book a time - enter the hour"
+                + "To return to previous option - 'PREV'");
+
+        // Airplane type
+        //Date & time (if no booking @ same day & time, prints booking?, “enter another time/date”)
+        //(Instructor name) -> if student
+        //“These are available…” -> prints time table w/ plane call sign & instructor name (OR if none avail, loop to Date & Time)
+        //Airplane call sign
+        //“Plane … & instructor booked @ … for flight lesson”
     }
 
     public void bookGround() {
@@ -225,11 +252,11 @@ public class FlightPlanner {
     }
 
     public void initializePlane() {
-        cessna172 = new Plane();
-        cessna152 = new Plane();
-        piper = new Plane();
-        cirrus = new Plane();
-        diamond = new Plane();
+        Plane cessna172 = new Plane();
+        Plane cessna152 = new Plane();
+        Plane piper = new Plane();
+        Plane cirrus = new Plane();
+        Plane diamond = new Plane();
 
         cessna172.setType("Cessna-172");
         cessna172.setCallSign("C-GOOV");
@@ -311,7 +338,6 @@ public class FlightPlanner {
         cessna152.setMaxFuel(26.0);
 
 
-
         piper.setType("Piper-Seneca");
         piper.setCallSign("C-FOTX");
         piperDateTime = new DayTime();
@@ -350,7 +376,6 @@ public class FlightPlanner {
         piper.setPd(docpiper);
         piper.setMaxFuel(98.0);
         piper.setFuelAmount(39.3);
-
 
 
         cirrus.setType("Cirrus-SR22T");
@@ -430,10 +455,17 @@ public class FlightPlanner {
         diamond.setPd(docdiamond);
         diamond.setFuelAmount(10.4);
         diamond.setMaxFuel(24.0);
+
+        lop = new ArrayList<>();
+        lop.add(cessna152);
+        lop.add(cessna172);
+        lop.add(piper);
+        lop.add(cirrus);
+        lop.add(diamond);
     }
 
     public void initializeInstructor() {
-        james = new Instructor();
+        Instructor james = new Instructor();
         james.setName("James Gordon");
         james.setInstrClass("CFII - 4");
         james.setAvails(piperDateTime);
@@ -445,7 +477,7 @@ public class FlightPlanner {
         jr.add("Multi");
         james.setRatings(jr);
 
-        nelly = new Instructor();
+        Instructor nelly = new Instructor();
         nelly.setName("Nelly Chou");
         nelly.setHourlyRate(72);
         nelly.setAvails(cessna152DateTime);
@@ -457,7 +489,7 @@ public class FlightPlanner {
         nr.add("Multi");
         nelly.setRatings(nr);
 
-        toren = new Instructor();
+        Instructor toren = new Instructor();
         toren.setName("Toren Molly");
         toren.setInstrClass("CFI - 4");
         toren.setAvails(cessna172DateTime);
@@ -468,7 +500,7 @@ public class FlightPlanner {
         tr.add("Multi");
         toren.setRatings(tr);
 
-        ash = new Instructor();
+        Instructor ash = new Instructor();
         ash.setAvails(diamondDateTime);
         ash.setExpYears(5);
         ash.setHourlyRate(80);
@@ -480,7 +512,7 @@ public class FlightPlanner {
         ar.add("Multi");
         ash.setRatings(ar);
 
-        zor = new Instructor();
+        Instructor zor = new Instructor();
         zor.setName("Zor Lee");
         zor.setAvails(cirrusDateTime);
         zor.setExpYears(10);
@@ -492,6 +524,13 @@ public class FlightPlanner {
         zr.add("IFR");
         zr.add("Multi");
         zor.setRatings(zr);
+
+        loi = new ArrayList<>();
+        loi.add(james);
+        loi.add(toren);
+        loi.add(nelly);
+        loi.add(ash);
+        loi.add(zor);
 
     }
 
