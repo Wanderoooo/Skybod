@@ -1,11 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Plane {
     private String type;
     private String callSign;
-    private ArrayList<DateTime> avails;
+    private DayTime avails;
     private int hourlyRentalRate;
     private int hourlyFuelRate;
     private PlaneDocuments pd;
@@ -18,7 +16,7 @@ public class Plane {
     public Plane() {
         type = "";
         callSign = "";
-        avails = new ArrayList<>();
+        avails = new DayTime();
         hourlyRentalRate = 0;
         hourlyFuelRate = 0;
         pd = new PlaneDocuments();
@@ -39,7 +37,7 @@ public class Plane {
         return fuelAmount;
     }
 
-    public ArrayList<DateTime> getAvails() {
+    public DayTime getAvails() {
         return avails;
     }
 
@@ -63,7 +61,7 @@ public class Plane {
         return type;
     }
 
-    public void setAvails(ArrayList<DateTime> avails) {
+    public void setAvails(DayTime avails) {
         this.avails = avails;
     }
 

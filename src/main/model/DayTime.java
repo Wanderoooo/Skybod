@@ -1,10 +1,9 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 // how to represent int with leading 0
 
-public class DateTime {
+public class DayTime {
     private ArrayList<String> monday;
     private ArrayList<String> tuesday;
     private ArrayList<String> wednesday;
@@ -14,7 +13,7 @@ public class DateTime {
     private ArrayList<String> sunday;
 
     // EFFECT: constructs an availability timetable with no availability
-    public DateTime() {
+    public DayTime() {
         monday = new ArrayList<>();
         tuesday = new ArrayList<>();
         wednesday = new ArrayList<>();

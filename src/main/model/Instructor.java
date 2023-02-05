@@ -8,7 +8,7 @@ public class Instructor {
     private String name;
     private String instrClass;
     private HashSet<String> ratings;
-    private ArrayList<DateTime> avails;
+    private DayTime avails;
     private int hourlyRate;
     private int expYears;
 
@@ -18,7 +18,7 @@ public class Instructor {
         // stub
     }
 
-    public ArrayList<DateTime> getAvails() {
+    public DayTime getAvails() {
         return avails;
     }
 
@@ -42,7 +42,7 @@ public class Instructor {
         return name;
     }
 
-    public void setAvails(ArrayList<DateTime> avails) {
+    public void setAvails(DayTime avails) {
         this.avails = avails;
     }
 

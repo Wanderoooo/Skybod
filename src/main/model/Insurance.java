@@ -5,20 +5,12 @@ public class Insurance {
     private String dateValidUntil;
     private int amountInsured;
     private String typeOfInsurance;
-    private int price;
-    private String planeCallSign;
 
-    public Insurance(String planeCallSign) {
+    public Insurance() {
         dateValid = "";
         dateValidUntil = "";
         amountInsured = 0;
         typeOfInsurance = "";
-        price = 0;
-        this.planeCallSign = "";
-    }
-
-    public void setPlaneCallSign(String planeCallSign) {
-        this.planeCallSign = planeCallSign;
     }
 
     public void setAmountInsured(int amountInsured) {
@@ -33,24 +25,12 @@ public class Insurance {
         this.dateValidUntil = dateValidUntil;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public void setTypeOfInsurance(String typeOfInsurance) {
         this.typeOfInsurance = typeOfInsurance;
     }
 
-    public String getPlaneCallSign() {
-        return planeCallSign;
-    }
-
     public int getAmountInsured() {
         return amountInsured;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public String getDateValid() {

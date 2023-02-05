@@ -5,13 +5,14 @@ import java.util.ArrayList;
 public class PlaneDocuments {
     private ArrayList<PlaneFlightLog> fl;
     private Insurance insurance;
-    private WeightBalance wb;
-    private DateTime pr;
+    private String weightInfo;
 
     // EFFECT: create a plane profile with plane's flight log, insurance,
-    // weight and balance, and registration
+    // and weight info.
     public PlaneDocuments() {
-        // stub
+        fl = new ArrayList<>();
+        insurance = new Insurance();
+        weightInfo = "";
     }
 
     public ArrayList<PlaneFlightLog> getFl() {
@@ -22,12 +23,8 @@ public class PlaneDocuments {
         return insurance;
     }
 
-    public DateTime getPr() {
-        return pr;
-    }
-
-    public WeightBalance getWb() {
-        return wb;
+    public String getWeightInfo() {
+        return weightInfo;
     }
 
     public void setFl(ArrayList<PlaneFlightLog> fl) {
@@ -38,11 +35,7 @@ public class PlaneDocuments {
         this.insurance = insurance;
     }
 
-    public void setWb(WeightBalance wb) {
-        this.wb = wb;
-    }
-
-    public void setPr(DateTime pr) {
-        this.pr = pr;
+    public void setWeightInfo(String weightInfo) {
+        this.weightInfo = weightInfo;
     }
 }

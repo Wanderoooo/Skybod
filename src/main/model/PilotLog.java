@@ -1,8 +1,9 @@
 package model;
 
 public class PilotLog {
-    private DateTime startPilot;
-    private DateTime endPilot;
+    private String date;
+    private String start;
+    private String end;
     private String typeOfPiloting; // solo, dual
     private String planeType;
     private String planeCallSign;
@@ -13,6 +14,10 @@ public class PilotLog {
         // stub
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public void setPlaneCallSign(String planeCallSign) {
         this.planeCallSign = planeCallSign;
     }
@@ -21,12 +26,12 @@ public class PilotLog {
         this.planeType = planeType;
     }
 
-    public void setEndPilot(DateTime endPilot) {
-        this.endPilot = endPilot;
+    public void setEnd(String end) {
+        this.end = end;
     }
 
-    public void setStartPilot(DateTime startPilot) {
-        this.startPilot = startPilot;
+    public void setStart(String start) {
+        this.start = start;
     }
 
     public void setTypeOfPiloting(String typeOfPiloting) {
@@ -41,12 +46,16 @@ public class PilotLog {
         return planeType;
     }
 
-    public DateTime getEndPilot() {
-        return endPilot;
+    public String getEnd() {
+        return end;
     }
 
-    public DateTime getStartPilot() {
-        return startPilot;
+    public String getStart() {
+        return start;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public String getTypeOfPiloting() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Preflight {
 
+    private WeightBalance wb;
     private boolean isDocOnBoard;
     private boolean isCheckedFireExtring;
     private boolean isWalkAroundDone;
