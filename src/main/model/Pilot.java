@@ -9,7 +9,8 @@ public class Pilot {
     private HashSet<String> ratings;
     private int medNum;
     private boolean isStudent;
-    private Booking booking;
+    private ArrayList<Booking> bookings;
+    private ArrayList<Booking> cancelled;
     private ArrayList<PilotLog> pl;
 
     // EFFECT: create a pilot profile with name, ratings, medical number, and
@@ -19,8 +20,9 @@ public class Pilot {
         ratings = new HashSet<>();
         medNum = 0;
         isStudent = false;
-        booking = null;
+        bookings = new ArrayList<>();
         pl = new ArrayList<>();
+        cancelled = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -29,16 +31,26 @@ public class Pilot {
         // stub
     }
 
+    // EFFECT:
     public void addRating(String r) {
         ratings.add(r);
+    }
+
+    // EFFECT:
+    public void addBooking(Booking b) {
+        bookings.add(b);
     }
 
     public ArrayList<PilotLog> getPl() {
         return pl;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public ArrayList<Booking> getBookings() {
+        return bookings;
+    }
+
+    public ArrayList<Booking> getCancelled() {
+        return cancelled;
     }
 
     public String getName() {
@@ -73,8 +85,12 @@ public class Pilot {
         isStudent = student;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setBookings(ArrayList<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void setCancelled(ArrayList<Booking> cancelled) {
+        this.cancelled = cancelled;
     }
 
     public void setPl(ArrayList<PilotLog> pl) {

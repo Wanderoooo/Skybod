@@ -2,6 +2,7 @@ package ui;
 
 import model.*;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -82,18 +83,20 @@ public class FlightPlanner {
         System.out.println("To book - 'BOOK'\n"
                 + "To cancel existing booking - 'CANCEL'\n"
                 + "To return to menu - 'MENU'");
-        choice = sc.next().toUpperCase();
+        String choice1 = sc.next().toUpperCase();
 
-        while (!choice.equals(MENU)) {
+        while (!choice1.equals(MENU)) {
 
-            switch (choice) {
+            switch (choice1) {
                 case BOOK:
                     bookGroundFlight();
                     break;
                 case CANCEL:
-                    // stub
+                    cancelBooking();
                     break;
                 case MENU:
+                    // stub
+                    break;
                 default:
                     System.out.println("That's not a valid option, try again:");
             }
@@ -102,7 +105,7 @@ public class FlightPlanner {
                     + "To cancel existing booking - 'CANCEL'\n"
                     + "To return to menu - 'MENU'");
 
-            choice = sc.next().toUpperCase();
+            choice1 = sc.next().toUpperCase();
         }
     }
 
@@ -183,8 +186,8 @@ public class FlightPlanner {
     }
 
     public void bookGroundFlight() {
-        System.out.println("For ground session - 'GROUND\n"
-                + "For flight lesson - 'FLIGHT'\n"
+        System.out.println("To book ground session - 'GROUND\n"
+                + "To book flight lesson - 'FLIGHT'\n"
                 + "To return to previous options - 'PREV' ");
 
         choice = sc.next().toUpperCase();
@@ -201,9 +204,9 @@ public class FlightPlanner {
                     System.out.print("That's not a valid option, try again:");
             }
 
-            System.out.println("\nFor ground session - 'GROUND'\n"
-                    + "For flight lesson - 'FLIGHT'\n"
-                    + "To return to previous options - 'PREV'");
+            System.out.println("\nTo book ground session - 'GROUND'\n"
+                    + "To book flight lesson - 'FLIGHT'\n"
+                    + "return to previous options - 'PREV'");
 
             choice = sc.next().toUpperCase();
         }
@@ -215,7 +218,8 @@ public class FlightPlanner {
                 + "Piper-Seneca\n"
                 + "Cessna-152\n"
                 + "Diamond-DA40\n"
-                + "Cirrus-SR22T");
+                + "Cirrus-SR22T\n"
+                + "Cessna-172");
 
         String type = sc.next();
         for (Plane p : lop) {
@@ -233,22 +237,192 @@ public class FlightPlanner {
         }
 
         choice = sc.next();
-        System.out.println(type + booking.getPlane().getCallSign() + "'s availability on " + choice + ":");
+        System.out.println(type + " " + booking.getPlane().getCallSign() + "'s availability on " + choice + ":");
         booking.getPlane().getAvails().printDayAvail(choice);
+        ArrayList<String> dayAvail = booking.getPlane().getAvails().findDay(choice);
 
-        System.out.println("To book a time - enter the hour"
-                + "To return to previous option - 'PREV'");
+        System.out.println("\nTo book a time - enter the hour"
+                + "\nTo return to previous option - 'PREV'");
 
-        // Airplane type
-        //Date & time (if no booking @ same day & time, prints booking?, “enter another time/date”)
-        //(Instructor name) -> if student
-        //“These are available…” -> prints time table w/ plane call sign & instructor name (OR if none avail, loop to Date & Time)
-        //Airplane call sign
-        //“Plane … & instructor booked @ … for flight lesson”
+        String c = sc.next();
+        boolean successBookTime = false;
+
+        for (String time : dayAvail) {
+            if (time.equals(c)) {
+                ArrayList<String> notInfForloop = (ArrayList<String>) dayAvail.clone();
+                notInfForloop.remove(c);
+                booking.getPlane().getAvails().setDay(choice, notInfForloop);
+                successBookTime = true;
+                booking.setDayBooked(choice.toUpperCase());
+                booking.setTimeBooked(c);
+            }
+        }
+
+        // implement exception catcher
+        if (successBookTime) {
+            System.out.println("You've booked " + booking.getPlane().getCallSign()
+                    + " on " + choice + " at " + c);
+        } else {
+            System.out.println("The time you've selected is unavailable, please try again");
+        }
+
+        if (pilot.getStudentStatus()) {
+            System.out.println("Enter your instructor's name:\n"
+                    + "James Gordon\n"
+                    + "Nelly Chou\n"
+                    + "Toren Molly\n"
+                    + "Ash Salem\n"
+                    + "Zor Lee");
+
+            sc.nextLine(); // not waiting?
+            String insName = sc.nextLine();
+
+            boolean isInsBooked = false;
+            boolean isInstrFound = false;
+            for (Instructor i : loi) {
+                if (i.getName().equalsIgnoreCase(insName)) {
+                    ArrayList<String> insAvailOnDay = i.getAvails().findDay(choice);
+                    isInstrFound = true;
+
+                    for (String time : insAvailOnDay) {
+                        if (time.equals(c)) {
+                            System.out.println(insName + " has been book at " + c + " for flying lesson ");
+                            booking.setInstructor(i);
+                            ArrayList<String> notInfForloop = (ArrayList<String>) insAvailOnDay.clone();
+                            notInfForloop.remove(c);
+                            booking.getInstructor().getAvails().setDay(choice, notInfForloop);
+                            isInsBooked = true;
+                        }
+                    }
+
+                    if (!isInsBooked) {
+                        System.out.println(insName + " is not available at " + c + ", please select a different"
+                                + " instructor or rebook");
+                    }
+                }
+            }
+
+            if (!isInstrFound) {
+                System.out.println("Instructor not found");
+            }
+        }
+
+        booking.setTypeOfLesson(FLIGHT);
+        pilot.addBooking(booking);
     }
 
     public void bookGround() {
-        // stub
+        booking = new Booking();
+        System.out.println("Enter your instructor's name:\n"
+                + "James Gordon\n"
+                + "Nelly Chou\n"
+                + "Toren Molly\n"
+                + "Ash Salem\n"
+                + "Zor Lee");
+
+        sc.nextLine();
+        String instrName = sc.nextLine();
+        for (Instructor i : loi) {
+            if (i.getName().equalsIgnoreCase(instrName)) {
+                booking.setInstructor(i);
+            }
+        }
+        // integrate a while-loop
+        if (!booking.getInstructor().equals(null)) {
+            System.out.println("Enter day which you'd like to make your booking on:\n"
+                    + "Monday - Friday");
+        } else {
+            System.out.println("The instructor you requested is not a member of this school");
+        }
+
+        choice = sc.next();
+        System.out.println(booking.getInstructor().getName() + "'s availability on " + choice + ":");
+        booking.getInstructor().getAvails().printDayAvail(choice);
+        ArrayList<String> dayAvail = booking.getInstructor().getAvails().findDay(choice);
+
+        System.out.println("\nTo book a time - enter the hour"
+                + "\nTo return to previous option - 'PREV'");
+
+        String c = sc.next();
+        boolean successBookTime = false;
+
+        for (String time : dayAvail) {
+            if (time.equals(c)) {
+                ArrayList<String> notInfForloop = (ArrayList<String>) dayAvail.clone();
+                notInfForloop.remove(c);
+                booking.getInstructor().getAvails().setDay(choice, notInfForloop);
+                successBookTime = true;
+                booking.setDayBooked(choice.toUpperCase());
+                booking.setTimeBooked(c);
+            }
+        }
+
+        // implement exception catcher
+        if (successBookTime) {
+            System.out.println("You've booked " + booking.getInstructor().getName()
+                    + " on " + choice + " at " + c);
+        } else {
+            System.out.println("The time you've selected is unavailable, please try again");
+        }
+
+        booking.setTypeOfLesson(GROUND);
+        pilot.addBooking(booking);
+
+    }
+
+    // EFFECT:
+    public void cancelBooking() {
+        ArrayList<Booking> myBooking = pilot.getBookings();
+
+        if (myBooking.size() == 0) {
+            System.out.println("You have no bookings");
+        } else {
+            System.out.println("Enter the day of the booking for cancellation:");
+            String day = sc.next();
+            ArrayList<Booking> bookingsOnDay = new ArrayList<>();
+
+            for (Booking b : myBooking) {
+                if (b.getDayBooked().equalsIgnoreCase(day)) {
+                    bookingsOnDay.add(b);
+                }
+            }
+
+            if (bookingsOnDay.size() == 0) {
+                System.out.println("You have no bookings on " + day);
+            } else {
+                System.out.println("Your bookings on " + day + " are:");
+                for (Booking b : bookingsOnDay) {
+                    b.printBooking();
+                }
+
+                System.out.println("Enter the time of the booking you'd like to cancel");
+                String time = sc.next();
+
+                Booking cancelBooking = null;
+                for (Booking b : bookingsOnDay) {
+                    if (b.getTimeBooked().equalsIgnoreCase(time)) {
+                        cancelBooking = b;
+                    }
+                }
+
+                if (!(cancelBooking == null)) {
+                    System.out.println("Enter reason for cancellation:\n"
+                            + "Due to weather - wx\n"
+                            + "Due to sickness - sick\n"
+                            + "Due to unexpected event - event");
+                    String reasonCancel = sc.next();
+                    cancelBooking.setReasonCancelled(reasonCancel);
+                    pilot.getBookings().remove(cancelBooking);
+                    System.out.println("Your booking");
+                    cancelBooking.printBooking();
+                    System.out.println("has been cancelled");
+                    pilot.getCancelled().add(cancelBooking);
+                } else {
+                    System.out.println("There's no booking at " + time + " on " + day);
+                }
+            }
+
+        }
     }
 
     public void initializePlane() {
@@ -468,7 +642,7 @@ public class FlightPlanner {
         Instructor james = new Instructor();
         james.setName("James Gordon");
         james.setInstrClass("CFII - 4");
-        james.setAvails(piperDateTime);
+        james.setAvails(cirrusDateTime);
         james.setHourlyRate(70);
         james.setExpYears(2);
         HashSet<String> jr = new HashSet<>();
@@ -480,7 +654,7 @@ public class FlightPlanner {
         Instructor nelly = new Instructor();
         nelly.setName("Nelly Chou");
         nelly.setHourlyRate(72);
-        nelly.setAvails(cessna152DateTime);
+        nelly.setAvails(cirrusDateTime);
         nelly.setInstrClass("CFII - 3");
         nelly.setExpYears(4);
         HashSet<String> nr = new HashSet<>();
@@ -492,7 +666,7 @@ public class FlightPlanner {
         Instructor toren = new Instructor();
         toren.setName("Toren Molly");
         toren.setInstrClass("CFI - 4");
-        toren.setAvails(cessna172DateTime);
+        toren.setAvails(cirrusDateTime);
         toren.setHourlyRate(70);
         toren.setExpYears(1);
         HashSet<String> tr = new HashSet<>();
@@ -501,7 +675,7 @@ public class FlightPlanner {
         toren.setRatings(tr);
 
         Instructor ash = new Instructor();
-        ash.setAvails(diamondDateTime);
+        ash.setAvails(cirrusDateTime);
         ash.setExpYears(5);
         ash.setHourlyRate(80);
         ash.setName("Ash Salem");

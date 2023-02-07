@@ -3,18 +3,43 @@ package model;
 public class Booking {
     private Plane plane;
     private Instructor instructor;
+    private String dayBooked;
+    private String timeBooked;
     private Weather wx;
     private Preflight pref;
     private Postflight postf;
-    private boolean isCancelled;
     private String reasonCancelled;
+    private String typeOfLesson;
 
     // EFFECT: make a booking with pilot info, booking documentation,
     // most recent weather report, preflight & post-flight checklist,
     // and if it's cancelled along with the reason of cancellation.
 
     public Booking() {
-        // stub
+        plane = null;
+        instructor = null;
+        dayBooked = null;
+        timeBooked = null;
+        wx = null;
+        pref = null;
+        postf = null;
+        reasonCancelled = null;
+        typeOfLesson = null;
+
+    }
+
+    // EFFECT:
+    public void printBooking() {
+        if (getPlane() == null) {
+            System.out.println(getTypeOfLesson() + " lesson at " + getTimeBooked() + " with "
+                    + getInstructor().getName());
+        } else if (getInstructor() == null) {
+            System.out.println("at " + getTimeBooked() + " for " + getPlane().getType() + " "
+                    + getPlane().getCallSign());
+        } else {
+            System.out.println(getTypeOfLesson() + " lesson at " + getTimeBooked() + " on " + getPlane().getType() + " "
+                    + getPlane().getCallSign() + " with " + getInstructor().getName());
+        }
     }
 
     public Plane getPlane() {
@@ -55,5 +80,37 @@ public class Booking {
 
     public void setWx(Weather wx) {
         this.wx = wx;
+    }
+
+    public String getDayBooked() {
+        return dayBooked;
+    }
+
+    public String getReasonCancelled() {
+        return reasonCancelled;
+    }
+
+    public String getTimeBooked() {
+        return timeBooked;
+    }
+
+    public void setDayBooked(String dayBooked) {
+        this.dayBooked = dayBooked;
+    }
+
+    public void setReasonCancelled(String reasonCancelled) {
+        this.reasonCancelled = reasonCancelled;
+    }
+
+    public void setTimeBooked(String timeBooked) {
+        this.timeBooked = timeBooked;
+    }
+
+    public String getTypeOfLesson() {
+        return typeOfLesson;
+    }
+
+    public void setTypeOfLesson(String typeOfLesson) {
+        this.typeOfLesson = typeOfLesson;
     }
 }

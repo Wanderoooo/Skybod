@@ -49,12 +49,12 @@ public class DayTime {
     public void printDayAvail(String d) {
         System.out.print(d.substring(0, 1).toUpperCase() + d.substring(1).toLowerCase() + ": ");
         ArrayList<String> givenDay = findDay(d);
-        for (String t: givenDay) {
+        for (String t : givenDay) {
             System.out.print(t + "   ");
         }
     }
 
-    private ArrayList<String> findDay(String d) {
+    public ArrayList<String> findDay(String d) {
         ArrayList<String> foundDay;
 
         switch (d.toUpperCase()) {
@@ -83,5 +83,87 @@ public class DayTime {
         return foundDay;
     }
 
+    public void setDay(String d, ArrayList<String> dayAvail) {
+        switch (d.toUpperCase()) {
+            case "MONDAY":
+                monday = dayAvail;
+                break;
+            case "TUESDAY":
+                tuesday = dayAvail;
+                break;
+            case "WEDNESDAY":
+                wednesday = dayAvail;
+                break;
+            case "THURSDAY":
+                thursday = dayAvail;
+                break;
+            case "FRIDAY":
+                friday = dayAvail;
+                break;
+            case "SATURDAY":
+                saturday = dayAvail;
+                break;
+            default:
+                sunday = dayAvail;
+        }
+
+    }
+
+
+    public void setFriday(ArrayList<String> friday) {
+        this.friday = friday;
+    }
+
+    public void setMonday(ArrayList<String> monday) {
+        this.monday = monday;
+    }
+
+    public void setSaturday(ArrayList<String> saturday) {
+        this.saturday = saturday;
+    }
+
+    public void setSunday(ArrayList<String> sunday) {
+        this.sunday = sunday;
+    }
+
+    public void setThursday(ArrayList<String> thursday) {
+        this.thursday = thursday;
+    }
+
+    public void setTuesday(ArrayList<String> tuesday) {
+        this.tuesday = tuesday;
+    }
+
+    public void setWednesday(ArrayList<String> wednesday) {
+        this.wednesday = wednesday;
+    }
+
+    public ArrayList<String> getFriday() {
+        return friday;
+    }
+
+    public ArrayList<String> getMonday() {
+        return monday;
+    }
+
+    public ArrayList<String> getSaturday() {
+        return saturday;
+    }
+
+    public ArrayList<String> getSunday() {
+        return sunday;
+    }
+
+    public ArrayList<String> getThursday() {
+        return thursday;
+    }
+
+    public ArrayList<String> getTuesday() {
+        return tuesday;
+    }
+
+    public ArrayList<String> getWednesday() {
+        return wednesday;
+    }
 
 }
