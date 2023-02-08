@@ -2,10 +2,7 @@ package ui;
 
 import model.*;
 
-import java.awt.print.Book;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.*;
 
 public class FlightPlanner {
     private static final String BOOKING = "BOOKING";
@@ -31,6 +28,7 @@ public class FlightPlanner {
     private ArrayList<Plane> lop;
     private ArrayList<Instructor> loi;
     private Booking booking;
+    private Weather wxObject;
 
     // here declared as field due to difference in method (& duplication of DateTime if
     // declared as local var)
@@ -174,11 +172,190 @@ public class FlightPlanner {
     }
 
     public void flightWX() {
-        // stub
+        wxObject = new Weather();
+
+        System.out.println("To check most recent weather:\n\n"
+                + "Terminal Area Forecast - TAF\n"
+                + "Meteorological Terminal Air Report - METAR\n"
+                + "Check last checked weather - LAST");
+
+        String wxChoice = sc.next();
+
+        while (!wxChoice.equals(MENU)) {
+            switch (wxChoice.toUpperCase()) {
+                case "TAF":
+                    checkTaf();
+                    break;
+                case "METAR":
+                    checkMetar();
+                    break;
+                case "LAST":
+                    lastChecked();
+                    break;
+                case MENU:
+                    // stub
+                    break;
+                default:
+                    System.out.println("That's not a valid option, please try again\n");
+            }
+
+            System.out.println("To check most recent weather:\n\n"
+                    + "Terminal Area Forecast - TAF\n"
+                    + "Meteorological Terminal Air Report - METAR\n"
+                    + "Check last checked weather - LAST");
+
+            wxChoice = sc.next();
+        }
+    }
+
+    private void checkTaf() {
+        System.out.println("Enter 4-character ICAO code for TAF at desired airport");
+
+        String airportIdent = sc.next().toUpperCase();
+        wxObject.tafUpdate(airportIdent);
+        System.out.println("The latest TAF at " + airportIdent + " is:\n"
+                + wxObject.getCurrentTaf() + "\n");
+
+    }
+
+    private void lastChecked() {
+        System.out.println("The last checked TAF & METAR (respectively):\n\n"
+                + wxObject.getCurrentTaf() + "\n\n"
+                + wxObject.getCurrentMetar() + "\n");
+    }
+
+    private void checkMetar() {
+        System.out.println("Enter 4-character ICAO code for METAR at desired airport");
+
+        String airportIdent = sc.next().toUpperCase();
+        wxObject.metarUpdate(airportIdent);
+        System.out.println("The latest METAR at " + airportIdent + " is:\n"
+                + wxObject.getCurrentMetar() + "\n");
     }
 
     public void flightPre() {
-        // stub
+        List<Booking> allMyBookings = pilot.getBookings();
+        Preflight preflight = new Preflight();
+        System.out.printf("All your current aeroplane bookings:");
+        int n = 1;
+        for (Booking b : allMyBookings) {
+            if (b.getTypeOfLesson().equals("FLIGHT")) {
+                System.out.print(n + " - ");
+                b.printBooking();
+                n++;
+            }
+        }
+
+        System.out.println("Enter the corresponding number for the booking you'd like to preflight");
+        int bookingNum = sc.nextInt();
+
+        Booking toPreflight = allMyBookings.get(bookingNum - 1);
+        System.out.print("You are preflighting for ");
+        toPreflight.printBooking();
+
+        System.out.println("Complete your aircraft document checks, enter true or false for following actions");
+        boolean completed = false;
+        while (!completed) {
+            System.out.println("Are all the following documents on board:\n"
+                    + "- Aircraft registration\n"
+                    + "- Aircraft insurance\n"
+                    + "- Weight & balance of aircraft\n"
+                    + "- Aircraft journey log\n"
+                    + "- Interception procedure\n");
+
+            completed = sc.nextBoolean();
+            if (!completed) {
+                System.out.println("Complete document check\n");
+            }
+        }
+
+        preflight.setDocOnBoard(true);
+
+        System.out.println("Aircraft insurance is valid from "
+                + toPreflight.getPlane().getPd().getInsurance().getDateValid()
+                + " to "
+                + toPreflight.getPlane().getPd().getInsurance().getDateValidUntil()
+                + ", is it CURRENTLY valid?");
+
+        completed = sc.nextBoolean();
+        while (!completed) {
+            System.out.println("Purchase insurance to continue.\n"
+                    + "Has insurance been repurchased?");
+
+            boolean repurchaseIns = sc.nextBoolean();
+            if (repurchaseIns) {
+                completed = true;
+            }
+        }
+
+        preflight.setInsuranceValid(true);
+
+        System.out.println("Complete your aircraft walk-around checks, enter true or false for the following");
+        System.out.println("Are all airfoils functional (fully extendable)?");
+
+        completed = sc.nextBoolean();
+        while (!completed) {
+            System.out.println("Report to maintenance.\n"
+                    + "Are all the airfoils functional now?");
+
+            boolean functional = sc.nextBoolean();
+            if (functional) {
+                completed = true;
+            }
+        }
+
+        System.out.println("Is the aircraft electrical system functional?");
+        completed = sc.nextBoolean();
+        while (!completed) {
+            System.out.println("Report to maintenance.\n"
+                    + "Is the electrical system functional now?");
+
+            boolean functional = sc.nextBoolean();
+            if (functional) {
+                completed = true;
+            }
+        }
+
+        System.out.println("Is the aircraft electrical system functional?");
+        completed = sc.nextBoolean();
+        while (!completed) {
+            System.out.println("Report to maintenance.\n"
+                    + "Is the electrical system functional now?");
+
+            boolean functional = sc.nextBoolean();
+            if (functional) {
+                completed = true;
+            }
+        }
+
+
+
+        preflight.setWalkAroundDone(true);
+
+
+
+
+        // PREFLIGHT
+        //        isDocOnBoard = false;
+        //        isCheckedFireExt = false;
+        //        isWalkAroundDone = false;
+        //        isFuelEnough = false;
+        //        isWBDone = false;
+        //        isPassengerBriefDone = false;
+        //        isClearedTO = false;
+
+        System.out.println("\n Complete your weight & balance calculations");
+
+        // WEIGHT AND BALANCE
+        // private double aircraftWeight; // weights in lb
+        //    private double fuelGallons;
+        //    private double fuelWeight;
+        //    private double pilotPassengerWeight;
+        //    private double moment;
+        //    private double takeoffWeight;
+        //    private boolean isWithinLimit;
+
+        // removes booking from bookings!
     }
 
     public void flightPost() {
@@ -372,7 +549,7 @@ public class FlightPlanner {
 
     // EFFECT:
     public void cancelBooking() {
-        ArrayList<Booking> myBooking = pilot.getBookings();
+        LinkedList<Booking> myBooking = pilot.getBookings();
 
         if (myBooking.size() == 0) {
             System.out.println("You have no bookings");

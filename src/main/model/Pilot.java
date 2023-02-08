@@ -3,15 +3,16 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Pilot {
     private String name;
     private HashSet<String> ratings;
     private int medNum;
     private boolean isStudent;
-    private ArrayList<Booking> bookings;
-    private ArrayList<Booking> cancelled;
-    private ArrayList<PilotLog> pl;
+    private LinkedList<Booking> bookings;
+    private LinkedList<Booking> cancelled;
+    private LinkedList<PilotLog> pl;
 
     // EFFECT: create a pilot profile with name, ratings, medical number, and
     // whether they are a student.
@@ -20,9 +21,9 @@ public class Pilot {
         ratings = new HashSet<>();
         medNum = 0;
         isStudent = false;
-        bookings = new ArrayList<>();
-        pl = new ArrayList<>();
-        cancelled = new ArrayList<>();
+        bookings = new LinkedList<>();
+        pl = new LinkedList<>();
+        cancelled = new LinkedList<>();
     }
 
     // MODIFIES: this
@@ -41,15 +42,15 @@ public class Pilot {
         bookings.add(b);
     }
 
-    public ArrayList<PilotLog> getPl() {
+    public LinkedList<PilotLog> getPl() {
         return pl;
     }
 
-    public ArrayList<Booking> getBookings() {
+    public LinkedList<Booking> getBookings() {
         return bookings;
     }
 
-    public ArrayList<Booking> getCancelled() {
+    public LinkedList<Booking> getCancelled() {
         return cancelled;
     }
 
@@ -85,15 +86,15 @@ public class Pilot {
         isStudent = student;
     }
 
-    public void setBookings(ArrayList<Booking> bookings) {
+    public void setBookings(LinkedList<Booking> bookings) {
         this.bookings = bookings;
     }
 
-    public void setCancelled(ArrayList<Booking> cancelled) {
+    public void setCancelled(LinkedList<Booking> cancelled) {
         this.cancelled = cancelled;
     }
 
-    public void setPl(ArrayList<PilotLog> pl) {
+    public void setPl(LinkedList<PilotLog> pl) {
         this.pl = pl;
     }
 }

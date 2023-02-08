@@ -20,16 +20,16 @@ public class Weather {
 
     // MODIFIES: this
     // EFFECT: generates an updated weather report in ICAO code (METAR), saves it.
-    public void metar(String airport) {
+    public void metarUpdate(String airport) {
         Random r = new Random();
-        currentMetar = metars.get(r.nextInt(3));
+        currentMetar = airport + " " + metars.get(r.nextInt(3));
     }
 
     // MODIFIES: this
     // EFFECT: generates an updated weather forecast in ICAO code (TAF), saves it.
-    public void taf(String airport) {
+    public void tafUpdate(String airport) {
         Random r = new Random();
-        currentTaf = tafs.get(r.nextInt(3));
+        currentTaf = airport + " " + tafs.get(r.nextInt(3));
     }
 
     private void setUpWx() {
@@ -52,5 +52,13 @@ public class Weather {
                 + "RMK NXT FCST BY 050600Z=");
         tafs.add("042343Z 0500/0505 VRB03KT P6SM BKN100\n"
                 + "RMK NXT FCST BY 051500Z=");
+    }
+
+    public String getCurrentMetar() {
+        return currentMetar;
+    }
+
+    public String getCurrentTaf() {
+        return currentTaf;
     }
 }
