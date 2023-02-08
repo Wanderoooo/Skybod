@@ -26,7 +26,7 @@ public class Plane {
 
     // REQUIRES: 0 < amount <= maxFuel, and fuelAmount + amount <= maxFuel
     public void addFuel(double amount) {
-        // stub
+        fuelAmount = amount + fuelAmount;
     }
 
     public double getMaxFuel() {
@@ -91,5 +91,10 @@ public class Plane {
 
     public void setMaxFuel(double maxFuel) {
         this.maxFuel = maxFuel;
+    }
+
+    // REQUIRES:
+    public void setFuelToMaxFuel() {
+        fuelAmount = maxFuel;
     }
 }

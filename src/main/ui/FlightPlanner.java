@@ -316,11 +316,12 @@ public class FlightPlanner {
             }
         }
 
-        System.out.println("Is the aircraft electrical system functional?");
+
+        System.out.println("Does the aircraft have safe amount of engine oil?");
         completed = sc.nextBoolean();
         while (!completed) {
-            System.out.println("Report to maintenance.\n"
-                    + "Is the electrical system functional now?");
+            System.out.println("Add engine oil.\n"
+                    + "Is the engine oil enough now?");
 
             boolean functional = sc.nextBoolean();
             if (functional) {
@@ -328,11 +329,115 @@ public class FlightPlanner {
             }
         }
 
+        System.out.println("Your aircraft currently has " + toPreflight.getPlane().getFuelAmount()
+                + "US Gallons of fuel, would you like to refuel " + toPreflight.getPlane().getType() + "?\n"
+                + "To refuel - true\n"
+                + "To continue with current fuel amount - false");
 
+        completed = sc.nextBoolean();
+        WeightBalance wb = new WeightBalance();
 
+        if (completed) {
+            System.out.println("Your aircraft " + toPreflight.getPlane().getCallSign()
+                    + "'s fuel capacity is " + toPreflight.getPlane().getMaxFuel()
+                    + " Gallons of fuel, would you like to top up, or add specific amount of fuel?\n"
+                    + "To top up to max - true\n"
+                    + "To add specific amount of fuel - false");
+
+            boolean isTopUp = sc.nextBoolean();
+
+            if (isTopUp) {
+                toPreflight.getPlane().setFuelToMaxFuel();
+                System.out.println("Your aircraft now has " + toPreflight.getPlane().getFuelAmount()
+                        + " Gallons of fuel");
+                preflight.setFuelEnough(true);
+                wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+
+            } else {
+                System.out.println("Enter amount of fuel you'd like to add");
+                double fuelAmountAdd = sc.nextDouble();
+                if (fuelAmountAdd + toPreflight.getPlane().getFuelAmount() < toPreflight.getPlane().getMaxFuel() &&
+                        !(fuelAmountAdd == 0)) {
+                    toPreflight.getPlane().addFuel(fuelAmountAdd);
+                    System.out.println(fuelAmountAdd + " Gallons of fuel has been added to "
+                            + toPreflight.getPlane().getCallSign() + ", current fuel amount is "
+                            + toPreflight.getPlane().getFuelAmount());
+                    preflight.setFuelEnough(true);
+                    wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+
+                } else if (fuelAmountAdd == 0) {
+                    System.out.printf("You are not adding any fuel");
+
+                } else {
+                    System.out.println("Amount of fuel you are trying to add exceeds the plane's fuel capacity");
+                }
+            }
+
+        } else {
+            System.out.println("You are responsible for ensuring you have enough fuel for the duration of your flight");
+            preflight.setFuelEnough(true);
+            wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+        }
+
+        System.out.println("Is the aircraft fire extinguisher charged & locked?");
+        completed = sc.nextBoolean();
+
+        while (!completed) {
+            System.out.println("Replace fire extinguisher, or ensure it is locked.\n"
+                    + "Is the fire extinguisher charged & locked now?");
+
+            boolean functional = sc.nextBoolean();
+            if (functional) {
+                completed = true;
+            }
+        }
+
+        preflight.setCheckedFireExt(true);
+
+        System.out.println("Your aircraft walk-around is now complete");
         preflight.setWalkAroundDone(true);
 
+        System.out.println("Let's complete your weight and balance, enter pilot weight in lb");
+        double pilotWeight = sc.nextDouble();
 
+        System.out.println("Enter passenger weight");
+        double passengerWeight = sc.nextDouble();
+
+        System.out.println("Enter cargo weight");
+        double cargoWeight = sc.nextDouble();
+
+        double takeoffWeight = toPreflight.getPlane().getPd().getWeightInfo()
+                + toPreflight.getPlane().getFuelAmount() * 6.0 + pilotWeight + passengerWeight + cargoWeight;
+
+        System.out.println("Aircraft Empty Weight - " + toPreflight.getPlane().getPd().getWeightInfo() + "lb\n"
+                + "Fuel Weight (6.0lb/US Gallon) - " + toPreflight.getPlane().getFuelAmount() * 6.0 + "lb\n"
+                + "Pilot Weight - " + pilotWeight + "lb\n"
+                + "Passenger Weight - " + passengerWeight + "lb\n"
+                + "Cargo Weight - " + cargoWeight + "lb\n"
+                + "Total takeoff weight is " + takeoffWeight + "lb\n"
+                + "Is this within takeoff limit according to " + toPreflight.getPlane().getCallSign() + "'s POH?\n\n"
+                + "Yes - true\n"
+                + "No - false");
+
+        boolean weightWithinLimit = sc.nextBoolean();
+
+        if (weightWithinLimit) {
+            wb.setAircraftWeight(toPreflight.getPlane().getPd().getWeightInfo());
+            wb.setFuelWeight(toPreflight.getPlane().getFuelAmount() * 6.0);
+            wb.setPassengerWeight(passengerWeight);
+            wb.setPilotWeight(pilotWeight);
+            wb.setTakeoffWeight(takeoffWeight);
+            wb.setWithinLimit(true);
+            preflight.setWb(wb);
+            preflight.setWBDone(true);
+            toPreflight.setPref(preflight);
+            System.out.println("Your weight & balance calculations is now complete");
+        } else {
+            System.out.println("Reduce cargo weight, redo weight & balance chart, or do not fly aircraft");
+        }
+
+        // remove booking from preflight, to todo postflight
+        System.out.println("You've completed preflighting for " + toPreflight.getPlane().getCallSign() + "\n");
 
 
         // PREFLIGHT
@@ -343,8 +448,6 @@ public class FlightPlanner {
         //        isWBDone = false;
         //        isPassengerBriefDone = false;
         //        isClearedTO = false;
-
-        System.out.println("\n Complete your weight & balance calculations");
 
         // WEIGHT AND BALANCE
         // private double aircraftWeight; // weights in lb
@@ -641,7 +744,7 @@ public class FlightPlanner {
 
         PlaneDocuments doc172 = new PlaneDocuments();
         doc172.setFl(logs172);
-        doc172.setWeightInfo("Empty Weight - 1209.13lb");
+        doc172.setWeightInfo(1209.13);
         doc172.setInsurance(c172ins);
 
         cessna172.setPd(doc172);
@@ -681,7 +784,7 @@ public class FlightPlanner {
 
         PlaneDocuments doc152 = new PlaneDocuments();
         doc152.setFl(logs152);
-        doc152.setWeightInfo("Empty Weight - 1138.26lb");
+        doc152.setWeightInfo(1138.26);
         doc152.setInsurance(c152ins);
 
         cessna152.setPd(doc152);
@@ -721,7 +824,7 @@ public class FlightPlanner {
 
         PlaneDocuments docpiper = new PlaneDocuments();
         docpiper.setFl(logspiper);
-        docpiper.setWeightInfo("Empty Weight - 1343.93lb");
+        docpiper.setWeightInfo(1343.93);
         docpiper.setInsurance(piperins);
 
         piper.setPd(docpiper);
@@ -760,7 +863,7 @@ public class FlightPlanner {
 
         PlaneDocuments doccirrus = new PlaneDocuments();
         doccirrus.setFl(logcirrus);
-        doccirrus.setWeightInfo("Empty Weight - 1441.92lb");
+        doccirrus.setWeightInfo(1441.92);
         doccirrus.setInsurance(cirrusins);
 
         cirrus.setPd(doccirrus);
@@ -800,7 +903,7 @@ public class FlightPlanner {
 
         PlaneDocuments docdiamond = new PlaneDocuments();
         docdiamond.setFl(logdiamond);
-        docdiamond.setWeightInfo("Empty Weight - 1058.25lb");
+        docdiamond.setWeightInfo(1058.25);
         docdiamond.setInsurance(diamondins);
 
         diamond.setPd(docdiamond);
