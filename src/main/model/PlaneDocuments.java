@@ -1,21 +1,22 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class PlaneDocuments {
-    private ArrayList<PlaneFlightLog> fl;
+    private LinkedList<PlaneFlightLog> fl;
     private Insurance insurance;
     private double weightInfo;
 
     // EFFECT: create a plane profile with plane's flight log, insurance,
     // and weight info.
     public PlaneDocuments() {
-        fl = new ArrayList<>();
+        fl = new LinkedList<>();
         insurance = new Insurance();
         weightInfo = 0.0;
     }
 
-    public ArrayList<PlaneFlightLog> getFl() {
+    public LinkedList<PlaneFlightLog> getFl() {
         return fl;
     }
 
@@ -27,7 +28,7 @@ public class PlaneDocuments {
         return weightInfo;
     }
 
-    public void setFl(ArrayList<PlaneFlightLog> fl) {
+    public void setFl(LinkedList<PlaneFlightLog> fl) {
         this.fl = fl;
     }
 

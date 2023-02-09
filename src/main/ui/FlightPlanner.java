@@ -219,9 +219,21 @@ public class FlightPlanner {
     }
 
     private void lastChecked() {
-        System.out.println("The last checked TAF & METAR (respectively):\n\n"
-                + wxObject.getCurrentTaf() + "\n\n"
-                + wxObject.getCurrentMetar() + "\n");
+        if (wxObject.getCurrentTaf() == null && wxObject.getCurrentMetar() == null) {
+            System.out.println("No last checked TAF and METAR");
+        } else if (wxObject.getCurrentTaf() == null) {
+            System.out.println("The last checked METAR is:\n\n"
+                    + wxObject.getCurrentMetar() + "\n\n"
+                    + "No last checked TAF");
+        } else if (wxObject.getCurrentMetar() == null) {
+            System.out.println("The last checked TAF is:\n\n"
+                    + wxObject.getCurrentTaf() + "\n\n"
+                    + "No last checked METAR");
+        } else {
+            System.out.println("The last checked TAF & METAR (respectively):\n\n"
+                    + wxObject.getCurrentTaf() + "\n\n"
+                    + wxObject.getCurrentMetar() + "\n");
+        }
     }
 
     private void checkMetar() {
@@ -236,7 +248,7 @@ public class FlightPlanner {
     public void flightPre() {
         List<Booking> allMyBookings = pilot.getBookings();
         Preflight preflight = new Preflight();
-        System.out.printf("All your current aeroplane bookings:");
+        System.out.println("All your current aeroplane bookings:");
         int n = 1;
         for (Booking b : allMyBookings) {
             if (b.getTypeOfLesson().equals("FLIGHT")) {
@@ -246,223 +258,326 @@ public class FlightPlanner {
             }
         }
 
-        System.out.println("Enter the corresponding number for the booking you'd like to preflight");
-        int bookingNum = sc.nextInt();
+        if (n == 1) {
+            System.out.println("You don't have any flight bookings");
+        } else {
 
-        Booking toPreflight = allMyBookings.get(bookingNum - 1);
-        System.out.print("You are preflighting for ");
-        toPreflight.printBooking();
+            System.out.println("Enter the corresponding number for the booking you'd like to preflight");
+            int bookingNum = sc.nextInt();
 
-        System.out.println("Complete your aircraft document checks, enter true or false for following actions");
-        boolean completed = false;
-        while (!completed) {
-            System.out.println("Are all the following documents on board:\n"
-                    + "- Aircraft registration\n"
-                    + "- Aircraft insurance\n"
-                    + "- Weight & balance of aircraft\n"
-                    + "- Aircraft journey log\n"
-                    + "- Interception procedure\n");
+            Booking toPreflight = allMyBookings.get(bookingNum - 1);
+            pilot.getBookings().remove(toPreflight);
+            System.out.print("You are preflighting for ");
+            toPreflight.printBooking();
 
-            completed = sc.nextBoolean();
-            if (!completed) {
-                System.out.println("Complete document check\n");
-            }
-        }
+            System.out.println("Complete your aircraft document checks, enter true or false for following actions");
+            boolean completed = false;
+            while (!completed) {
+                System.out.println("Are all the following documents on board?\n"
+                        + "- Aircraft registration\n"
+                        + "- Aircraft insurance\n"
+                        + "- Weight & balance of aircraft\n"
+                        + "- Aircraft journey log\n"
+                        + "- Interception procedure\n"
+                        + "Yes - true\n"
+                        + "No - false");
 
-        preflight.setDocOnBoard(true);
-
-        System.out.println("Aircraft insurance is valid from "
-                + toPreflight.getPlane().getPd().getInsurance().getDateValid()
-                + " to "
-                + toPreflight.getPlane().getPd().getInsurance().getDateValidUntil()
-                + ", is it CURRENTLY valid?");
-
-        completed = sc.nextBoolean();
-        while (!completed) {
-            System.out.println("Purchase insurance to continue.\n"
-                    + "Has insurance been repurchased?");
-
-            boolean repurchaseIns = sc.nextBoolean();
-            if (repurchaseIns) {
-                completed = true;
-            }
-        }
-
-        preflight.setInsuranceValid(true);
-
-        System.out.println("Complete your aircraft walk-around checks, enter true or false for the following");
-        System.out.println("Are all airfoils functional (fully extendable)?");
-
-        completed = sc.nextBoolean();
-        while (!completed) {
-            System.out.println("Report to maintenance.\n"
-                    + "Are all the airfoils functional now?");
-
-            boolean functional = sc.nextBoolean();
-            if (functional) {
-                completed = true;
-            }
-        }
-
-        System.out.println("Is the aircraft electrical system functional?");
-        completed = sc.nextBoolean();
-        while (!completed) {
-            System.out.println("Report to maintenance.\n"
-                    + "Is the electrical system functional now?");
-
-            boolean functional = sc.nextBoolean();
-            if (functional) {
-                completed = true;
-            }
-        }
-
-
-        System.out.println("Does the aircraft have safe amount of engine oil?");
-        completed = sc.nextBoolean();
-        while (!completed) {
-            System.out.println("Add engine oil.\n"
-                    + "Is the engine oil enough now?");
-
-            boolean functional = sc.nextBoolean();
-            if (functional) {
-                completed = true;
-            }
-        }
-
-        System.out.println("Your aircraft currently has " + toPreflight.getPlane().getFuelAmount()
-                + "US Gallons of fuel, would you like to refuel " + toPreflight.getPlane().getType() + "?\n"
-                + "To refuel - true\n"
-                + "To continue with current fuel amount - false");
-
-        completed = sc.nextBoolean();
-        WeightBalance wb = new WeightBalance();
-
-        if (completed) {
-            System.out.println("Your aircraft " + toPreflight.getPlane().getCallSign()
-                    + "'s fuel capacity is " + toPreflight.getPlane().getMaxFuel()
-                    + " Gallons of fuel, would you like to top up, or add specific amount of fuel?\n"
-                    + "To top up to max - true\n"
-                    + "To add specific amount of fuel - false");
-
-            boolean isTopUp = sc.nextBoolean();
-
-            if (isTopUp) {
-                toPreflight.getPlane().setFuelToMaxFuel();
-                System.out.println("Your aircraft now has " + toPreflight.getPlane().getFuelAmount()
-                        + " Gallons of fuel");
-                preflight.setFuelEnough(true);
-                wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
-
-            } else {
-                System.out.println("Enter amount of fuel you'd like to add");
-                double fuelAmountAdd = sc.nextDouble();
-                if (fuelAmountAdd + toPreflight.getPlane().getFuelAmount() < toPreflight.getPlane().getMaxFuel() &&
-                        !(fuelAmountAdd == 0)) {
-                    toPreflight.getPlane().addFuel(fuelAmountAdd);
-                    System.out.println(fuelAmountAdd + " Gallons of fuel has been added to "
-                            + toPreflight.getPlane().getCallSign() + ", current fuel amount is "
-                            + toPreflight.getPlane().getFuelAmount());
-                    preflight.setFuelEnough(true);
-                    wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
-
-                } else if (fuelAmountAdd == 0) {
-                    System.out.printf("You are not adding any fuel");
-
-                } else {
-                    System.out.println("Amount of fuel you are trying to add exceeds the plane's fuel capacity");
+                completed = sc.nextBoolean();
+                if (!completed) {
+                    System.out.println("Complete document check\n");
                 }
             }
 
-        } else {
-            System.out.println("You are responsible for ensuring you have enough fuel for the duration of your flight");
-            preflight.setFuelEnough(true);
-            wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
-        }
+            preflight.setDocOnBoard(true);
 
-        System.out.println("Is the aircraft fire extinguisher charged & locked?");
-        completed = sc.nextBoolean();
+            System.out.println("Aircraft insurance is valid from "
+                    + toPreflight.getPlane().getPd().getInsurance().getDateValid()
+                    + " to "
+                    + toPreflight.getPlane().getPd().getInsurance().getDateValidUntil()
+                    + ", is it CURRENTLY valid?\n"
+                    + "Yes, valid - true\n"
+                    + "No, invalid - false");
 
-        while (!completed) {
-            System.out.println("Replace fire extinguisher, or ensure it is locked.\n"
-                    + "Is the fire extinguisher charged & locked now?");
+            completed = sc.nextBoolean();
+            while (!completed) {
+                System.out.println("Purchase insurance to continue.\n"
+                        + "Has insurance been repurchased?"
+                        + "Yes, repurchased - true\n"
+                        + "No, still invalid - false");
 
-            boolean functional = sc.nextBoolean();
-            if (functional) {
-                completed = true;
+                boolean repurchaseIns = sc.nextBoolean();
+                if (repurchaseIns) {
+                    completed = true;
+                }
             }
-        }
 
-        preflight.setCheckedFireExt(true);
+            preflight.setInsuranceValid(true);
 
-        System.out.println("Your aircraft walk-around is now complete");
-        preflight.setWalkAroundDone(true);
+            System.out.println("Complete your aircraft walk-around checks, enter true or false for the following");
+            System.out.println("Are all airfoils functional (fully extendable)?\n"
+                    + "Yes - true\n"
+                    + "No - false");
 
-        System.out.println("Let's complete your weight and balance, enter pilot weight in lb");
-        double pilotWeight = sc.nextDouble();
+            completed = sc.nextBoolean();
+            while (!completed) {
+                System.out.println("Report to maintenance.\n"
+                        + "Are all the airfoils functional now?\n"
+                        + "Yes, functional - true\n"
+                        + "No, not functional still - false");
 
-        System.out.println("Enter passenger weight");
-        double passengerWeight = sc.nextDouble();
+                boolean functional = sc.nextBoolean();
+                if (functional) {
+                    completed = true;
+                }
+            }
 
-        System.out.println("Enter cargo weight");
-        double cargoWeight = sc.nextDouble();
+            System.out.println("Is the aircraft electrical system functional?\n"
+                    + "Yes - true\n"
+                    + "No - false");
+            completed = sc.nextBoolean();
+            while (!completed) {
+                System.out.println("Report to maintenance.\n"
+                        + "Is the electrical system functional now?\n"
+                        + "Yes, functional - true\n"
+                        + "No, not functional still - false");
 
-        double takeoffWeight = toPreflight.getPlane().getPd().getWeightInfo()
-                + toPreflight.getPlane().getFuelAmount() * 6.0 + pilotWeight + passengerWeight + cargoWeight;
+                boolean functional = sc.nextBoolean();
+                if (functional) {
+                    completed = true;
+                }
+            }
 
-        System.out.println("Aircraft Empty Weight - " + toPreflight.getPlane().getPd().getWeightInfo() + "lb\n"
-                + "Fuel Weight (6.0lb/US Gallon) - " + toPreflight.getPlane().getFuelAmount() * 6.0 + "lb\n"
-                + "Pilot Weight - " + pilotWeight + "lb\n"
-                + "Passenger Weight - " + passengerWeight + "lb\n"
-                + "Cargo Weight - " + cargoWeight + "lb\n"
-                + "Total takeoff weight is " + takeoffWeight + "lb\n"
-                + "Is this within takeoff limit according to " + toPreflight.getPlane().getCallSign() + "'s POH?\n\n"
-                + "Yes - true\n"
-                + "No - false");
 
-        boolean weightWithinLimit = sc.nextBoolean();
+            System.out.println("Does the aircraft have safe amount of engine oil?\n"
+                    + "Yes - true\n"
+                    + "No - false");
+            completed = sc.nextBoolean();
+            while (!completed) {
+                System.out.println("Add engine oil.\n"
+                        + "Is the engine oil enough now?\n"
+                        + "Yes, - true\n"
+                        + "No, - false");
 
-        if (weightWithinLimit) {
-            wb.setAircraftWeight(toPreflight.getPlane().getPd().getWeightInfo());
-            wb.setFuelWeight(toPreflight.getPlane().getFuelAmount() * 6.0);
-            wb.setPassengerWeight(passengerWeight);
-            wb.setPilotWeight(pilotWeight);
-            wb.setTakeoffWeight(takeoffWeight);
-            wb.setWithinLimit(true);
-            preflight.setWb(wb);
-            preflight.setWBDone(true);
+                boolean functional = sc.nextBoolean();
+                if (functional) {
+                    completed = true;
+                }
+            }
+
+            System.out.println("Your aircraft currently has " + toPreflight.getPlane().getFuelAmount()
+                    + "US Gallons of fuel, would you like to refuel " + toPreflight.getPlane().getType() + "?\n"
+                    + "To refuel - true\n"
+                    + "To continue with current fuel amount - false");
+
+            completed = sc.nextBoolean();
+            WeightBalance wb = new WeightBalance();
+
+            if (completed) {
+                System.out.println("Your aircraft " + toPreflight.getPlane().getCallSign()
+                        + "'s fuel capacity is " + toPreflight.getPlane().getMaxFuel()
+                        + " Gallons of fuel, would you like to top up, or add specific amount of fuel?\n"
+                        + "To top up to max - true\n"
+                        + "To add specific amount of fuel - false");
+
+                boolean isTopUp = sc.nextBoolean();
+
+                if (isTopUp) {
+                    toPreflight.getPlane().setFuelToMaxFuel();
+                    System.out.println("Your aircraft now has " + toPreflight.getPlane().getFuelAmount()
+                            + " Gallons of fuel");
+                    preflight.setFuelEnough(true);
+                    wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+
+                } else {
+                    System.out.println("Enter amount of fuel you'd like to add");
+                    double fuelAmountAdd = sc.nextDouble();
+                    if (fuelAmountAdd + toPreflight.getPlane().getFuelAmount() < toPreflight.getPlane().getMaxFuel() &&
+                            !(fuelAmountAdd == 0)) {
+                        toPreflight.getPlane().addFuel(fuelAmountAdd);
+                        System.out.println(fuelAmountAdd + " Gallons of fuel has been added to "
+                                + toPreflight.getPlane().getCallSign() + ", current fuel amount is "
+                                + toPreflight.getPlane().getFuelAmount());
+                        preflight.setFuelEnough(true);
+                        wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+
+                    } else if (fuelAmountAdd == 0) {
+                        System.out.printf("You are not adding any fuel");
+
+                    } else {
+                        System.out.println("Amount of fuel you are trying to add exceeds the plane's fuel capacity");
+                    }
+                }
+
+            } else {
+                System.out.println("You are responsible for ensuring you have enough fuel for the duration of your flight");
+                preflight.setFuelEnough(true);
+                wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+            }
+
+            System.out.println("Is the aircraft's fire extinguisher charged & locked?\n"
+                    + "Yes - true\n"
+                    + "No - false");
+            completed = sc.nextBoolean();
+
+            while (!completed) {
+                System.out.println("Replace fire extinguisher, or ensure it is locked.\n"
+                        + "Is the fire extinguisher charged & locked now?\n"
+                        + "Yes - true\n"
+                        + "No - false");
+
+                boolean functional = sc.nextBoolean();
+                if (functional) {
+                    completed = true;
+                }
+            }
+
+            preflight.setCheckedFireExt(true);
+
+            System.out.println("Your aircraft walk-around is now complete");
+            preflight.setWalkAroundDone(true);
+
+            System.out.println("Let's complete your weight and balance, enter pilot weight in lb");
+            double pilotWeight = sc.nextDouble();
+
+            System.out.println("Enter passenger weight");
+            double passengerWeight = sc.nextDouble();
+
+            System.out.println("Enter cargo weight");
+            double cargoWeight = sc.nextDouble();
+
+            double takeoffWeight = toPreflight.getPlane().getPd().getWeightInfo()
+                    + toPreflight.getPlane().getFuelAmount() * 6.0 + pilotWeight + passengerWeight + cargoWeight;
+
+            System.out.println("Aircraft Empty Weight - " + toPreflight.getPlane().getPd().getWeightInfo() + "lb\n"
+                    + "Fuel Weight (6.0lb/US Gallon) - " + toPreflight.getPlane().getFuelAmount() * 6.0 + "lb\n"
+                    + "Pilot Weight - " + pilotWeight + "lb\n"
+                    + "Passenger Weight - " + passengerWeight + "lb\n"
+                    + "Cargo Weight - " + cargoWeight + "lb\n"
+                    + "Total takeoff weight is " + takeoffWeight + "lb\n"
+                    + "Is this within takeoff limit according to " + toPreflight.getPlane().getCallSign() + "'s POH?\n"
+                    + "Yes - true\n"
+                    + "No - false");
+
+            boolean weightWithinLimit = sc.nextBoolean();
+
+            if (weightWithinLimit) {
+                wb.setAircraftWeight(toPreflight.getPlane().getPd().getWeightInfo());
+                wb.setFuelWeight(toPreflight.getPlane().getFuelAmount() * 6.0);
+                wb.setPassengerWeight(passengerWeight);
+                wb.setPilotWeight(pilotWeight);
+                wb.setTakeoffWeight(takeoffWeight);
+                wb.setWithinLimit(true);
+                preflight.setWb(wb);
+                preflight.setWBDone(true);
+                System.out.println("Your weight & balance calculations is now complete");
+            } else {
+                System.out.println("Reduce cargo weight, redo weight & balance chart, or do not fly aircraft");
+            }
+
+            System.out.println("Enter current hobbs meter value");
+            double hobbsStart = sc.nextDouble();
+            preflight.setHobbsTimeStart(hobbsStart);
             toPreflight.setPref(preflight);
-            System.out.println("Your weight & balance calculations is now complete");
-        } else {
-            System.out.println("Reduce cargo weight, redo weight & balance chart, or do not fly aircraft");
+
+            System.out.println("Enter departing Airport 4-digit ICAO code");
+            String depAP = sc.next().toUpperCase();
+            preflight.setDepartAP(depAP);
+
+            pilot.getToPostFlight().add(toPreflight);
+            System.out.println("You've completed preflighting for " + toPreflight.getPlane().getCallSign() + "\n");
         }
-
-        // remove booking from preflight, to todo postflight
-        System.out.println("You've completed preflighting for " + toPreflight.getPlane().getCallSign() + "\n");
-
-
-        // PREFLIGHT
-        //        isDocOnBoard = false;
-        //        isCheckedFireExt = false;
-        //        isWalkAroundDone = false;
-        //        isFuelEnough = false;
-        //        isWBDone = false;
-        //        isPassengerBriefDone = false;
-        //        isClearedTO = false;
-
-        // WEIGHT AND BALANCE
-        // private double aircraftWeight; // weights in lb
-        //    private double fuelGallons;
-        //    private double fuelWeight;
-        //    private double pilotPassengerWeight;
-        //    private double moment;
-        //    private double takeoffWeight;
-        //    private boolean isWithinLimit;
-
-        // removes booking from bookings!
     }
+// gallons of fuel! todo
 
     public void flightPost() {
-        // stub
+        List<Booking> allToPostflight = pilot.getToPostFlight();
+        if (allToPostflight.size() == 0) {
+            System.out.println("You have no bookings to postflight, please complete preflight first for flying"
+                    + "bookings");
+        } else {
+            Postflight postflight = new Postflight();
+            System.out.println("All your preflighted bookings:");
+            int n = 1;
+            for (Booking b : allToPostflight) {
+                System.out.print(n + " - ");
+                b.printBooking();
+                n++;
+            }
+
+            System.out.println("Enter the corresponding number for booking to postflight");
+            int bookingNum = sc.nextInt();
+
+            Booking toPostflight = allToPostflight.get(bookingNum - 1);
+            pilot.getToPostFlight().remove(toPostflight);
+            System.out.print("You are postflighting for ");
+            toPostflight.printBooking();
+
+            System.out.println("Is " + toPostflight.getPlane().getCallSign() + " secured (tied down) after flight?\n"
+                    + "yes - true\n"
+                    + "no - false");
+            boolean planeTiedDown = sc.nextBoolean();
+
+            while (!planeTiedDown) {
+                System.out.println("Tie down your aircraft!\n" + "is the aircraft tied down now?\n"
+                        + "yes - true\n"
+                        + "no - false");
+
+                boolean confirm = sc.nextBoolean();
+
+                if (confirm) {
+                    planeTiedDown = true;
+                }
+            }
+            postflight.setPlaneTiedDown(true);
+
+            System.out.println("Enter your ending hobbs time");
+            double endHobbsTime = sc.nextDouble();
+
+
+            double flightTime = endHobbsTime - toPostflight.getPref().getHobbsTimeStart();
+            double fuelUse = 9 * flightTime;
+
+            System.out.println("“Your total flight time is " + flightTime + "\n"
+                    + "your total fuel use is " + fuelUse + " gallons");
+
+            double newHourTillMaint = toPostflight.getPlane().getPd().getFl().getFirst().getHoursTillMaint()
+                    - flightTime;
+            PlaneFlightLog fl = new PlaneFlightLog();
+
+            if (newHourTillMaint > 0) {
+                System.out.println("Hour until aircraft maintenance: " + newHourTillMaint);
+                fl.setHoursTillMaint(newHourTillMaint);
+            } else {
+                System.out.println("Aircraft is due for maintenance!");
+                fl.setHoursTillMaint(100);
+            }
+
+            System.out.println("Enter arrival airport 4-digit ICAO code");
+            String arrAP = sc.next().toUpperCase();
+
+            fl.setHobbsTimeStart(toPostflight.getPref().getHobbsTimeStart());
+            fl.setHobbsTimeEnd(endHobbsTime);
+            fl.setDepartingAP(toPostflight.getPref().getDepartAP());
+            fl.setArrivingAP(arrAP);
+
+            System.out.println("Enter type of piloting completed- dual, solo");
+            String typeOfPiloting = sc.next();
+
+            PilotLog pilotLog = new PilotLog();
+            pilotLog.setFlightTime(flightTime);
+            pilotLog.setTime(toPostflight.getTimeBooked());
+            pilotLog.setTypeOfPiloting(typeOfPiloting);
+            pilotLog.setDate(toPostflight.getDayBooked());
+            pilotLog.setPlaneType(toPostflight.getPlane().getType());
+            pilotLog.setPlaneCallSign(toPostflight.getPlane().getCallSign());
+
+            toPostflight.getPlane().getPd().getFl().add(fl);
+            toPostflight.setPostf(postflight);
+            pilot.getCompletedBookings().add(toPostflight);
+            pilot.getPl().add(pilotLog);
+
+            System.out.println("You've completed postflighting for " + toPostflight.getPlane().getCallSign());
+        }
     }
 
     public void bookGroundFlight() {
@@ -491,6 +606,7 @@ public class FlightPlanner {
             choice = sc.next().toUpperCase();
         }
     }
+
 
     public void bookFlight() {
         booking = new Booking();
@@ -739,7 +855,7 @@ public class FlightPlanner {
         c172fl.setHobbsTimeEnd(30.1);
         c172fl.setHoursTillMaint(69.9);
 
-        ArrayList<PlaneFlightLog> logs172 = new ArrayList<>();
+        LinkedList<PlaneFlightLog> logs172 = new LinkedList<>();
         logs172.add(c172fl);
 
         PlaneDocuments doc172 = new PlaneDocuments();
@@ -779,7 +895,7 @@ public class FlightPlanner {
         c152fl.setHobbsTimeEnd(97.0);
         c152fl.setHoursTillMaint(3.0);
 
-        ArrayList<PlaneFlightLog> logs152 = new ArrayList<>();
+        LinkedList<PlaneFlightLog> logs152 = new LinkedList<>();
         logs152.add(c152fl);
 
         PlaneDocuments doc152 = new PlaneDocuments();
@@ -819,7 +935,7 @@ public class FlightPlanner {
         piperfl.setHobbsTimeEnd(45.2);
         piperfl.setHoursTillMaint(104.8);
 
-        ArrayList<PlaneFlightLog> logspiper = new ArrayList<>();
+        LinkedList<PlaneFlightLog> logspiper = new LinkedList<>();
         logspiper.add(piperfl);
 
         PlaneDocuments docpiper = new PlaneDocuments();
@@ -858,7 +974,7 @@ public class FlightPlanner {
         cirrusfl.setHobbsTimeEnd(78.2);
         cirrusfl.setHoursTillMaint(29.4);
 
-        ArrayList<PlaneFlightLog> logcirrus = new ArrayList<>();
+        LinkedList<PlaneFlightLog> logcirrus = new LinkedList<>();
         logcirrus.add(cirrusfl);
 
         PlaneDocuments doccirrus = new PlaneDocuments();
@@ -898,7 +1014,7 @@ public class FlightPlanner {
         diamondfl.setHobbsTimeEnd(11.1);
         diamondfl.setHoursTillMaint(203.6);
 
-        ArrayList<PlaneFlightLog> logdiamond = new ArrayList<>();
+        LinkedList<PlaneFlightLog> logdiamond = new LinkedList<>();
         logdiamond.add(diamondfl);
 
         PlaneDocuments docdiamond = new PlaneDocuments();

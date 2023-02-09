@@ -12,8 +12,8 @@ public class Weather {
 
     // EFFECT: !!!
     public Weather() {
-        currentMetar = "";
-        currentTaf = "";
+        currentMetar = null;
+        currentTaf = null;
 
         setUpWx();
     }

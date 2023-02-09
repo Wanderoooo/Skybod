@@ -2,8 +2,8 @@ package model;
 
 public class PilotLog {
     private String date;
-    private String start;
-    private String end;
+    private String time;
+    private double flightTime;
     private String typeOfPiloting; // solo, dual
     private String planeType;
     private String planeCallSign;
@@ -11,7 +11,12 @@ public class PilotLog {
     // EFFECT: create a record of the PIC of flight; recording how long she/he flew and
     // what plane she/he flew
     public PilotLog() {
-        // stub
+        date = "";
+        time = "";
+        flightTime = 0.0;
+        typeOfPiloting = "";
+        planeType = "";
+        planeCallSign = "";
     }
 
     public void setDate(String date) {
@@ -26,12 +31,12 @@ public class PilotLog {
         this.planeType = planeType;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setFlightTime(double flightTime) {
+        this.flightTime = flightTime;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setTypeOfPiloting(String typeOfPiloting) {
@@ -46,12 +51,12 @@ public class PilotLog {
         return planeType;
     }
 
-    public String getEnd() {
-        return end;
+    public double getFlightTime() {
+        return flightTime;
     }
 
-    public String getStart() {
-        return start;
+    public String getTime() {
+        return time;
     }
 
     public String getDate() {

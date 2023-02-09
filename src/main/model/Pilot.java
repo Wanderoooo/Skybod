@@ -11,6 +11,8 @@ public class Pilot {
     private int medNum;
     private boolean isStudent;
     private LinkedList<Booking> bookings;
+    private LinkedList<Booking> toPostFlight;
+    private LinkedList<Booking> completedBookings;
     private LinkedList<Booking> cancelled;
     private LinkedList<PilotLog> pl;
 
@@ -24,6 +26,8 @@ public class Pilot {
         bookings = new LinkedList<>();
         pl = new LinkedList<>();
         cancelled = new LinkedList<>();
+        toPostFlight = new LinkedList<>();
+        completedBookings = new LinkedList<>();
     }
 
     // MODIFIES: this
@@ -40,6 +44,10 @@ public class Pilot {
     // EFFECT:
     public void addBooking(Booking b) {
         bookings.add(b);
+    }
+
+    public LinkedList<Booking> getToPostFlight() {
+        return toPostFlight;
     }
 
     public LinkedList<PilotLog> getPl() {
@@ -70,6 +78,10 @@ public class Pilot {
         return isStudent;
     }
 
+    public LinkedList<Booking> getCompletedBookings() {
+        return completedBookings;
+    }
+
     public void setRatings(HashSet<String> ratings) {
         this.ratings = ratings;
     }
@@ -96,5 +108,13 @@ public class Pilot {
 
     public void setPl(LinkedList<PilotLog> pl) {
         this.pl = pl;
+    }
+
+    public void setToPostFlight(LinkedList<Booking> toPostFlight) {
+        this.toPostFlight = toPostFlight;
+    }
+
+    public void setCompletedBookings(LinkedList<Booking> completedBookings) {
+        this.completedBookings = completedBookings;
     }
 }

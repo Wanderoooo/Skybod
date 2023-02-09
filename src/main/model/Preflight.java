@@ -11,8 +11,9 @@ public class Preflight {
     private boolean isFuelEnough;
     private boolean isWBDone;
     private boolean isPassengerBriefDone;
-    private boolean isClearedTO;
     private boolean isInsuranceValid;
+    private double hobbsTimeStart;
+    private String departAP;
 
 
     // EFFECTS: create a preflight checklist ... (elaborate?)
@@ -24,8 +25,9 @@ public class Preflight {
         isFuelEnough = false;
         isWBDone = false;
         isPassengerBriefDone = false;
-        isClearedTO = false;
         isInsuranceValid = false;
+        hobbsTimeStart = 0.0;
+        departAP = "";
     }
 
     public void setWb(WeightBalance wb) {
@@ -34,10 +36,6 @@ public class Preflight {
 
     public void setCheckedFireExt(boolean checkedFireExt) {
         isCheckedFireExt = checkedFireExt;
-    }
-
-    public void setClearedTO(boolean clearedTO) {
-        isClearedTO = clearedTO;
     }
 
     public void setDocOnBoard(boolean docOnBoard) {
@@ -70,5 +68,45 @@ public class Preflight {
 
     public boolean isPassengerBriefDone() {
         return isPassengerBriefDone;
+    }
+
+    public boolean isCheckedFireExt() {
+        return isCheckedFireExt;
+    }
+
+    public boolean isDocOnBoard() {
+        return isDocOnBoard;
+    }
+
+    public boolean isFuelEnough() {
+        return isFuelEnough;
+    }
+
+    public boolean isInsuranceValid() {
+        return isInsuranceValid;
+    }
+
+    public boolean isWalkAroundDone() {
+        return isWalkAroundDone;
+    }
+
+    public boolean isWBDone() {
+        return isWBDone;
+    }
+
+    public double getHobbsTimeStart() {
+        return hobbsTimeStart;
+    }
+
+    public void setHobbsTimeStart(double hobbsTimeStart) {
+        this.hobbsTimeStart = hobbsTimeStart;
+    }
+
+    public String getDepartAP() {
+        return departAP;
+    }
+
+    public void setDepartAP(String departAP) {
+        this.departAP = departAP;
     }
 }
