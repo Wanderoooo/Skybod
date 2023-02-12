@@ -585,6 +585,7 @@ public class FlightPlanner {
             System.out.println("Enter type of piloting completed- dual, solo");
             String typeOfPiloting = sc.next();
 
+            postflight.setDocComplete(true);
             PilotLog pilotLog = new PilotLog();
             pilotLog.setFlightTime(flightTime);
             pilotLog.setTime(toPostflight.getTimeBooked());
@@ -681,7 +682,7 @@ public class FlightPlanner {
             }
         }
 
-        // implement exception catcher
+        // implement exception catcher later
         if (successBookTime) {
             System.out.println("You've booked " + booking.getPlane().getCallSign()
                     + " on " + choice + " at " + c);
@@ -1010,7 +1011,7 @@ public class FlightPlanner {
         piperfl.setArrivingAP("CYVR");
         piperfl.setDepartingAP("CYZY");
         piperfl.setHobbsTimeStart(45.4);
-        piperfl.setHobbsTimeEnd(45.2);
+        piperfl.setHobbsTimeEnd(46.0);
         piperfl.setHoursTillMaint(104.8);
 
         LinkedList<PlaneFlightLog> logspiper = new LinkedList<>();

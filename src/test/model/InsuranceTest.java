@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InsuranceTest {
-    Insurance ins1;
+    private Insurance ins1;
 
     @BeforeEach
     public void runBefore() {

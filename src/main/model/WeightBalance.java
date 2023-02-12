@@ -11,7 +11,13 @@ public class WeightBalance {
 
     // EFFECT: constructs weight and balance calculation before flight
     public WeightBalance() {
-        // stub
+        aircraftWeight = 0.0;
+        fuelGallons = 0.0;
+        fuelWeight = 0.0;
+        pilotWeight = 0.0;
+        passengerWeight = 0.0;
+        takeoffWeight = 0.0;
+        isWithinLimit = false;
     }
 
     public double getAircraftWeight() {
@@ -64,5 +70,9 @@ public class WeightBalance {
 
     public void setWithinLimit(boolean withinLimit) {
         isWithinLimit = withinLimit;
+    }
+
+    public boolean isWithinLimit() {
+        return isWithinLimit;
     }
 }

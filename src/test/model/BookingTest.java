@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookingTest {
-    Booking tb1;
-    Booking tb2;
+    private Booking tb1;
+    private Booking tb2;
 
     @BeforeEach
     public void runBefore() {

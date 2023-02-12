@@ -14,6 +14,7 @@ public class PlaneFlightLog {
         hobbsTimeEnd = 0.0;
         departingAP = null;
         arrivingAP = null;
+        hoursTillMaint = 0.0;
     }
 
     public String getDepartingAP() {

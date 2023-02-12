@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PilotLogTest {
-    PilotLog pl1;
-    PilotLog pl2;
+    private PilotLog pl1;
+    private PilotLog pl2;
 
     @BeforeEach
     public void runBefore() {

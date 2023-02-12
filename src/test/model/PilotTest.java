@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PilotTest {
-    Pilot p1;
-    Pilot p2;
+    private Pilot p1;
+    private Pilot p2;
 
     @BeforeEach
     public void runBefore() {
@@ -41,4 +41,5 @@ public class PilotTest {
         assertEquals(12345, p1.getMedNum());
         assertEquals("Mona", p1.getName());
     }
+
 }

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DayTimeTest {
-    DayTime dt1;
-    DayTime dt2;
-    DayTime dt3;
+    private DayTime dt1;
+    private DayTime dt2;
+    private DayTime dt3;
 
     @BeforeEach
     public void runBefore() {

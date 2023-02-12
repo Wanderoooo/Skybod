@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaneTest {
-    Plane p1;
-    Plane cessna172;
+    private Plane p1;
+    private Plane cessna172;
 
     @BeforeEach
     public void runBefore() {

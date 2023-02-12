@@ -18,7 +18,7 @@ public class Preflight {
 
     // EFFECTS: create a preflight checklist ... (elaborate?)
     public Preflight() {
-        wb = new WeightBalance();
+        wb = null;
         isDocOnBoard = false;
         isCheckedFireExt = false;
         isWalkAroundDone = false;
@@ -27,7 +27,7 @@ public class Preflight {
         isPassengerBriefDone = false;
         isInsuranceValid = false;
         hobbsTimeStart = 0.0;
-        departAP = "";
+        departAP = null;
     }
 
     public void setWb(WeightBalance wb) {

@@ -8,8 +8,8 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InstructorTest {
-    Instructor i1;
-    Instructor i2;
+    private Instructor i1;
+    private Instructor i2;
 
     @BeforeEach
     public void runBefore() {

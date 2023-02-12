@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaneDocumentsTest {
-    PlaneDocuments doc152;
+    private PlaneDocuments doc152;
 
     @BeforeEach
     public void runBefore() {

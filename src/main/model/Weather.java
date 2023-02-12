@@ -32,6 +32,38 @@ public class Weather {
         currentTaf = airport + " " + tafs.get(r.nextInt(3));
     }
 
+    public String getCurrentTaf() {
+        return currentTaf;
+    }
+
+    public String getCurrentMetar() {
+        return currentMetar;
+    }
+
+    public ArrayList<String> getMetars() {
+        return metars;
+    }
+
+    public ArrayList<String> getTafs() {
+        return tafs;
+    }
+
+    public void setCurrentMetar(String currentMetar) {
+        this.currentMetar = currentMetar;
+    }
+
+    public void setMetars(ArrayList<String> metars) {
+        this.metars = metars;
+    }
+
+    public void setTafs(ArrayList<String> tafs) {
+        this.tafs = tafs;
+    }
+
+    public void setCurrentTaf(String currentTaf) {
+        this.currentTaf = currentTaf;
+    }
+
     private void setUpWx() {
         metars = new ArrayList<>();
         metars.add("050000Z 09017KT 20SM SCT030 SCT080 OVC100 09/06 A2987 RMK SC3AC1AC4 SLP117=");
@@ -52,13 +84,5 @@ public class Weather {
                 + "RMK NXT FCST BY 050600Z=");
         tafs.add("042343Z 0500/0505 VRB03KT P6SM BKN100\n"
                 + "RMK NXT FCST BY 051500Z=");
-    }
-
-    public String getCurrentMetar() {
-        return currentMetar;
-    }
-
-    public String getCurrentTaf() {
-        return currentTaf;
     }
 }
