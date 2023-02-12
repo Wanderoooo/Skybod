@@ -37,11 +37,11 @@ interface with optional tutorial can enhance learning and pre-flight and post-fl
 
 ## User Stories
 
-- As a user, I want to be able to book aeroplanes of my desired type & specialized instructors
-- As a user, I want to be able to create, edit, and remove bookings from a list of bookings
-- As a user, I want to be able to check current weather & weather forecast
-- As a user, I want to be able to save my license and medical # in my profile for booking confirmation
-- As a user, I want to be able to check my booking status (booked/cancelled)
+- As a user, I want to be able to book aeroplanes of my desired type & instructor
+- As a user, I want to be able to add and remove (cancel) bookings to/from my list of bookings
+- As a user, I want to be able to check current weather report & weather forecast
+- As a user, I want to be able to add my license and medical # in my profile
+- As a user, I want to be able to add & complete preflight and postflight documentations
 - As a user, I want to be able to record & save flight data in my pilot log
 
 ## **Stretch Goals**

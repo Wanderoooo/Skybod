@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.print.Book;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -40,6 +41,24 @@ public class PilotTest {
         assertTrue(p1.getStudentStatus());
         assertEquals(12345, p1.getMedNum());
         assertEquals("Mona", p1.getName());
+    }
+
+    @Test
+    public void addRatingTest() {
+        p2.addRating("Float");
+        assertTrue(p2.getRatings().contains("Float"));
+        p2.addRating("IFR");
+        assertTrue(p2.getRatings().contains("Float") && p2.getRatings().contains("IFR"));
+    }
+
+    @Test
+    public void addBookingTest() {
+        Booking b1 = new Booking();
+        Booking b2 = new Booking();
+        p1.addBooking(b1);
+        assertTrue(p1.getBookings().contains(b1));
+        p1.addBooking(b2);
+        assertTrue(p1.getBookings().contains(b2) && p1.getBookings().contains(b1));
     }
 
 }
