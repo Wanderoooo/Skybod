@@ -6,7 +6,7 @@
 
 ## **KEY Functionalities:**
 - Allow users to book aeroplanes & instructors:
-  - Displays aeroplane call-signs, types, availability, ratings, and price
+  - Displays aeroplane call-signs, types, availability, and price
   - Displays instructor names, ratings, pass rate, specialization, hourly rate
     <br></br>
 - Provide booked aeroplane’s documentations: flying logs, Pilot Operating Handbook, plane Insurance & maintenance history

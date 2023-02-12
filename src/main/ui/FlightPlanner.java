@@ -80,6 +80,7 @@ public class FlightPlanner {
     public void flightBook() {
         System.out.println("To book - 'BOOK'\n"
                 + "To cancel existing booking - 'CANCEL'\n"
+                + "To check all your bookings - 'CHECK'\n"
                 + "To return to menu - 'MENU'");
         String choice1 = sc.next().toUpperCase();
 
@@ -92,8 +93,9 @@ public class FlightPlanner {
                 case CANCEL:
                     cancelBooking();
                     break;
+                case "CHECK":
+                    checkBookings();
                 case MENU:
-                    // stub
                     break;
                 default:
                     System.out.println("That's not a valid option, try again:");
@@ -101,6 +103,7 @@ public class FlightPlanner {
 
             System.out.println("To book - 'BOOK'\n"
                     + "To cancel existing booking - 'CANCEL'\n"
+                    + "To check all your bookings - 'CHECK'\n"
                     + "To return to menu - 'MENU'");
 
             choice1 = sc.next().toUpperCase();
@@ -117,7 +120,7 @@ public class FlightPlanner {
 
         // should this go into another method? Or can I override 25 line req
         System.out.println("Hi " + pilot.getName() + ", what are your ratings? - VFR, IFR, Multi, Float, None");
-        choice = "add";
+        String choice = "add";
         int n = 2;
 
         while (choice.equalsIgnoreCase("add")) {
@@ -253,7 +256,7 @@ public class FlightPlanner {
         for (Booking b : allMyBookings) {
             if (b.getTypeOfLesson().equals("FLIGHT")) {
                 System.out.print(n + " - ");
-                b.printBooking();
+                printBooking(b);
                 n++;
             }
         }
@@ -266,9 +269,8 @@ public class FlightPlanner {
             int bookingNum = sc.nextInt();
 
             Booking toPreflight = allMyBookings.get(bookingNum - 1);
-            pilot.getBookings().remove(toPreflight);
             System.out.print("You are preflighting for ");
-            toPreflight.printBooking();
+            printBooking(toPreflight);
 
             System.out.println("Complete your aircraft document checks, enter true or false for following actions");
             boolean completed = false;
@@ -399,6 +401,7 @@ public class FlightPlanner {
                                 + toPreflight.getPlane().getFuelAmount());
                         preflight.setFuelEnough(true);
                         wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+                        System.out.println("Total possible flight time is " + (wb.getFuelGallons() / 9));
 
                     } else if (fuelAmountAdd == 0) {
                         System.out.printf("You are not adding any fuel");
@@ -409,9 +412,11 @@ public class FlightPlanner {
                 }
 
             } else {
-                System.out.println("You are responsible for ensuring you have enough fuel for the duration of your flight");
+                System.out.println("You are responsible for ensuring you have enough fuel for the duration of your "
+                        + "flight");
                 preflight.setFuelEnough(true);
                 wb.setFuelGallons(toPreflight.getPlane().getFuelAmount());
+                System.out.println("Total possible flight time is " + (wb.getFuelGallons() / 9));
             }
 
             System.out.println("Is the aircraft's fire extinguisher charged & locked?\n"
@@ -484,10 +489,10 @@ public class FlightPlanner {
             preflight.setDepartAP(depAP);
 
             pilot.getToPostFlight().add(toPreflight);
+            pilot.getBookings().remove(toPreflight);
             System.out.println("You've completed preflighting for " + toPreflight.getPlane().getCallSign() + "\n");
         }
     }
-// gallons of fuel! todo
 
     public void flightPost() {
         List<Booking> allToPostflight = pilot.getToPostFlight();
@@ -500,7 +505,7 @@ public class FlightPlanner {
             int n = 1;
             for (Booking b : allToPostflight) {
                 System.out.print(n + " - ");
-                b.printBooking();
+                printBooking(b);
                 n++;
             }
 
@@ -508,9 +513,8 @@ public class FlightPlanner {
             int bookingNum = sc.nextInt();
 
             Booking toPostflight = allToPostflight.get(bookingNum - 1);
-            pilot.getToPostFlight().remove(toPostflight);
             System.out.print("You are postflighting for ");
-            toPostflight.printBooking();
+            printBooking(toPostflight);
 
             System.out.println("Is " + toPostflight.getPlane().getCallSign() + " secured (tied down) after flight?\n"
                     + "yes - true\n"
@@ -536,9 +540,27 @@ public class FlightPlanner {
 
             double flightTime = endHobbsTime - toPostflight.getPref().getHobbsTimeStart();
             double fuelUse = 9 * flightTime;
+            double beforeFlightFuel = toPostflight.getPlane().getFuelAmount();
+            double fuelLeft = beforeFlightFuel - fuelUse;
+            boolean fuelMakesSense = false;
 
-            System.out.println("“Your total flight time is " + flightTime + "\n"
-                    + "your total fuel use is " + fuelUse + " gallons");
+            while (!fuelMakesSense) {
+                if (fuelLeft < 0) {
+                    double flightTimeMax = toPostflight.getPref().getWb().getFuelGallons() / 9;
+                    System.out.println("Your maximum flight time is " + flightTimeMax
+                            + ", as noted, please enter the correct ending hobbs time");
+                    endHobbsTime = sc.nextDouble();
+                    // maybe throw an exception? todo
+
+                } else {
+                    System.out.println("“Your total flight time is " + flightTime + "\n"
+                            + "your total fuel use is " + fuelUse + " gallons");
+                    toPostflight.getPlane().setFuelAmount(fuelLeft);
+                    fuelMakesSense = true;
+
+                }
+            }
+
 
             double newHourTillMaint = toPostflight.getPlane().getPd().getFl().getFirst().getHoursTillMaint()
                     - flightTime;
@@ -567,7 +589,7 @@ public class FlightPlanner {
             pilotLog.setFlightTime(flightTime);
             pilotLog.setTime(toPostflight.getTimeBooked());
             pilotLog.setTypeOfPiloting(typeOfPiloting);
-            pilotLog.setDate(toPostflight.getDayBooked());
+            pilotLog.setDay(toPostflight.getDayBooked());
             pilotLog.setPlaneType(toPostflight.getPlane().getType());
             pilotLog.setPlaneCallSign(toPostflight.getPlane().getCallSign());
 
@@ -575,6 +597,7 @@ public class FlightPlanner {
             toPostflight.setPostf(postflight);
             pilot.getCompletedBookings().add(toPostflight);
             pilot.getPl().add(pilotLog);
+            pilot.getToPostFlight().remove(toPostflight);
 
             System.out.println("You've completed postflighting for " + toPostflight.getPlane().getCallSign());
         }
@@ -610,31 +633,35 @@ public class FlightPlanner {
 
     public void bookFlight() {
         booking = new Booking();
-        System.out.println("Select your airplane type:\n"
-                + "Piper-Seneca\n"
-                + "Cessna-152\n"
-                + "Diamond-DA40\n"
-                + "Cirrus-SR22T\n"
-                + "Cessna-172");
+        boolean isPlaneAvail = false;
+        while (!isPlaneAvail) {
+            System.out.println("Select your airplane type:\n"
+                    + "Piper-Seneca\n"
+                    + "Cessna-152\n"
+                    + "Diamond-DA40\n"
+                    + "Cirrus-SR22T\n"
+                    + "Cessna-172");
 
-        String type = sc.next();
-        for (Plane p : lop) {
-            if (p.getType().equalsIgnoreCase(type)) {
-                booking.setPlane(p);
+            String type = sc.next();
+            for (Plane p : lop) {
+                if (p.getType().equalsIgnoreCase(type)) {
+                    booking.setPlane(p);
+                }
+            }
+
+            if (!booking.getPlane().equals(null)) {
+                System.out.println("Enter day which you'd like to make your booking on:\n"
+                        + "Monday - Friday");
+                isPlaneAvail = true;
+
+            } else {
+                System.out.println("The plane type you requested is not available, enter another plane type");
             }
         }
 
-        // integrate a while-loop
-        if (!booking.getPlane().equals(null)) {
-            System.out.println("Enter day which you'd like to make your booking on:\n"
-                    + "Monday - Friday");
-        } else {
-            System.out.println("The plane type you requested is not available");
-        }
-
         choice = sc.next();
-        System.out.println(type + " " + booking.getPlane().getCallSign() + "'s availability on " + choice + ":");
-        booking.getPlane().getAvails().printDayAvail(choice);
+        System.out.println(booking.getPlane().getType() + " " + booking.getPlane().getCallSign() + "'s availability on chosen day:");
+        printDayAvail(choice, booking.getPlane().getAvails());
         ArrayList<String> dayAvail = booking.getPlane().getAvails().findDay(choice);
 
         System.out.println("\nTo book a time - enter the hour"
@@ -733,7 +760,7 @@ public class FlightPlanner {
 
         choice = sc.next();
         System.out.println(booking.getInstructor().getName() + "'s availability on " + choice + ":");
-        booking.getInstructor().getAvails().printDayAvail(choice);
+        printDayAvail(choice, booking.getInstructor().getAvails());
         ArrayList<String> dayAvail = booking.getInstructor().getAvails().findDay(choice);
 
         System.out.println("\nTo book a time - enter the hour"
@@ -788,7 +815,7 @@ public class FlightPlanner {
             } else {
                 System.out.println("Your bookings on " + day + " are:");
                 for (Booking b : bookingsOnDay) {
-                    b.printBooking();
+                    printBooking(b);
                 }
 
                 System.out.println("Enter the time of the booking you'd like to cancel");
@@ -807,17 +834,68 @@ public class FlightPlanner {
                             + "Due to sickness - sick\n"
                             + "Due to unexpected event - event");
                     String reasonCancel = sc.next();
+                    String cancelDay = cancelBooking.getDayBooked();
+                    String cancelTime = cancelBooking.getTimeBooked();
+                    if (!(cancelBooking.getPlane() == null)) {
+                        cancelBooking.getPlane().getAvails().addBackTimeGivenDay(cancelDay, cancelTime);
+                    }
+
+                    if (!(cancelBooking.getInstructor() == null)) {
+                        cancelBooking.getInstructor().getAvails().addBackTimeGivenDay(cancelDay, cancelTime);
+                    }
+
                     cancelBooking.setReasonCancelled(reasonCancel);
                     pilot.getBookings().remove(cancelBooking);
                     System.out.println("Your booking");
-                    cancelBooking.printBooking();
-                    System.out.println("has been cancelled");
+                    printBooking(cancelBooking);
+                    System.out.println("has been cancelled\n");
                     pilot.getCancelled().add(cancelBooking);
                 } else {
                     System.out.println("There's no booking at " + time + " on " + day);
                 }
             }
 
+        }
+    }
+
+    public void checkBookings() {
+        List<Booking> myBookings = pilot.getBookings();
+
+        if (myBookings.size() == 0) {
+            System.out.println("You have no bookings");
+        } else {
+            System.out.println("All your current bookings are:");
+
+            for (Booking b : myBookings) {
+                printBooking(b);
+            }
+        }
+
+        System.out.print("\n");
+    }
+
+    // EFFECT:
+    public void printBooking(Booking b) {
+        if (b.getPlane() == null) {
+            System.out.println(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " with "
+                    + b.getInstructor().getName());
+        } else if (b.getInstructor() == null) {
+            System.out.println("AIRCRAFT at " + b.getTimeBooked() + " for " + b.getPlane().getType() + " "
+                    + b.getPlane().getCallSign());
+        } else {
+            System.out.println(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " on " + b.getPlane().getType()
+                    + " "
+                    + b.getPlane().getCallSign() + " with " + b.getInstructor().getName());
+        }
+    }
+
+    // REQUIRES: d must be a day name: monday - sunday.
+    // EFFECT: prints out availability on given day
+    public void printDayAvail(String d, DayTime avail) {
+        System.out.print(d.substring(0, 1).toUpperCase() + d.substring(1).toLowerCase() + ": ");
+        ArrayList<String> givenDay = avail.findDay(d);
+        for (String t : givenDay) {
+            System.out.print(t + "   ");
         }
     }
 

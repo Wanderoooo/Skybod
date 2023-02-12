@@ -1,7 +1,7 @@
 package model;
 
 public class PilotLog {
-    private String date;
+    private String day;
     private String time;
     private double flightTime;
     private String typeOfPiloting; // solo, dual
@@ -11,16 +11,16 @@ public class PilotLog {
     // EFFECT: create a record of the PIC of flight; recording how long she/he flew and
     // what plane she/he flew
     public PilotLog() {
-        date = "";
-        time = "";
+        day = null;
+        time = null;
         flightTime = 0.0;
-        typeOfPiloting = "";
-        planeType = "";
-        planeCallSign = "";
+        typeOfPiloting = null;
+        planeType = null;
+        planeCallSign = null;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public void setPlaneCallSign(String planeCallSign) {
@@ -59,8 +59,8 @@ public class PilotLog {
         return time;
     }
 
-    public String getDate() {
-        return date;
+    public String getDay() {
+        return day;
     }
 
     public String getTypeOfPiloting() {

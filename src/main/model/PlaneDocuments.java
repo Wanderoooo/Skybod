@@ -12,7 +12,7 @@ public class PlaneDocuments {
     // and weight info.
     public PlaneDocuments() {
         fl = new LinkedList<>();
-        insurance = new Insurance();
+        insurance = null;
         weightInfo = 0.0;
     }
 

@@ -14,12 +14,12 @@ public class Plane {
     // EFFECT: create a plane profile with empty plane type, call sign, availability for booking,
     // hourly rental and fuel rate, fuel amount in plane, and plane documents
     public Plane() {
-        type = "";
-        callSign = "";
-        avails = new DayTime();
+        type = null;
+        callSign = null;
+        avails = null;
         hourlyRentalRate = 0;
         hourlyFuelRate = 0;
-        pd = new PlaneDocuments();
+        pd = null;
         fuelAmount = 0.0;
         maxFuel = 0.0;
     }

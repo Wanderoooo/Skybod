@@ -7,10 +7,10 @@ public class Insurance {
     private String typeOfInsurance;
 
     public Insurance() {
-        dateValid = "";
-        dateValidUntil = "";
+        dateValid = null;
+        dateValidUntil = null;
         amountInsured = 0;
-        typeOfInsurance = "";
+        typeOfInsurance = null;
     }
 
     public void setAmountInsured(int amountInsured) {

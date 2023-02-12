@@ -19,7 +19,7 @@ public class Pilot {
     // EFFECT: create a pilot profile with name, ratings, medical number, and
     // whether they are a student.
     public Pilot() {
-        name = "";
+        name = null;
         ratings = new HashSet<>();
         medNum = 0;
         isStudent = false;
@@ -30,18 +30,12 @@ public class Pilot {
         completedBookings = new LinkedList<>();
     }
 
-    // MODIFIES: this
-    // EFFECT: adds new flight data to pilot log
-    public void updatePL() {
-        // stub
-    }
-
-    // EFFECT:
+    // EFFECT: add given rating
     public void addRating(String r) {
         ratings.add(r);
     }
 
-    // EFFECT:
+    // EFFECT: add given booking
     public void addBooking(Booking b) {
         bookings.add(b);
     }
@@ -82,10 +76,6 @@ public class Pilot {
         return completedBookings;
     }
 
-    public void setRatings(HashSet<String> ratings) {
-        this.ratings = ratings;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -96,25 +86,5 @@ public class Pilot {
 
     public void setStudent(boolean student) {
         isStudent = student;
-    }
-
-    public void setBookings(LinkedList<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
-    public void setCancelled(LinkedList<Booking> cancelled) {
-        this.cancelled = cancelled;
-    }
-
-    public void setPl(LinkedList<PilotLog> pl) {
-        this.pl = pl;
-    }
-
-    public void setToPostFlight(LinkedList<Booking> toPostFlight) {
-        this.toPostFlight = toPostFlight;
-    }
-
-    public void setCompletedBookings(LinkedList<Booking> completedBookings) {
-        this.completedBookings = completedBookings;
     }
 }

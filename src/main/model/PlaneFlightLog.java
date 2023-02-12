@@ -12,8 +12,8 @@ public class PlaneFlightLog {
     public PlaneFlightLog() {
         hobbsTimeStart = 0.0;
         hobbsTimeEnd = 0.0;
-        departingAP = "";
-        arrivingAP = "";
+        departingAP = null;
+        arrivingAP = null;
     }
 
     public String getDepartingAP() {

@@ -15,7 +15,12 @@ public class Instructor {
     // EFFECT: create an instructor with name, instructor class, ratings,
     // availability, hourly rate, and years of experience.
     public Instructor() {
-        // stub
+        name = null;
+        instrClass = null;
+        ratings = new HashSet<>();
+        avails = null;
+        hourlyRate = 0;
+        expYears = 0;
     }
 
     public DayTime getAvails() {
