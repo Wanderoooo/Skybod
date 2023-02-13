@@ -9,7 +9,8 @@ public class WeightBalance {
     private double takeoffWeight;
     private boolean isWithinLimit;
 
-    // EFFECT: constructs weight and balance calculation before flight
+    // EFFECT: constructs empty weight and balance chart for calculation before flight,
+    // including fuel, aircraft, passenger, and cargo weight info
     public WeightBalance() {
         aircraftWeight = 0.0;
         fuelGallons = 0.0;

@@ -5,20 +5,6 @@ import model.*;
 import java.util.*;
 
 public class FlightPlanner {
-    private static final String BOOKING = "BOOKING";
-    private static final String WX = "WX";
-    private static final String PREFLIGHT = "PREFLIGHT";
-    private static final String POSTFLIGHT = "POSTFLIGHT";
-    private static final String MENU = "MENU";
-    private static final String QUIT = "QUIT";
-    private static final String PREV = "PREV";
-    private static final String FLIGHT = "FLIGHT";
-    private static final String GROUND = "GROUND";
-    private static final String VFR = "VFR";
-    private static final String IFR = "IFR";
-    private static final String FLOAT = "FLOAT";
-    private static final String MULTI = "MULTI";
-    private static final String NONE = "NONE";
     private Pilot pilot;
     private String choice;
     private Scanner sc;
@@ -27,9 +13,6 @@ public class FlightPlanner {
     private ArrayList<Instructor> loi;
     private Booking booking;
     private Weather wxObject;
-
-    // here declared as field due to difference in method (& duplication of DateTime if
-    // declared as local var)
     private DayTime piperDateTime;
     private DayTime cessna172DateTime;
     private DayTime diamondDateTime;
@@ -43,7 +26,7 @@ public class FlightPlanner {
         initializeInstructor();
         registerUser();
 
-        while (!quit.equals(QUIT)) {
+        while (!quit.equals("QUIT")) {
             menuOptions();
             System.out.println("To manage booking - 'BOOKING'\n"
                     + "To check weather - 'WX'\n"
@@ -58,18 +41,19 @@ public class FlightPlanner {
         System.out.println("Thanks for using Skybod Flight Planner! See you next time!");
     }
 
+    // EFFECT: flight planner menu, choose & display next action based on user input
     private void menuOptions() {
         switch (quit) {
-            case BOOKING:
+            case "BOOKING":
                 flightBook();
                 break;
-            case WX:
+            case "WX":
                 flightWX();
                 break;
-            case PREFLIGHT:
+            case "PREFLIGHT":
                 flightPre();
                 break;
-            case POSTFLIGHT:
+            case "POSTFLIGHT":
                 flightPost();
                 break;
             default:
@@ -77,6 +61,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: create a flying booking for pilot, based on user input
     public void flightBook() {
         System.out.println("To book - 'BOOK'\n"
                 + "To cancel existing booking - 'CANCEL'\n"
@@ -84,7 +70,7 @@ public class FlightPlanner {
                 + "To return to menu - 'MENU'");
         String choice1 = sc.next().toUpperCase();
 
-        while (!choice1.equals(MENU)) {
+        while (!choice1.equals("MENU")) {
             bookingOptions(choice1);
             System.out.println("To book - 'BOOK'\n"
                     + "To cancel existing booking - 'CANCEL'\n"
@@ -95,6 +81,7 @@ public class FlightPlanner {
         }
     }
 
+    // EFFECT: booking menu, choose & display next action based on user input
     private void bookingOptions(String choice1) {
         switch (choice1) {
             case "BOOK":
@@ -110,6 +97,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: registers user, based on user input
     public void registerUser() {
         sc = new Scanner(System.in);
         pilot = new Pilot();
@@ -143,6 +132,8 @@ public class FlightPlanner {
         quit = sc.next().toUpperCase();
     }
 
+    // MODIFIES: this
+    // EFFECT: allows user to add ratings to their pilot profile
     private void ratingInputs(String choice) {
         int n = 2;
 
@@ -150,8 +141,8 @@ public class FlightPlanner {
             // add check user does not type something twice
             choice = sc.next().toUpperCase();
 
-            if (choice.equals(VFR) || choice.equals(IFR) || choice.equals(FLOAT)
-                    || choice.equals(MULTI)) {
+            if (choice.equals("VFR") || choice.equals("IFR") || choice.equals("FLOAT")
+                    || choice.equals("MULTI")) {
 
                 if (!pilot.getRatings().contains(choice)) {
                     pilot.addRating(choice);
@@ -168,7 +159,7 @@ public class FlightPlanner {
                     System.out.println("Enter your " + n + "th rating");
                     n++;
                 }
-            } else if (!choice.equals(NONE)) {
+            } else if (!choice.equals("NONE")) {
 
                 choice = "add";
                 System.out.println("That's not a valid option, please enter - VFR, IFR, Multi, Float, None (to quit)");
@@ -176,6 +167,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to check current, and last checked weather reports & forecasts
     public void flightWX() {
         wxObject = new Weather();
 
@@ -183,11 +176,11 @@ public class FlightPlanner {
                 + "Terminal Area Forecast - TAF\n"
                 + "Meteorological Terminal Air Report - METAR\n"
                 + "Check last checked weather - LAST\n"
-                + "To return to menu - 'MENU");
+                + "To return to menu - MENU");
 
         String wxChoice = sc.next();
 
-        while (!wxChoice.equalsIgnoreCase(MENU)) {
+        while (!wxChoice.equalsIgnoreCase("MENU")) {
             wxOptions(wxChoice);
 
             System.out.println("To check most recent weather:\n\n"
@@ -200,6 +193,7 @@ public class FlightPlanner {
         }
     }
 
+    // EFFECT: weather checking menu, displays & executes next actions based on user input
     private void wxOptions(String wxChoice) {
         switch (wxChoice.toUpperCase()) {
             case "TAF":
@@ -216,6 +210,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to check most recent TAF (weather forecast)
     private void checkTaf() {
         System.out.println("Enter 4-character ICAO code for TAF at desired airport");
 
@@ -226,6 +222,8 @@ public class FlightPlanner {
 
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to check last checked weather report & forecast
     private void lastChecked() {
         if (wxObject.getCurrentTaf() == null && wxObject.getCurrentMetar() == null) {
             System.out.println("No last checked TAF and METAR");
@@ -244,6 +242,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to check most recent METAR (weather report)
     private void checkMetar() {
         System.out.println("Enter 4-character ICAO code for METAR at desired airport");
 
@@ -253,6 +253,8 @@ public class FlightPlanner {
                 + wxObject.getCurrentMetar() + "\n");
     }
 
+    // MODIFIES: this
+    // EFFECT: displays preflight checklist based on user input
     public void flightPre() {
         List<Booking> allMyBookings = pilot.getBookings();
         Preflight preflight = new Preflight();
@@ -273,6 +275,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, allMyBookings, preflight
+    // EFFECT: updates bookings and preflight status
     private void prefChecklist(List<Booking> allMyBookings, Preflight preflight) {
         Booking toPreflight = prefSelection(allMyBookings);
         docCheck();
@@ -289,12 +293,16 @@ public class FlightPlanner {
         completePref(toPreflight);
     }
 
+    // MODIFIES: toPreflight, this
+    // EFFECT: adds preflighted booking to pilot record, informs user of preflight completion
     private void completePref(Booking toPreflight) {
         pilot.getToPostFlight().add(toPreflight);
         pilot.getBookings().remove(toPreflight);
         System.out.println("You've completed preflighting for " + toPreflight.getPlane().getCallSign() + "\n");
     }
 
+    // MODIFIES: this, preflight, toPreflight
+    // EFFECT: allow user to complete pre-takoff checks
     private void preTakeOffCheck(Preflight preflight, Booking toPreflight) {
         System.out.println("Enter current hobbs meter value");
         double hobbsStart = sc.nextDouble();
@@ -306,36 +314,52 @@ public class FlightPlanner {
         preflight.setDepartAP(depAP);
     }
 
+    // MODIFIES: this, preflight, toPreflight, wb
+    // EFFECT: allow users to input & calculate weight and balance
     private void wbCheck(Preflight preflight, Booking toPreflight, WeightBalance wb) {
-        System.out.println("Let's complete your weight and balance, enter pilot weight in lb");
-        double pilotWeight = sc.nextDouble();
 
-        System.out.println("Enter passenger weight");
-        double passengerWeight = sc.nextDouble();
+        boolean done = false;
+        while (!done) {
+            System.out.println("Let's complete your weight and balance, enter pilot weight in lb");
+            double pilotWeight = sc.nextDouble();
 
-        System.out.println("Enter cargo weight");
-        double cargoWeight = sc.nextDouble();
+            System.out.println("Enter passenger weight");
+            double passengerWeight = sc.nextDouble();
 
-        double takeoffWeight = toPreflight.getPlane().getPd().getWeightInfo()
-                + toPreflight.getPlane().getFuelAmount() * 6.0 + pilotWeight + passengerWeight + cargoWeight;
-        printWeightCalc(toPreflight, pilotWeight, passengerWeight, cargoWeight, takeoffWeight);
-        boolean weightWithinLimit = sc.nextBoolean();
+            System.out.println("Enter cargo weight");
+            double cargoWeight = sc.nextDouble();
 
-        if (weightWithinLimit) {
-            wb.setAircraftWeight(toPreflight.getPlane().getPd().getWeightInfo());
-            wb.setFuelWeight(toPreflight.getPlane().getFuelAmount() * 6.0);
-            wb.setPassengerWeight(passengerWeight);
-            wb.setPilotWeight(pilotWeight);
-            wb.setTakeoffWeight(takeoffWeight);
-            wb.setWithinLimit(true);
-            preflight.setWb(wb);
-            preflight.setWBDone(true);
-            System.out.println("Your weight & balance calculations is now complete");
-        } else {
-            System.out.println("Reduce cargo weight, redo weight & balance chart, or do not fly aircraft");
+            double takeoffWeight = toPreflight.getPlane().getPd().getWeightInfo()
+                    + toPreflight.getPlane().getFuelAmount() * 6.0 + pilotWeight + passengerWeight + cargoWeight;
+            printWeightCalc(toPreflight, pilotWeight, passengerWeight, cargoWeight, takeoffWeight);
+            boolean weightWithinLimit = sc.nextBoolean();
+
+            if (weightWithinLimit) {
+                wbValid(preflight, toPreflight, wb, pilotWeight, passengerWeight, takeoffWeight);
+                done = true;
+            } else {
+                System.out.println("Reduce cargo weight, redo weight & balance chart, or do not fly aircraft");
+            }
         }
     }
 
+    // MODIFIES: this, preflight, toPreflight, wb
+    // EFFECT: save weight and balance calculations if valid
+    private void wbValid(Preflight preflight, Booking toPreflight, WeightBalance wb, double pilotWeight,
+                         double passengerWeight, double takeoffWeight) {
+        wb.setAircraftWeight(toPreflight.getPlane().getPd().getWeightInfo());
+        wb.setFuelWeight(toPreflight.getPlane().getFuelAmount() * 6.0);
+        wb.setPassengerWeight(passengerWeight);
+        wb.setPilotWeight(pilotWeight);
+        wb.setTakeoffWeight(takeoffWeight);
+        wb.setWithinLimit(true);
+        preflight.setWb(wb);
+        preflight.setWBDone(true);
+        System.out.println("Your weight & balance calculations is now complete");
+    }
+
+    // MODIFIES: this, toPreflight
+    // EFFECT: prints out & let user confirm weight & balance calculations
     private void printWeightCalc(Booking toPreflight, double pilotWeight, double passengerWeight,
                                  double cargoWeight, double takeoffWeight) {
         System.out.println("Aircraft Empty Weight - " + toPreflight.getPlane().getPd().getWeightInfo() + "lb\n"
@@ -349,6 +373,8 @@ public class FlightPlanner {
                 + "No - false");
     }
 
+    // MODIFIES: this, preflight
+    // EFFECT: allow user to confirm fire extinguisher check
     private void fireExtingCheck(Preflight preflight) {
         boolean completed;
 
@@ -372,6 +398,8 @@ public class FlightPlanner {
         preflight.setCheckedFireExt(true);
     }
 
+    // MODIFIES: this, preflight, toPreflight
+    // EFFECT: allow user to add fuel to aircraft
     private WeightBalance fuelCheck(Preflight preflight, Booking toPreflight) {
         boolean completed;
 
@@ -402,6 +430,8 @@ public class FlightPlanner {
         return wb;
     }
 
+    // MODIFIES: this, preflight, toPreflight, wb
+    // EFFECT: option when user does not fill up aircraft fuel to max capacity
     private void notAddFuelToMax(Preflight preflight, Booking toPreflight, WeightBalance wb) {
         System.out.println("Enter amount of fuel you'd like to add");
         double fuelAmountAdd = sc.nextDouble();
@@ -417,6 +447,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, preflight toPreflight, wb
+    // EFFECT: prints out option when user does not add fuel
     private void notAddFuel(Preflight preflight, Booking toPreflight, WeightBalance wb) {
         System.out.println("You are responsible for ensuring you have enough fuel for the duration of your "
                 + "flight");
@@ -425,6 +457,8 @@ public class FlightPlanner {
         System.out.println("Total possible flight time is " + (wb.getFuelGallons() / 9));
     }
 
+    // MODIFIES: this, preflight toPreflight, wb
+    // EFFECT: informs amount of fuel user added, based on user input
     private void addFuel(Preflight preflight, Booking toPreflight, WeightBalance wb, double fuelAmountAdd) {
         toPreflight.getPlane().addFuel(fuelAmountAdd);
         System.out.println(fuelAmountAdd + " Gallons of fuel has been added to "
@@ -435,6 +469,8 @@ public class FlightPlanner {
         System.out.println("Total possible flight time is " + (wb.getFuelGallons() / 9));
     }
 
+    // MODIFIES: this, toPreflight
+    // EFFECT: prints out add fuel options
     private void printFuelingOptions(Booking toPreflight) {
         System.out.println("Your aircraft " + toPreflight.getPlane().getCallSign()
                 + "'s fuel capacity is " + toPreflight.getPlane().getMaxFuel()
@@ -443,6 +479,8 @@ public class FlightPlanner {
                 + "To add specific amount of fuel - false");
     }
 
+    // MODIFIES: this, toPreflight
+    // EFFECT: prints out add fuel options
     private void printFuelOptions(Booking toPreflight) {
         System.out.println("Your aircraft currently has " + toPreflight.getPlane().getFuelAmount()
                 + "US Gallons of fuel, would you like to refuel " + toPreflight.getPlane().getType() + "?\n"
@@ -450,6 +488,8 @@ public class FlightPlanner {
                 + "To continue with current fuel amount - false");
     }
 
+    // MODIFIES: this
+    // EFFECT: prints out engine oil checklist
     private void engineOilCheck() {
         boolean completed;
         System.out.println("Does the aircraft have safe amount of engine oil?\n"
@@ -469,6 +509,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: prints out electrical check, intake user confirmation
     private void electricalCheck() {
         boolean completed;
 
@@ -489,6 +531,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, preflight
+    // EFFECT: prints out walkaround checks & intake user confirmation
     private void walkaroundCheck(Preflight preflight) {
         boolean completed;
 
@@ -513,6 +557,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, preflight, toPreflight
+    // EFFECT: prints out insurance check, updates once complete
     private void insuranceCheck(Preflight preflight, Booking toPreflight) {
         boolean completed;
         preflight.setDocOnBoard(true);
@@ -538,6 +584,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: prints out document checks & intake user confirmation
     private void docCheck() {
         boolean completed = false;
         while (!completed) {
@@ -557,6 +605,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, allMyBookings
+    // EFFECT: allow user to select booking to preflight, prints out confirmation once completed
     private Booking prefSelection(List<Booking> allMyBookings) {
         System.out.println("Enter the corresponding number for the booking you'd like to preflight");
         int bookingNum = sc.nextInt();
@@ -569,6 +619,8 @@ public class FlightPlanner {
         return toPreflight;
     }
 
+    // MODIFIES: this
+    // EFFECT: post flight calculations
     public void flightPost() {
         List<Booking> allToPostflight = pilot.getToPostFlight();
         if (allToPostflight.size() == 0) {
@@ -598,16 +650,21 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to input ending hobbs time
     private double enterEndHobbsTime() {
         System.out.println("Enter your ending hobbs time");
         double endHobbsTime = sc.nextDouble();
         return endHobbsTime;
     }
 
+    // EFFECT: prints warning if no flight to postflight
     private void noPostflight() {
         System.out.println("You have no bookings to postflight, please complete preflight first for flying bookings");
     }
 
+    // MODIFIES: this, postflight, toPostflight
+    // EFFECT:
     private void lastPostProcedures(Postflight postflight, Booking toPostflight,
                                     double endHobbsTime, double flightTime) {
         PlaneFlightLog fl = untilMaintenance(toPostflight, flightTime);
@@ -615,6 +672,8 @@ public class FlightPlanner {
         System.out.println("You've completed postflighting for " + toPostflight.getPlane().getCallSign());
     }
 
+    // MODIFIES: this, allPostflight
+    // EFFECT: displays all preflighted bookings
     private void getAllPref(List<Booking> allToPostflight) {
         System.out.println("All your preflighted bookings:");
         int n = 1;
@@ -625,6 +684,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, postflight, toPostflight, fl
+    // EFFECT: receive input from user, updates fl, postflight, and toPosflight
     private void completePost(Postflight postflight, Booking toPostflight,
                               double endHobbsTime, double flightTime, PlaneFlightLog fl) {
         System.out.println("Enter arrival airport 4-digit ICAO code");
@@ -654,6 +715,8 @@ public class FlightPlanner {
         pilot.getToPostFlight().remove(toPostflight);
     }
 
+    // MODIFIES: toPostflight, this
+    // EFFECT: calculate maintenance time
     private PlaneFlightLog untilMaintenance(Booking toPostflight, double flightTime) {
         double newHourTillMaint = toPostflight.getPlane().getPd().getFl().getFirst().getHoursTillMaint()
                 - flightTime;
@@ -669,6 +732,8 @@ public class FlightPlanner {
         return fl;
     }
 
+    // MODIFIES: this, toPostflight
+    // EFFECT: confirms correct user input of flight time
     private boolean correctHobbsTime(Booking toPostflight, double flightTime, double fuelUse, double fuelLeft) {
         boolean fuelMakesSense;
         System.out.println("“Your total flight time is " + flightTime + "\n"
@@ -678,6 +743,7 @@ public class FlightPlanner {
         return fuelMakesSense;
     }
 
+    // EFFECT: error message if user input wrong flight time
     private double negHobbsTime(Booking toPostflight) {
         double endHobbsTime;
         double flightTimeMax = toPostflight.getPref().getWb().getFuelGallons() / 9;
@@ -687,6 +753,8 @@ public class FlightPlanner {
         return endHobbsTime;
     }
 
+    // MODIFIES: this, postflight, toPostflight
+    // EFFECT: confirm with user that aircraft is tied down
     private void planeTiedDownCheck(Postflight postflight, Booking toPostflight) {
         System.out.println("Is " + toPostflight.getPlane().getCallSign() + " secured (tied down) after flight?\n"
                 + "yes - true\n"
@@ -707,6 +775,8 @@ public class FlightPlanner {
         postflight.setPlaneTiedDown(true);
     }
 
+    // MODIFIES: this, allToFlight
+    // EFFECT: initialize postflight checklist, based on user input
     private Booking postInitialize(List<Booking> allToPostflight) {
         System.out.println("Enter the corresponding number for booking to postflight");
         int bookingNum = sc.nextInt();
@@ -717,6 +787,7 @@ public class FlightPlanner {
         return toPostflight;
     }
 
+    // EFFECT: prints out menu for booking flights, proceed based on user input
     public void bookGroundFlight() {
         System.out.println("To book ground session - 'GROUND\n"
                 + "To book flight lesson - 'FLIGHT'\n"
@@ -724,12 +795,12 @@ public class FlightPlanner {
 
         choice = sc.next().toUpperCase();
 
-        while (!choice.equals(PREV)) {
+        while (!choice.equals("PREV")) {
             switch (choice) {
-                case FLIGHT:
+                case "FLIGHT":
                     bookFlight();
                     break;
-                case GROUND:
+                case "GROUND":
                     bookGround();
                     break;
                 default:
@@ -745,6 +816,8 @@ public class FlightPlanner {
     }
 
 
+    // MODIFIES: this
+    // EFFECT: allow user to book aircraft, and instructor if applicable
     public void bookFlight() {
         booking = new Booking();
         selectPlaneType();
@@ -777,17 +850,22 @@ public class FlightPlanner {
         addTheBooking();
     }
 
+    // MODIFIES: pilot, this
+    // EFFECT: adds booking to pilot documentation
     private void addTheBooking() {
-        booking.setTypeOfLesson(FLIGHT);
+        booking.setTypeOfLesson("FLIGHT");
         pilot.addBooking(booking);
     }
 
+    // EFFECT: instructor not found error printout
     private void instrNotFound(boolean isInstrFound) {
         if (!isInstrFound) {
             System.out.println("Instructor not found");
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: book selected instructor
     private boolean toBookInstr(String c, String insName, boolean isInsBooked, boolean isInstrFound) {
         for (Instructor i : loi) {
             if (i.getName().equalsIgnoreCase(insName)) {
@@ -809,6 +887,7 @@ public class FlightPlanner {
         return isInstrFound;
     }
 
+    // EFFECT: check if instructor has been booked
     private boolean isInsBooked(String c, String insName, Instructor i, ArrayList<String> insAvailOnDay) {
         boolean isInsBooked;
         System.out.println(insName + " has been book at " + c + " for flying lesson ");
@@ -820,6 +899,7 @@ public class FlightPlanner {
         return isInsBooked;
     }
 
+    // EFFECT: menu for instructor selection
     private String selectInstructor() {
         System.out.println("Enter your instructor's name:\n"
                 + "James Gordon\n"
@@ -833,6 +913,7 @@ public class FlightPlanner {
         return insName;
     }
 
+    // EFFECT: prints plane booking if successful, otherwise notifies user of failure
     private void bookingAtDayTime(String c, boolean successBookTime) {
         if (successBookTime) {
             System.out.println("You've booked " + booking.getPlane().getCallSign() + " on " + choice + " at " + c);
@@ -841,17 +922,19 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, dayAvail
+    // EFFECT: saves booking time & updates days plane is available
     private boolean isSuccessBookTime(ArrayList<String> dayAvail, String c) {
-        boolean successBookTime;
         ArrayList<String> notInfForloop = (ArrayList<String>) dayAvail.clone();
         notInfForloop.remove(c);
         booking.getPlane().getAvails().setDay(choice, notInfForloop);
-        successBookTime = true;
         booking.setDayBooked(choice.toUpperCase());
         booking.setTimeBooked(c);
-        return successBookTime;
+        return true;
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to book aircraft
     private void selectPlaneType() {
         boolean isPlaneAvail = false;
         while (!isPlaneAvail) {
@@ -882,6 +965,8 @@ public class FlightPlanner {
         choice = sc.next();
     }
 
+    // MODIFIES: this
+    // EFFECT: allow user to instructors
     public void bookGround() {
         booking = new Booking();
         String instrName = selectInstructor();
@@ -912,6 +997,8 @@ public class FlightPlanner {
         bookedOrNot(c, successBookTime);
     }
 
+    // MODIFIES: this
+    // EFFECT: checks if instructor is booked
     private void bookedOrNot(String c, boolean successBookTime) {
         if (successBookTime) {
             System.out.println("You've booked " + booking.getInstructor().getName()
@@ -920,21 +1007,23 @@ public class FlightPlanner {
             System.out.println("The time you've selected is unavailable, please try again");
         }
 
-        booking.setTypeOfLesson(GROUND);
+        booking.setTypeOfLesson("GROUND");
         pilot.addBooking(booking);
     }
 
+    // MODIFIES: this, dayAvail
+    // EFFECT: updates booking and available days of instructor
     private boolean isBookTime(ArrayList<String> dayAvail, String c) {
-        boolean successBookTime;
         ArrayList<String> notInfForloop = (ArrayList<String>) dayAvail.clone();
         notInfForloop.remove(c);
         booking.getInstructor().getAvails().setDay(choice, notInfForloop);
-        successBookTime = true;
         booking.setDayBooked(choice.toUpperCase());
         booking.setTimeBooked(c);
-        return successBookTime;
+        return true;
     }
 
+    // MODIFIES: this
+    // EFFECT: print booking days selection
     private void printNextStep() {
         if (!booking.getInstructor().equals(null)) {
             System.out.println("Enter day which you'd like to make your booking on:\n"
@@ -944,7 +1033,8 @@ public class FlightPlanner {
         }
     }
 
-    // EFFECT:
+    // MODIFIES: this
+    // EFFECT: allows user to cancel bookings
     public void cancelBooking() {
         LinkedList<Booking> myBooking = pilot.getBookings();
 
@@ -970,6 +1060,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, bookingsOnDay
+    // EFFECT: allow user to cancel book at user inputted time
     private void cancelBookingAtTime(String day, ArrayList<Booking> bookingsOnDay) {
         printBookingsOnDay(day, bookingsOnDay);
 
@@ -996,6 +1088,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this, cancelBooking
+    // EFFECT: cancels booking at user specified time
     private void cancelThisBooking(Booking cancelBooking, String reasonCancel) {
         cancelBooking.setReasonCancelled(reasonCancel);
         pilot.getBookings().remove(cancelBooking);
@@ -1005,6 +1099,8 @@ public class FlightPlanner {
         pilot.getCancelled().add(cancelBooking);
     }
 
+    // MODIFIES: this
+    // EFFECT: prints cancellation reasons
     private void printCancelReason() {
         System.out.println("Enter reason for cancellation:\n"
                 + "Due to weather - wx\n"
@@ -1012,6 +1108,8 @@ public class FlightPlanner {
                 + "Due to unexpected event - event");
     }
 
+    // MODIFIES: this, bookingsOnDay
+    // EFFECT: get booking to cancel
     private Booking getBooking(ArrayList<Booking> bookingsOnDay, String time) {
         Booking cancelBooking = null;
         for (Booking b : bookingsOnDay) {
@@ -1022,6 +1120,8 @@ public class FlightPlanner {
         return cancelBooking;
     }
 
+    // MODIFIES: this, bookingsOnDay
+    // EFFECT: get booking to cancel on day
     private void printBookingsOnDay(String day, ArrayList<Booking> bookingsOnDay) {
         System.out.println("Your bookings on " + day + " are:");
         for (Booking b : bookingsOnDay) {
@@ -1029,6 +1129,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: checks if user has bookings
     public void checkBookings() {
         List<Booking> myBookings = pilot.getBookings();
 
@@ -1045,7 +1147,7 @@ public class FlightPlanner {
         System.out.print("\n");
     }
 
-    // EFFECT:
+    // EFFECT: print all user's bookings
     public void printBooking(Booking b) {
         if (b.getPlane() == null) {
             System.out.println(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " with "
@@ -1070,6 +1172,8 @@ public class FlightPlanner {
         }
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize 5 available planes
     public void initializePlane() {
         Plane cessna172 = new Plane();
         Plane cessna152 = new Plane();
@@ -1091,6 +1195,8 @@ public class FlightPlanner {
         lop.add(diamond);
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize diamond-DA40 aircraft
     private void initializeDiamond(Plane diamond) {
         diamond.setType("Diamond-DA40");
         diamond.setCallSign("C-POYL");
@@ -1118,6 +1224,8 @@ public class FlightPlanner {
         diamond.setMaxFuel(24.0);
     }
 
+    // MODIFIES: this, diamondins, logdiamond
+    // EFFECT: initialize diamond-DA40 plane docs
     private PlaneDocuments initializePDDiamond(Insurance diamondins, LinkedList<PlaneFlightLog> logdiamond) {
         PlaneDocuments docdiamond = new PlaneDocuments();
         docdiamond.setFl(logdiamond);
@@ -1126,6 +1234,8 @@ public class FlightPlanner {
         return docdiamond;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize diamond-DA40's insurance'
     private Insurance initializeInsDiamond() {
         Insurance diamondins = new Insurance();
         diamondins.setDateValid("03/10/2022");
@@ -1135,6 +1245,8 @@ public class FlightPlanner {
         return diamondins;
     }
 
+    // MODIFIES: this, diamondDateTime
+    // EFFECT: initialize diamond-DA40's availability
     private void initializeDayTimeDiamond() {
         diamondDateTime = new DayTime();
         diamondDateTime.addGivenDayTime("Monday", "0100", "2200");
@@ -1146,6 +1258,8 @@ public class FlightPlanner {
         diamondDateTime.addGivenDayTime("Sunday", "1300", "2200");
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cirrus aircraft
     private void initializeCirrus(Plane cirrus) {
         cirrus.setType("Cirrus-SR22T");
         cirrus.setCallSign("C-CIRR");
@@ -1174,6 +1288,8 @@ public class FlightPlanner {
         cirrus.setMaxFuel(92.0);
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cirrus flight logs
     private PlaneFlightLog initializePFLcirrus() {
         PlaneFlightLog cirrusfl = new PlaneFlightLog();
         cirrusfl.setArrivingAP("CYZZ");
@@ -1184,6 +1300,8 @@ public class FlightPlanner {
         return cirrusfl;
     }
 
+    // MODIFIES: this, cirrusDateTime
+    // EFFECT: initialize cirrus availability
     private void initializeDayTimeCirrus() {
         cirrusDateTime = new DayTime();
         cirrusDateTime.addGivenDayTime("Monday", "0000", "2400");
@@ -1195,6 +1313,8 @@ public class FlightPlanner {
         cirrusDateTime.addGivenDayTime("Sunday", "0000", "2400");
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize piper aircraft
     private void initializePiper(Plane piper) {
         piper.setType("Piper-Seneca");
         piper.setCallSign("C-FOTX");
@@ -1220,6 +1340,8 @@ public class FlightPlanner {
         piper.setFuelAmount(39.3);
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize piper flight logs
     private PlaneFlightLog initializeFLPiper() {
         PlaneFlightLog piperfl = new PlaneFlightLog();
         piperfl.setArrivingAP("CYVR");
@@ -1230,6 +1352,8 @@ public class FlightPlanner {
         return piperfl;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize piper insurance
     private Insurance initializeInsPiper() {
         Insurance piperins = new Insurance();
         piperins.setDateValid("07/27/2022");
@@ -1239,6 +1363,8 @@ public class FlightPlanner {
         return piperins;
     }
 
+    // MODIFIES: this, piperDateTime
+    // EFFECT: initialize piper's availability
     private void initializeDayTimePiper() {
         piperDateTime = new DayTime();
         piperDateTime.addGivenDayTime("Monday", "1000", "1700");
@@ -1250,6 +1376,8 @@ public class FlightPlanner {
         piperDateTime.addGivenDayTime("Sunday", "1100", "2000");
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cessna152 aircraft
     private void initialize152(Plane cessna152) {
         cessna152.setType("Cessna-152");
         cessna152.setCallSign("C-GUUY");
@@ -1275,6 +1403,8 @@ public class FlightPlanner {
         cessna152.setMaxFuel(26.0);
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cessna152 flight log
     private PlaneFlightLog initializePFL() {
         PlaneFlightLog c152fl = new PlaneFlightLog();
         c152fl.setArrivingAP("CYXX");
@@ -1285,6 +1415,8 @@ public class FlightPlanner {
         return c152fl;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cessna152's insurance
     private Insurance initializeIns152() {
         Insurance c152ins = new Insurance();
         c152ins.setDateValid("11/30/2022");
@@ -1294,6 +1426,8 @@ public class FlightPlanner {
         return c152ins;
     }
 
+    // MODIFIES: this, cessna152DateTime
+    // EFFECT: initialize cessna152's availability
     private void initializeDayTime152() {
         cessna152DateTime = new DayTime();
         cessna152DateTime.addGivenDayTime("Monday", "0900", "2100");
@@ -1305,6 +1439,8 @@ public class FlightPlanner {
         cessna152DateTime.addGivenDayTime("Sunday", "1200", "2300");
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cessna172 aircraft
     private void initialize172(Plane cessna172) {
         cessna172.setType("Cessna-172");
         cessna172.setCallSign("C-GOOV");
@@ -1325,6 +1461,8 @@ public class FlightPlanner {
         cessna172.setMaxFuel(48.0);
     }
 
+    // MODIFIES: this, c172ins, logs172
+    // EFFECT: initialize cessna172 plane documents
     private PlaneDocuments initializePd172(Insurance c172ins, LinkedList<PlaneFlightLog> logs172) {
         PlaneDocuments doc172 = new PlaneDocuments();
         doc172.setFl(logs172);
@@ -1333,6 +1471,8 @@ public class FlightPlanner {
         return doc172;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cessna172 flight logs
     private PlaneFlightLog initializePlaneLog172() {
         PlaneFlightLog c172fl = new PlaneFlightLog();
         c172fl.setArrivingAP("CZBB");
@@ -1343,6 +1483,8 @@ public class FlightPlanner {
         return c172fl;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize cessna172 insurance
     private Insurance initializeInsurance172() {
         Insurance c172ins = new Insurance();
         c172ins.setDateValid("05/22/2022");
@@ -1352,6 +1494,8 @@ public class FlightPlanner {
         return c172ins;
     }
 
+    // MODIFIES: this, cessna172DateTime
+    // EFFECT: initialize cessna172 availability
     private void initializeDayTime172() {
         cessna172DateTime = new DayTime();
         cessna172DateTime.addGivenDayTime("Monday", "0700", "2200");
@@ -1363,6 +1507,8 @@ public class FlightPlanner {
         cessna172DateTime.addGivenDayTime("Sunday", "0200", "1900");
     }
 
+    // MODIFIES: this
+    // EFFECT: flight club's available instructors
     public void initializeInstructor() {
         Instructor james = initializeJames();
         Instructor nelly = initializeNelly();
@@ -1379,6 +1525,8 @@ public class FlightPlanner {
 
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize instructor Zor
     private Instructor initializeZor() {
         Instructor zor = new Instructor();
         zor.setName("Zor Lee");
@@ -1395,6 +1543,8 @@ public class FlightPlanner {
         return zor;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize instructor Ash
     private Instructor initializeAsh() {
         Instructor ash = new Instructor();
         ash.setAvails(cirrusDateTime);
@@ -1410,6 +1560,8 @@ public class FlightPlanner {
         return ash;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize instructor Toren
     private Instructor initializeToren() {
         Instructor toren = new Instructor();
         toren.setName("Toren Molly");
@@ -1424,6 +1576,8 @@ public class FlightPlanner {
         return toren;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize instructor Nelly
     private Instructor initializeNelly() {
         Instructor nelly = new Instructor();
         nelly.setName("Nelly Chou");
@@ -1439,6 +1593,8 @@ public class FlightPlanner {
         return nelly;
     }
 
+    // MODIFIES: this
+    // EFFECT: initialize instructor James
     private Instructor initializeJames() {
         Instructor james = new Instructor();
         james.setName("James Gordon");

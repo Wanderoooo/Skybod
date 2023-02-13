@@ -18,14 +18,14 @@ public class Weather {
     }
 
     // MODIFIES: this
-    // EFFECT: generates an updated weather report in ICAO code (METAR), saves it.
+    // EFFECT: generates an updated weather report at given airport in ICAO code (METAR), saves it.
     public void metarUpdate(String airport) {
         Random r = new Random();
         currentMetar = airport + " " + metars.get(r.nextInt(8));
     }
 
     // MODIFIES: this
-    // EFFECT: generates an updated weather forecast in ICAO code (TAF), saves it.
+    // EFFECT: generates an updated weather forecast at given airport in ICAO code (TAF), saves it.
     public void tafUpdate(String airport) {
         Random r = new Random();
         currentTaf = airport + " " + tafs.get(r.nextInt(3));
@@ -62,6 +62,13 @@ public class Weather {
     public void setCurrentTaf(String currentTaf) {
         this.currentTaf = currentTaf;
     }
+
+    // MODIFIES: this
+    // EFFECT: sets up possible metar & taf reports
+
+    // CREDIT: METAR and TAF information are from NAVCANADA's aviation weather website:
+    // https://flightplanning.navcanada.ca/cgi-bin/Fore-obs/metar.cgi?NoSession=NS_Inconnu&format=r
+    // aw&Langue=anglais&Region=can&Stations=CYVR+CYXX+CYWH
 
     private void setUpWx() {
         metars = new ArrayList<>();

@@ -68,6 +68,11 @@ public class WeatherTest {
         assertEquals("currTaf", wx.getCurrentTaf());
     }
 
+    // CREDIT: the following two tests for randomness includes code inspired by "coin toss" practice problem from EDX:
+    // https://learning.edge.edx.org/course/course-v1:UBC+CPSC210+2022W2/block-v1:UBC+CPSC210+2022W2+type@sequential
+    // +block@407e32d6ee6b4fcf8e36a4514c03fbe4/block-v1:UBC+CPSC210+2022W2+type@vertical+block@23bcce9e22e2469eaa289b1
+    // df6a328ca
+
     @Test
     public void tafUpdateTest() {
         int timesChanged = 0;
