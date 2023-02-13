@@ -1,5 +1,9 @@
 package model;
 
+// Represents a weight & balance calculation sheet with weight info of the aircraft, fuel (weight & US gallon info),
+// pilot, passenger(s), and cargo. Also includes status of whether total weight is within takeoff
+// limit. Weight info can be updated via setters.
+
 public class WeightBalance {
     private double aircraftWeight; // weights in lb
     private double fuelGallons;

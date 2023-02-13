@@ -1,5 +1,9 @@
 package model;
 
+// Represents an aircraft insurance document with day valid - day of expiration
+// (in format "mm/dd/yyyy"), amount insured (in CAD$), and type of insurance (i.e. Haul)
+// Insurance document info can be updated via setters.
+
 public class Insurance {
     private String dateValid;
     private String dateValidUntil;

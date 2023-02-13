@@ -2,6 +2,10 @@ package model;
 
 import java.util.HashSet;
 
+// Represents a flight instructor with name, instructor class level (i.e. CFII), his/her
+// obtained flight ratings, availability, hourly rate (in CAD$), and years of experience instructing.
+// Instructor info can be updated via setters.
+
 public class Instructor {
 
     private String name;

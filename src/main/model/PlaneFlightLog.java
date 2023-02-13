@@ -1,5 +1,9 @@
 package model;
 
+// Represents a plane flight log, with record of engine start & stop time (hobbs time, in hours),
+// 4-digit departing & arrival airport ICAO code, and hours left until aircraft is due for
+// maintenance. Flight log info can be updated via setters.
+
 public class PlaneFlightLog {
     private double hobbsTimeStart;
     private double hobbsTimeEnd;

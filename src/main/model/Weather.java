@@ -3,6 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+// Represents weather reporting system, with current weather forecast (taf) and report (metar),
+// metars (all possible weather scenarios), and tafs (all possible forecast scenarios). taf & metar
+// can be updated to the most recent report if desired, at the desired airport. Last checked weather
+// can be accessed via getters.
+
 public class Weather {
 
     private String currentMetar;

@@ -1,5 +1,10 @@
 package model;
 
+// Represent post flight checklist with status of whether aircraft is tied down & secured
+// (true - secured, false - unsecured), ending hobbs time, and whether postflight aircraft &
+// pilot documentations have been completed (true - completed, false - incomplete). Postflight
+// checklist may be updated via setters.
+
 public class Postflight {
     private boolean isPlaneTiedDown;
     private double endHobbsTime;

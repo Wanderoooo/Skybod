@@ -1,9 +1,12 @@
 package model;
 
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+
+// Represents a pilot with name, ratings (i.e. Float, VFR, IFR, and/or Multi), medical number
+// for fitness for flight, whether he/she is a student, all his/her flying & ground less bookings,
+// all completed & cancelled bookings, bookings that needed to be postflighted, and his/her
+// pilot logs. New ratings & booking may be added, and other pilot info can be updated via setters.
 
 public class Pilot {
     private String name;

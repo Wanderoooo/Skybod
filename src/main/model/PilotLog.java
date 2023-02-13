@@ -1,5 +1,8 @@
 package model;
 
+// Represents a pilot log, with day & time of flight, total flight time, type of piloting conducted
+// (solo or dual), plane type flew and its call sign. Info can be updated via setters.
+
 public class PilotLog {
     private String day;
     private String time;

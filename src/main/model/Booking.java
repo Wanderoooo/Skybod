@@ -1,5 +1,9 @@
 package model;
 
+// Represents a booking with plane info, instructor info, day & time of booking, preflight
+// documentation (if complete), postflight documentation (if complete), reason cancelled (if cancelled)
+// and type of lesson (if applicable). Booking info can be updated via the setters.
+
 public class Booking {
     private Plane plane;
     private Instructor instructor;

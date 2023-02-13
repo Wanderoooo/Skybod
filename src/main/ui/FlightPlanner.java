@@ -1,8 +1,10 @@
 package ui;
 
 import model.*;
-
 import java.util.*;
+
+// Represents a flight planner application, allows user to book, cancel booking, check weather
+// and conduct preflight and postflight documentations.
 
 public class FlightPlanner {
     private Pilot pilot;

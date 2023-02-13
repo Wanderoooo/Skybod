@@ -1,6 +1,9 @@
 package model;
 
-import java.util.ArrayList;
+// Represents a preflight checklist with status of completion of weight & balance
+// calculations, document check, fire extinguisher check, walkaround check, fuel check,
+// passenger brief, insurance validity, hobbs time start, and departing airport code.
+// Preflight checklist may be updated via setters.
 
 public class Preflight {
 

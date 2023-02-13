@@ -1,5 +1,12 @@
 package model;
 
+// Represents a plane (aircraft) with type (i.e. Cessna aircraft), call sign (i.e. C-GUUY),
+// availability for booking, hourly rental & fuel rate (in CAD$), its plane documents
+// (such as insurance, flight log, & weight info), its current fuel amount (in US Gallons),
+// and maximum fuel capacity (in US Gallons). Fuel can be added by given amount, or top up
+// to the max fuel capacity. Plane info can be updated via setters.
+
+
 public class Plane {
     private String type;
     private String callSign;

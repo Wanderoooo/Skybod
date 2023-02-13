@@ -3,6 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// Represents an availability schedule, including times when something is available on specific
+// days of the week. Time availability can be added to a specific day individually, or by an
+// interval provided boundaries. Time available on specific day can be removed individually.
+// a specific day's timetable can be found provided the day, and also set to an updated timetable
+// when drastic time change occurs.
 
 public class DayTime {
     private ArrayList<String> monday;
