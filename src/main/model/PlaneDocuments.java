@@ -8,7 +8,7 @@ public class PlaneDocuments {
     private Insurance insurance;
     private double weightInfo;
 
-    // EFFECT: create a plane profile with plane's flight log, insurance,
+    // EFFECT: create an empty plane profile with plane's flight log, insurance,
     // and weight info.
     public PlaneDocuments() {
         fl = new LinkedList<>();

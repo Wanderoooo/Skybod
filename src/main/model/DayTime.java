@@ -1,10 +1,8 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-// how to represent int with leading 0
+
 
 public class DayTime {
     private ArrayList<String> monday;
@@ -16,7 +14,7 @@ public class DayTime {
     private ArrayList<String> sunday;
     ArrayList<String> foundDay;
 
-    // EFFECT: constructs an availability timetable with no availability
+    // EFFECT: constructs an availability timetable with no time availability added
     public DayTime() {
         monday = new ArrayList<>();
         tuesday = new ArrayList<>();
@@ -27,6 +25,11 @@ public class DayTime {
         sunday = new ArrayList<>();
     }
 
+
+    // REQUIRES: d must be a day name in the week,
+    // object not available on day d at time given
+    // MODIFIES: this
+    // EFFECT: make object available on day d at time
     public void addBackTimeGivenDay(String d, String time) {
         ArrayList<String> givenDay = findDay(d);
         givenDay.add(time);
@@ -55,7 +58,7 @@ public class DayTime {
     }
 
     // REQUIRES: 0000 <= from <= 2400, 0 <= to <= 2400, from <= to, from & to both are in exact hundreds,
-    // d must be a day name: monday - sunday.
+    // d must be a day name in the week, object not already available any time at and between [from - to].
     // MODIFIES: this
     // EFFECT: 24h clock system, add availability on given day from: from - to, in hour increments
     public void addGivenDayTime(String d, String from, String to) {
@@ -75,6 +78,8 @@ public class DayTime {
         }
     }
 
+    // REQUIRE: d be a day name in the week
+    // EFFECT: find time availability on day d and returns it
     public ArrayList<String> findDay(String d) {
 
         switch (d.toUpperCase()) {
@@ -103,6 +108,9 @@ public class DayTime {
         return foundDay;
     }
 
+    // REQUIRE: d be a day name, dayAvail is a list of time availability incrementing by 100s
+    // MODIFIES: this
+    // EFFECT: update the object's time availability on d to dayAvail
     public void setDay(String d, ArrayList<String> dayAvail) {
         switch (d.toUpperCase()) {
             case "MONDAY":

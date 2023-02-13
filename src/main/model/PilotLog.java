@@ -8,8 +8,8 @@ public class PilotLog {
     private String planeType;
     private String planeCallSign;
 
-    // EFFECT: create a record of the PIC of flight; recording how long she/he flew and
-    // what plane she/he flew
+    // EFFECT: create an empty record for pilot in command of flight; recording how long she/he flew,
+    // type of piloting, and what plane she/he flew.
     public PilotLog() {
         day = null;
         time = null;

@@ -10,10 +10,9 @@ public class Booking {
     private String reasonCancelled;
     private String typeOfLesson;
 
-    // EFFECT: make a booking with pilot info, booking documentation,
-    // most recent weather report, preflight & post-flight checklist,
+    // EFFECT: make a booking with empty pilot, plane, and instructor info,
+    // preflight & post-flight checklist, type of lesson if applicable,
     // and if it's cancelled along with the reason of cancellation.
-
     public Booking() {
         plane = null;
         instructor = null;
@@ -85,7 +84,6 @@ public class Booking {
     public void setTimeBooked(String timeBooked) {
         this.timeBooked = timeBooked;
     }
-
 
     public void setTypeOfLesson(String typeOfLesson) {
         this.typeOfLesson = typeOfLesson;

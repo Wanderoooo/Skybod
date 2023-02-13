@@ -10,11 +10,10 @@ public class Weather {
     private ArrayList<String> metars;
     private ArrayList<String> tafs;
 
-    // EFFECT: !!!
+    // EFFECT: create an empty weather record with current weather and forecast
     public Weather() {
         currentMetar = null;
         currentTaf = null;
-
         setUpWx();
     }
 
@@ -22,7 +21,7 @@ public class Weather {
     // EFFECT: generates an updated weather report in ICAO code (METAR), saves it.
     public void metarUpdate(String airport) {
         Random r = new Random();
-        currentMetar = airport + " " + metars.get(r.nextInt(3));
+        currentMetar = airport + " " + metars.get(r.nextInt(8));
     }
 
     // MODIFIES: this
@@ -69,6 +68,11 @@ public class Weather {
         metars.add("050000Z 09017KT 20SM SCT030 SCT080 OVC100 09/06 A2987 RMK SC3AC1AC4 SLP117=");
         metars.add("042300Z 09013G20KT 20SM BKN030 OVC038 09/07 A2989 RMK SC6SC2 SLP123");
         metars.add("08011G18KT 20SM OVC032 09/07 A2991 RMK SC8 SLP130=");
+        metars.add("130100Z 09010KT 6SM -RA BR SCT007 OVC030 05/05 A3001 RMK SC3SC5 SLP166=");
+        metars.add("130024Z 08010KT 3SM -RA BR SCT015 OVC029 06/06 A3004 RMK SC4NS4 PRESFR SLP176=");
+        metars.add("130012Z CCA 08009KT 2 1/2SM RA BR SCT013 OVC029 06/06 A3006 RMK SC4NS4 SLP181=");
+        metars.add("130012Z 08009KT 2 1/2SM -RA BR SCT013 OVC029 06/06 A3006 RMK SC4SC4 SLP181=");
+        metars.add("130000Z 08009KT 10SM -RA FEW007 OVC021 06/06 A3006 RMK SC2SC6 SLP182=");
 
         tafs = new ArrayList<>();
         tafs.add("042340Z 0500/0606 10012G22KT P6SM SCT012 BKN025 TEMPO\n"
@@ -85,4 +89,5 @@ public class Weather {
         tafs.add("042343Z 0500/0505 VRB03KT P6SM BKN100\n"
                 + "RMK NXT FCST BY 051500Z=");
     }
+
 }

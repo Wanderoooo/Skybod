@@ -11,8 +11,8 @@ public class Plane {
     private double maxFuel;
 
 
-    // EFFECT: create a plane profile with empty plane type, call sign, availability for booking,
-    // hourly rental and fuel rate, fuel amount in plane, and plane documents
+    // EFFECT: creates an empty plane profile with plane type, call sign, availability for booking,
+    // hourly rental and fuel rate, fuel amount in plane, and plane documents.
     public Plane() {
         type = null;
         callSign = null;
@@ -25,8 +25,16 @@ public class Plane {
     }
 
     // REQUIRES: 0 < amount <= maxFuel, and fuelAmount + amount <= maxFuel
+    // MODIFIES: this
+    // EFFECT: adds fuel to plane
     public void addFuel(double amount) {
         fuelAmount = amount + fuelAmount;
+    }
+
+    // MODIFIES: this
+    // EFFECT: fuel up the aircraft to its maximum fuel capacity
+    public void setFuelToMaxFuel() {
+        fuelAmount = maxFuel;
     }
 
     public double getMaxFuel() {
@@ -91,10 +99,5 @@ public class Plane {
 
     public void setMaxFuel(double maxFuel) {
         this.maxFuel = maxFuel;
-    }
-
-    // REQUIRES:
-    public void setFuelToMaxFuel() {
-        fuelAmount = maxFuel;
     }
 }

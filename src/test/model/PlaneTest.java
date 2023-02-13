@@ -81,4 +81,25 @@ public class PlaneTest {
         assertEquals(25.5, cessna172.getFuelAmount());
         assertEquals(48.0, cessna172.getMaxFuel());
     }
+
+    @Test
+    public void addFuelTest() {
+        p1.setMaxFuel(30);
+        p1.addFuel(0.1);
+        assertEquals(0.1, p1.getFuelAmount());
+
+        cessna172.setMaxFuel(45.1);
+        cessna172.addFuel(45.1);
+        assertEquals(45.1, cessna172.getFuelAmount());
+
+        p1.addFuel(20.5);
+        assertEquals(20.6, p1.getFuelAmount());
+    }
+
+    @Test
+    public void setFuelToMaxFuelTest() {
+        p1.setMaxFuel(20.5);
+        p1.setFuelToMaxFuel();
+        assertEquals(20.5, p1.getFuelAmount());
+    }
 }

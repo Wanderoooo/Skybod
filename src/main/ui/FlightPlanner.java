@@ -1453,5 +1453,4 @@ public class FlightPlanner {
         james.setRatings(jr);
         return james;
     }
-
 }

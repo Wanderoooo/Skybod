@@ -8,7 +8,8 @@ public class PlaneFlightLog {
     private double hoursTillMaint;
 
 
-    // EFFECTS: create flight log with flight time, air time, and depart/arrival airport info
+    // EFFECTS: creates an empty flight log with starting & ending hobbs time,
+    // hours until aircraft maintenance, and departure/arrival airport info
     public PlaneFlightLog() {
         hobbsTimeStart = 0.0;
         hobbsTimeEnd = 0.0;

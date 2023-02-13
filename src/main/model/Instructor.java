@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Instructor {
@@ -12,7 +11,7 @@ public class Instructor {
     private int hourlyRate;
     private int expYears;
 
-    // EFFECT: create an instructor with name, instructor class, ratings,
+    // EFFECT: create an instructor with empty name, instructor class, ratings,
     // availability, hourly rate, and years of experience.
     public Instructor() {
         name = null;

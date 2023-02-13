@@ -16,7 +16,7 @@ public class Preflight {
     private String departAP;
 
 
-    // EFFECTS: create a preflight checklist ... (elaborate?)
+    // EFFECTS: create an empty preflight checklist with status on plane and preflight items.
     public Preflight() {
         wb = null;
         isDocOnBoard = false;

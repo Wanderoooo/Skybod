@@ -16,8 +16,9 @@ public class Pilot {
     private LinkedList<Booking> cancelled;
     private LinkedList<PilotLog> pl;
 
-    // EFFECT: create a pilot profile with name, ratings, medical number, and
-    // whether they are a student.
+    // EFFECT: create an empty pilot profile with name, ratings, medical number,
+    // bookings, bookings to postflight, completed bookings, cancelled bookings,
+    // pilot logs, and whether they are a student.
     public Pilot() {
         name = null;
         ratings = new HashSet<>();
@@ -30,12 +31,12 @@ public class Pilot {
         completedBookings = new LinkedList<>();
     }
 
-    // EFFECT: add given rating
+    // EFFECT: add given rating to pilot's ratings
     public void addRating(String r) {
         ratings.add(r);
     }
 
-    // EFFECT: add given booking
+    // EFFECT: add given booking to pilot's bookings
     public void addBooking(Booking b) {
         bookings.add(b);
     }

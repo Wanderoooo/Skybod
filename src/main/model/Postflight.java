@@ -5,7 +5,8 @@ public class Postflight {
     private double endHobbsTime;
     private boolean isDocComplete;
 
-    // EFFECT:
+    // EFFECT: creates an empty postflight checklist with plane postflight status, ending hobbs time,
+    // and document completion status
     public Postflight() {
         isPlaneTiedDown = false;
         isDocComplete = false;

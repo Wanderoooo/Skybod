@@ -6,6 +6,8 @@ public class Insurance {
     private int amountInsured;
     private String typeOfInsurance;
 
+    // EFFECT: creates an empty insurance documentation with validity timeframe,
+    // amount insured, and type of insurance.
     public Insurance() {
         dateValid = null;
         dateValidUntil = null;
