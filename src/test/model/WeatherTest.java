@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+// Testing class for Weather
 
 public class WeatherTest {
     private Weather wx;

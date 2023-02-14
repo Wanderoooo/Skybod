@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// Testing class for DayTime
 public class DayTimeTest {
     private DayTime dt1;
     private DayTime dt2;

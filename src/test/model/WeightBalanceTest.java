@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+// Testing class for WeightBalance
 
 public class WeightBalanceTest {
     private WeightBalance wb;

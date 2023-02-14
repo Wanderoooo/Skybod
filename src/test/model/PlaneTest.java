@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
+// Testing class for Plane
 
 public class PlaneTest {
     private Plane p1;

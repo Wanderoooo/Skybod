@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
+// Testing class for Instructor
 
 public class InstructorTest {
     private Instructor i1;

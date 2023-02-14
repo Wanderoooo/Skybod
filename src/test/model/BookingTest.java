@@ -2,9 +2,8 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
+// Testing class for Booking
 public class BookingTest {
     private Booking tb1;
     private Booking tb2;
