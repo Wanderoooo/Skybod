@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 // Represents a flight instructor with name, instructor class level (i.e. CFII), his/her

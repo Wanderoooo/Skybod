@@ -95,7 +95,6 @@ public class FlightPlanner {
             case "CHECK":
                 checkBookings();
             default:
-                System.out.println("That's not a valid option, try again:");
         }
     }
 
@@ -1144,9 +1143,9 @@ public class FlightPlanner {
             for (Booking b : myBookings) {
                 printBooking(b);
             }
-        }
 
-        System.out.print("\n");
+            System.out.println(" ");
+        }
     }
 
     // EFFECT: print all user's bookings
