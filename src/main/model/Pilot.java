@@ -97,6 +97,30 @@ public class Pilot implements Writable {
         this.name = name;
     }
 
+    public void setCompletedBookings(LinkedList<Booking> completedBookings) {
+        this.completedBookings = completedBookings;
+    }
+
+    public void setToPostFlight(LinkedList<Booking> toPostFlight) {
+        this.toPostFlight = toPostFlight;
+    }
+
+    public void setCancelled(LinkedList<Booking> cancelled) {
+        this.cancelled = cancelled;
+    }
+
+    public void setBookings(LinkedList<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public void setPl(LinkedList<PilotLog> pl) {
+        this.pl = pl;
+    }
+
+    public void setRatings(HashSet<String> ratings) {
+        this.ratings = ratings;
+    }
+
     public void setMedNum(int medNum) {
         this.medNum = medNum;
     }

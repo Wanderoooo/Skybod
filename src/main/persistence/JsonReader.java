@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // Represents a reader that reads pilot from JSON data stored in file
@@ -25,7 +26,7 @@ public class JsonReader {
         public Pilot read() throws IOException {
             String jsonData = readFile(source);
             JSONObject jsonObject = new JSONObject(jsonData);
-            return parseWorkRoom(jsonObject);
+            return parsePilot(jsonObject);
         }
 
         // EFFECTS: reads source file as string and returns it
@@ -39,12 +40,23 @@ public class JsonReader {
             return contentBuilder.toString();
         }
 
-        // EFFECTS: parses workroom from JSON object and returns it
-        private WorkRoom parseWorkRoom(JSONObject jsonObject) {
+        // EFFECTS: parses pilot from JSON object and returns it
+        private Pilot parsePilot(JSONObject jsonObject) {
             String name = jsonObject.getString("name");
-            WorkRoom wr = new WorkRoom(name);
-            addThingies(wr, jsonObject);
-            return wr;
+            JSONArray ratings = jsonObject.getJSONArray("ratings");
+            int mednum = jsonObject.getInt("medical#");
+            // ...
+            // ...
+            // ... to get all fields for Pilot
+
+            Pilot p = new Pilot();
+            p.setName(name);
+            p.setRatings(ratings); // <- how to convert JSONarray back to HashSet<>?
+            // ...
+            // ...
+            // ... to set all fields for Pilot
+
+            return p;
         }
 
         // MODIFIES: wr

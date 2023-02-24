@@ -83,8 +83,8 @@ public class FlightPlanner {
 
         if (load.equals("1")) {
             try {
-                workRoom = jsonReader.read();
-                System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
+                pilot = jsonReader.read();
+                System.out.println("Loaded " + pilot.getName() + "'s info & progress from " + JSON_STORE);
                 isLoad = true;
             } catch (IOException e) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
