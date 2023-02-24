@@ -19,7 +19,6 @@ public class BookingTest {
         assertNull(tb1.getDayBooked());
         assertNull(tb1.getInstructor());
         assertNull(tb1.getPlane());
-        assertNull(tb1.getPostf());
         assertNull(tb1.getPref());
         assertNull(tb1.getTimeBooked());
         assertNull(tb1.getReasonCancelled());
@@ -36,9 +35,6 @@ public class BookingTest {
         Plane p1 = new Plane();
         Plane p2 = new Plane();
         p1.setFuelAmount(30);
-        Postflight post2 = new Postflight();
-        Postflight post1 = new Postflight();
-        post2.setEndHobbsTime(1.2);
         Preflight pre1 = new Preflight();
         Preflight pre2 = new Preflight();
         pre2.setDepartAP("CZBB");
@@ -54,8 +50,6 @@ public class BookingTest {
         tb2.setInstructor(i2);
         tb1.setPlane(p1);
         tb2.setPlane(p2);
-        tb1.setPostf(post1);
-        tb2.setPostf(post2);
         tb1.setPref(pre1);
         tb2.setPref(pre2);
         tb1.setTimeBooked(t1);
@@ -70,8 +64,6 @@ public class BookingTest {
         assertEquals(i2, tb2.getInstructor());
         assertEquals(p1, tb1.getPlane());
         assertEquals(p2, tb2.getPlane());
-        assertEquals(post1, tb1.getPostf());
-        assertEquals(post2, tb2.getPostf());
         assertEquals(pre1, tb1.getPref());
         assertEquals(pre2, tb2.getPref());
         assertEquals(t1, tb1.getTimeBooked());

@@ -12,23 +12,14 @@ public class FlightPlanner {
     private String choice;
     private Scanner sc;
     private String quit;
-    private ArrayList<Plane> lop;
-    private ArrayList<Instructor> loi;
-    private Booking booking;
+//    private Booking booking;
     private Weather wxObject;
-    private DayTime piperDateTime;
-    private DayTime cessna172DateTime;
-    private DayTime diamondDateTime;
-    private DayTime cessna152DateTime;
-    private DayTime cirrusDateTime;
+    private DayTime allDayTime;
 
     // EFFECT: create flight planner based on user input
     public FlightPlanner() {
-
-        initializePlane();
-        initializeInstructor();
-        registerUser();
-
+        boolean isLoad = loadPilot();
+        initializePlaneInstrUser(isLoad);
         while (!quit.equals("QUIT")) {
             menuOptions();
             System.out.println("To manage booking - 'BOOKING'\n"
@@ -41,7 +32,70 @@ public class FlightPlanner {
 
         }
 
-        System.out.println("Thanks for using Skybod Flight Planner! See you next time!");
+        System.out.println("Would you like to save your progress to file?\n"
+                + "1 - yes\n"
+                + "2 - no");
+
+        String isSave = sc.next();
+
+        if (isSave.equals("1")) {
+            savePilot();
+        } else {
+            System.out.println("Thanks for using Skybod Flight Planner, see you next time!");
+        }
+    }
+
+    private void initializePlaneInstrUser(boolean isLoad) {
+        if (!isLoad) {
+            initializePlane();
+            initializeInstructor();
+            registerUser();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECT: loads pilot info from file
+    private boolean loadPilot() {
+        boolean isLoad = false;
+
+        System.out.println("Would you like to load your last saved progress from file?\n"
+                + "1 - yes\n"
+                + "2 - no");
+
+        String load = sc.next();
+
+        if (load.equals("1")) {
+
+            // TODO
+            // // private void loadWorkRoom() {
+            //        try {
+            //            workRoom = jsonReader.read();
+            //            System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
+            isLoad = true;
+            //        } catch (IOException e) {
+            //            System.out.println("Unable to read from file: " + JSON_STORE);
+            //        }
+            //    }
+
+        }
+
+        return isLoad;
+    }
+
+    // EFFECT: saves pilot info to file
+    private void savePilot() {
+        // TODO
+        // // EFFECTS: saves the workroom to file
+        //    private void saveWorkRoom() {
+        //        try {
+        //            jsonWriter.open();
+        //            jsonWriter.write(workRoom);
+        //            jsonWriter.close();
+        //            System.out.println("Saved " + workRoom.getName() + " to " + JSON_STORE);
+        //        } catch (FileNotFoundException e) {
+        //            System.out.println("Unable to write to file: " + JSON_STORE);
+        //        }
+        //    }
     }
 
     // EFFECT: flight planner menu, choose & display next action based on user input
@@ -104,7 +158,6 @@ public class FlightPlanner {
     public void registerUser() {
         sc = new Scanner(System.in);
         pilot = new Pilot();
-
         System.out.println("Welcome to Skybod Aviation! Let's get you set up:" + "\nEnter your full name");
         String name = sc.nextLine();
         pilot.setName(name);
@@ -829,7 +882,7 @@ public class FlightPlanner {
     // MODIFIES: this
     // EFFECT: allow user to book aircraft, and instructor if applicable
     public void bookFlight() {
-        booking = new Booking();
+        Booking booking = new Booking();
         selectPlaneType();
         System.out.println(booking.getPlane().getType() + " " + booking.getPlane().getCallSign()
                 + "'s availability on chosen day:");
@@ -853,16 +906,16 @@ public class FlightPlanner {
             String insName = selectInstructor();
             boolean isInsBooked = false;
             boolean isInstrFound = false;
-            isInstrFound = toBookInstr(c, insName, isInsBooked, isInstrFound);
+            isInstrFound = toBookInstr(c, insName, isInsBooked, isInstrFound, booking);
             instrNotFound(isInstrFound);
         }
 
-        addTheBooking();
+        addTheBooking(booking);
     }
 
     // MODIFIES: pilot, this
     // EFFECT: adds booking to pilot documentation
-    private void addTheBooking() {
+    private void addTheBooking(Booking booking) {
         booking.setTypeOfLesson("FLIGHT");
         pilot.addBooking(booking);
     }
@@ -876,15 +929,15 @@ public class FlightPlanner {
 
     // MODIFIES: this
     // EFFECT: book selected instructor
-    private boolean toBookInstr(String c, String insName, boolean isInsBooked, boolean isInstrFound) {
-        for (Instructor i : loi) {
+    private boolean toBookInstr(String c, String insName, boolean isInsBooked, boolean isInstrFound, Booking booking) {
+        for (Instructor i : pilot.getLoi()) {
             if (i.getName().equalsIgnoreCase(insName)) {
                 ArrayList<String> insAvailOnDay = i.getAvails().findDay(choice);
                 isInstrFound = true;
 
                 for (String time : insAvailOnDay) {
                     if (time.equals(c)) {
-                        isInsBooked = isInsBooked(c, insName, i, insAvailOnDay);
+                        isInsBooked = isInsBooked(c, insName, i, insAvailOnDay, booking);
                     }
                 }
 
@@ -898,7 +951,8 @@ public class FlightPlanner {
     }
 
     // EFFECT: check if instructor has been booked
-    private boolean isInsBooked(String c, String insName, Instructor i, ArrayList<String> insAvailOnDay) {
+    private boolean isInsBooked(String c, String insName, Instructor i, ArrayList<String> insAvailOnDay,
+                                Booking booking) {
         boolean isInsBooked;
         System.out.println(insName + " has been book at " + c + " for flying lesson ");
         booking.setInstructor(i);
@@ -956,7 +1010,7 @@ public class FlightPlanner {
                     + "Cessna-172");
 
             String type = sc.next();
-            for (Plane p : lop) {
+            for (Plane p : pilot.getLop()) {
                 if (p.getType().equalsIgnoreCase(type)) {
                     booking.setPlane(p);
                 }
@@ -980,7 +1034,7 @@ public class FlightPlanner {
     public void bookGround() {
         booking = new Booking();
         String instrName = selectInstructor();
-        for (Instructor i : loi) {
+        for (Instructor i : pilot.getLoi()) {
             if (i.getName().equalsIgnoreCase(instrName)) {
                 booking.setInstructor(i);
             }
@@ -1197,12 +1251,14 @@ public class FlightPlanner {
         initializeCirrus(cirrus);
         initializeDiamond(diamond);
 
-        lop = new ArrayList<>();
+        ArrayList<Plane> lop = new ArrayList<>();
         lop.add(cessna152);
         lop.add(cessna172);
         lop.add(piper);
         lop.add(cirrus);
         lop.add(diamond);
+
+        pilot.setLop(lop);
     }
 
     // MODIFIES: this
@@ -1210,8 +1266,7 @@ public class FlightPlanner {
     private void initializeDiamond(Plane diamond) {
         diamond.setType("Diamond-DA40");
         diamond.setCallSign("C-POYL");
-        initializeDayTimeDiamond();
-        diamond.setAvails(diamondDateTime);
+        diamond.setAvails(allDayTime);
         diamond.setHourlyRentalRate(200);
         diamond.setHourlyFuelRate(45);
 
@@ -1255,26 +1310,14 @@ public class FlightPlanner {
         return diamondins;
     }
 
-    // MODIFIES: this, diamondDateTime
-    // EFFECT: initialize diamond-DA40's availability
-    private void initializeDayTimeDiamond() {
-        diamondDateTime = new DayTime();
-        diamondDateTime.addGivenDayTime("Monday", "0100", "2200");
-        diamondDateTime.addGivenDayTime("Tuesday", "1100", "2300");
-        diamondDateTime.addGivenDayTime("Wednesday", "0900", "1600");
-        diamondDateTime.addGivenDayTime("Thursday", "0300", "1800");
-        diamondDateTime.addGivenDayTime("Friday", "0400", "2000");
-        diamondDateTime.addGivenDayTime("Saturday", "1800", "2400");
-        diamondDateTime.addGivenDayTime("Sunday", "1300", "2200");
-    }
 
     // MODIFIES: this
     // EFFECT: initialize cirrus aircraft
     private void initializeCirrus(Plane cirrus) {
         cirrus.setType("Cirrus-SR22T");
         cirrus.setCallSign("C-CIRR");
-        initializeDayTimeCirrus();
-        cirrus.setAvails(cirrusDateTime);
+        availabilityAll();
+        cirrus.setAvails(allDayTime);
         cirrus.setHourlyFuelRate(51);
         cirrus.setHourlyRentalRate(212);
         Insurance cirrusins = new Insurance();
@@ -1310,17 +1353,17 @@ public class FlightPlanner {
         return cirrusfl;
     }
 
-    // MODIFIES: this, cirrusDateTime
-    // EFFECT: initialize cirrus availability
-    private void initializeDayTimeCirrus() {
-        cirrusDateTime = new DayTime();
-        cirrusDateTime.addGivenDayTime("Monday", "0000", "2400");
-        cirrusDateTime.addGivenDayTime("Tuesday", "0000", "2400");
-        cirrusDateTime.addGivenDayTime("Wednesday", "0000", "2400");
-        cirrusDateTime.addGivenDayTime("Thursday", "0000", "2400");
-        cirrusDateTime.addGivenDayTime("Friday", "0000", "2400");
-        cirrusDateTime.addGivenDayTime("Saturday", "0000", "2400");
-        cirrusDateTime.addGivenDayTime("Sunday", "0000", "2400");
+    // MODIFIES: this, allDayTime
+    // EFFECT: initialize everyone's availability
+    private void availabilityAll() {
+        allDayTime = new DayTime();
+        allDayTime.addGivenDayTime("Monday", "0000", "2400");
+        allDayTime.addGivenDayTime("Tuesday", "0000", "2400");
+        allDayTime.addGivenDayTime("Wednesday", "0000", "2400");
+        allDayTime.addGivenDayTime("Thursday", "0000", "2400");
+        allDayTime.addGivenDayTime("Friday", "0000", "2400");
+        allDayTime.addGivenDayTime("Saturday", "0000", "2400");
+        allDayTime.addGivenDayTime("Sunday", "0000", "2400");
     }
 
     // MODIFIES: this
@@ -1328,8 +1371,7 @@ public class FlightPlanner {
     private void initializePiper(Plane piper) {
         piper.setType("Piper-Seneca");
         piper.setCallSign("C-FOTX");
-        initializeDayTimePiper();
-        piper.setAvails(piperDateTime);
+        piper.setAvails(allDayTime);
         piper.setHourlyRentalRate(215);
         piper.setHourlyFuelRate(50);
 
@@ -1373,26 +1415,13 @@ public class FlightPlanner {
         return piperins;
     }
 
-    // MODIFIES: this, piperDateTime
-    // EFFECT: initialize piper's availability
-    private void initializeDayTimePiper() {
-        piperDateTime = new DayTime();
-        piperDateTime.addGivenDayTime("Monday", "1000", "1700");
-        piperDateTime.addGivenDayTime("Tuesday", "0300", "2200");
-        piperDateTime.addGivenDayTime("Wednesday", "0600", "1200");
-        piperDateTime.addGivenDayTime("Thursday", "0300", "1900");
-        piperDateTime.addGivenDayTime("Friday", "0500", "1500");
-        piperDateTime.addGivenDayTime("Saturday", "1300", "2400");
-        piperDateTime.addGivenDayTime("Sunday", "1100", "2000");
-    }
 
     // MODIFIES: this
     // EFFECT: initialize cessna152 aircraft
     private void initialize152(Plane cessna152) {
         cessna152.setType("Cessna-152");
         cessna152.setCallSign("C-GUUY");
-        initializeDayTime152();
-        cessna152.setAvails(cessna152DateTime);
+        cessna152.setAvails(allDayTime);
         cessna152.setHourlyRentalRate(175);
         cessna152.setHourlyFuelRate(36);
 
@@ -1436,26 +1465,13 @@ public class FlightPlanner {
         return c152ins;
     }
 
-    // MODIFIES: this, cessna152DateTime
-    // EFFECT: initialize cessna152's availability
-    private void initializeDayTime152() {
-        cessna152DateTime = new DayTime();
-        cessna152DateTime.addGivenDayTime("Monday", "0900", "2100");
-        cessna152DateTime.addGivenDayTime("Tuesday", "0700", "2200");
-        cessna152DateTime.addGivenDayTime("Wednesday", "0700", "1800");
-        cessna152DateTime.addGivenDayTime("Thursday", "0500", "1700");
-        cessna152DateTime.addGivenDayTime("Friday", "0300", "0900");
-        cessna152DateTime.addGivenDayTime("Saturday", "1400", "2300");
-        cessna152DateTime.addGivenDayTime("Sunday", "1200", "2300");
-    }
 
     // MODIFIES: this
     // EFFECT: initialize cessna172 aircraft
     private void initialize172(Plane cessna172) {
         cessna172.setType("Cessna-172");
         cessna172.setCallSign("C-GOOV");
-        initializeDayTime172();
-        cessna172.setAvails(cessna172DateTime);
+        cessna172.setAvails(allDayTime);
         cessna172.setHourlyRentalRate(190);
         cessna172.setHourlyFuelRate(40);
         Insurance c172ins = initializeInsurance172();
@@ -1504,18 +1520,6 @@ public class FlightPlanner {
         return c172ins;
     }
 
-    // MODIFIES: this, cessna172DateTime
-    // EFFECT: initialize cessna172 availability
-    private void initializeDayTime172() {
-        cessna172DateTime = new DayTime();
-        cessna172DateTime.addGivenDayTime("Monday", "0700", "2200");
-        cessna172DateTime.addGivenDayTime("Tuesday", "0900", "2000");
-        cessna172DateTime.addGivenDayTime("Wednesday", "0600", "1000");
-        cessna172DateTime.addGivenDayTime("Thursday", "0800", "2100");
-        cessna172DateTime.addGivenDayTime("Friday", "0400", "2400");
-        cessna172DateTime.addGivenDayTime("Saturday", "0500", "2300");
-        cessna172DateTime.addGivenDayTime("Sunday", "0200", "1900");
-    }
 
     // MODIFIES: this
     // EFFECT: flight club's available instructors
@@ -1526,12 +1530,15 @@ public class FlightPlanner {
         Instructor ash = initializeAsh();
         Instructor zor = initializeZor();
 
-        loi = new ArrayList<>();
+        ArrayList<Instructor> loi = new ArrayList<>();
         loi.add(james);
         loi.add(toren);
         loi.add(nelly);
         loi.add(ash);
         loi.add(zor);
+
+        pilot.setLoi(loi);
+
 
     }
 
@@ -1540,7 +1547,7 @@ public class FlightPlanner {
     private Instructor initializeZor() {
         Instructor zor = new Instructor();
         zor.setName("Zor Lee");
-        zor.setAvails(cirrusDateTime);
+        zor.setAvails(allDayTime);
         zor.setExpYears(10);
         zor.setInstrClass("CFII - 1");
         zor.setHourlyRate(85);
@@ -1557,7 +1564,7 @@ public class FlightPlanner {
     // EFFECT: initialize instructor Ash
     private Instructor initializeAsh() {
         Instructor ash = new Instructor();
-        ash.setAvails(cirrusDateTime);
+        ash.setAvails(allDayTime);
         ash.setExpYears(5);
         ash.setHourlyRate(80);
         ash.setName("Ash Salem");
@@ -1576,7 +1583,7 @@ public class FlightPlanner {
         Instructor toren = new Instructor();
         toren.setName("Toren Molly");
         toren.setInstrClass("CFI - 4");
-        toren.setAvails(cirrusDateTime);
+        toren.setAvails(allDayTime);
         toren.setHourlyRate(70);
         toren.setExpYears(1);
         HashSet<String> tr = new HashSet<>();
@@ -1592,7 +1599,7 @@ public class FlightPlanner {
         Instructor nelly = new Instructor();
         nelly.setName("Nelly Chou");
         nelly.setHourlyRate(72);
-        nelly.setAvails(cirrusDateTime);
+        nelly.setAvails(allDayTime);
         nelly.setInstrClass("CFII - 3");
         nelly.setExpYears(4);
         HashSet<String> nr = new HashSet<>();
@@ -1609,7 +1616,7 @@ public class FlightPlanner {
         Instructor james = new Instructor();
         james.setName("James Gordon");
         james.setInstrClass("CFII - 4");
-        james.setAvails(cirrusDateTime);
+        james.setAvails(allDayTime);
         james.setHourlyRate(70);
         james.setExpYears(2);
         HashSet<String> jr = new HashSet<>();

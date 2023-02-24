@@ -4,6 +4,10 @@ package model;
 // documentation (if complete), postflight documentation (if complete), reason cancelled (if cancelled)
 // and type of lesson (if applicable). Booking info can be updated via the setters.
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 public class Booking {
     private Plane plane;
     private Instructor instructor;
@@ -82,5 +86,4 @@ public class Booking {
     public void setTypeOfLesson(String typeOfLesson) {
         this.typeOfLesson = typeOfLesson;
     }
-
 }
