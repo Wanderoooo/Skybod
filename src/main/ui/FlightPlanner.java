@@ -646,6 +646,8 @@ public class FlightPlanner {
         }
     }
 
+    // EFFECT: check if total ending hobbs time is not negative, does not exceed flight time possible, then save info
+    // into booking
     private boolean checkEndHobbsTimeValid(Booking toPostflight, boolean fuelMakesSense, double endHobbsTime,
                                            double flightTime, double fuelUse, double fuelLeft) {
         if (flightTime < 0) {
@@ -672,7 +674,7 @@ public class FlightPlanner {
         System.out.println("You have no bookings to postflight, please complete preflight first for flying bookings");
     }
 
-    // MODIFIES: this, postflight, toPostflight
+    // MODIFIES: this, toPostflight
     // EFFECT:
     private void lastPostProcedures(Booking toPostflight,
                                     double endHobbsTime, double flightTime) {
@@ -693,7 +695,7 @@ public class FlightPlanner {
         }
     }
 
-    // MODIFIES: this, postflight, toPostflight, fl
+    // MODIFIES: this, toPostflight, fl
     // EFFECT: receive input from user, updates fl, postflight, and toPosflight
     private void completePost(Booking toPostflight,
                               double endHobbsTime, double flightTime, PlaneFlightLog fl) {
@@ -762,7 +764,7 @@ public class FlightPlanner {
         System.out.println("Your total hobbs time is negative, please enter the correct ending hobbs time");
     }
 
-    // MODIFIES: this, postflight, toPostflight
+    // MODIFIES: this, toPostflight
     // EFFECT: confirm with user that aircraft is tied down
     private void planeTiedDownCheck(Booking toPostflight) {
         System.out.println("Is " + toPostflight.getPlane().getCallSign() + " secured (tied down) after flight?\n"
