@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+
 import java.util.*;
 
 // Represents a flight planner application, allows user to book, cancel booking, check weather
@@ -631,25 +632,31 @@ public class FlightPlanner {
             Booking toPostflight = postInitialize(allToPostflight);
             planeTiedDownCheck(toPostflight);
 
-// TODO, fix if hobbs time entered wrong
-
-            double endHobbsTime = enterEndHobbsTime();
-            double flightTime = endHobbsTime - toPostflight.getPref().getHobbsTimeStart();
-            double fuelUse = 9 * flightTime;
-            double beforeFlightFuel = toPostflight.getPlane().getFuelAmount();
-            double fuelLeft = beforeFlightFuel - fuelUse;
             boolean fuelMakesSense = false;
-
             while (!fuelMakesSense) {
-                if (fuelLeft < 0) {
-                    endHobbsTime = negHobbsTime(toPostflight);
-                } else {
-                    fuelMakesSense = correctHobbsTime(toPostflight, flightTime, fuelUse, fuelLeft);
-                }
-            }
+                double endHobbsTime = enterEndHobbsTime();
+                double flightTime = endHobbsTime - toPostflight.getPref().getHobbsTimeStart();
+                double fuelUse = 9 * flightTime;
+                double beforeFlightFuel = toPostflight.getPlane().getFuelAmount();
+                double fuelLeft = beforeFlightFuel - fuelUse;
 
+                fuelMakesSense = checkEndHobbsTimeValid(toPostflight, fuelMakesSense,
+                        endHobbsTime, flightTime, fuelUse, fuelLeft);
+            }
+        }
+    }
+
+    private boolean checkEndHobbsTimeValid(Booking toPostflight, boolean fuelMakesSense, double endHobbsTime,
+                                           double flightTime, double fuelUse, double fuelLeft) {
+        if (flightTime < 0) {
+            negHobbsTime();
+        } else if (fuelLeft < 0) {
+            negFlightTime(toPostflight);
+        } else {
+            fuelMakesSense = correctHobbsTime(toPostflight, flightTime, fuelUse, fuelLeft);
             lastPostProcedures(toPostflight, endHobbsTime, flightTime);
         }
+        return fuelMakesSense;
     }
 
     // MODIFIES: this
@@ -743,14 +750,16 @@ public class FlightPlanner {
         return fuelMakesSense;
     }
 
-    // EFFECT: error message if user input wrong flight time
-    private double negHobbsTime(Booking toPostflight) {
-        double endHobbsTime;
+    // EFFECT: error message if user input ending hobbs time exceeding flight time
+    private void negFlightTime(Booking toPostflight) {
         double flightTimeMax = toPostflight.getPref().getWb().getFuelGallons() / 9;
         System.out.println("Your maximum flight time is " + flightTimeMax
                 + ", as noted, please enter the correct ending hobbs time");
-        endHobbsTime = sc.nextDouble();
-        return endHobbsTime;
+    }
+
+    // EFFECT: error message if user input ending hobbs time < starting hobbs time
+    private void negHobbsTime() {
+        System.out.println("Your total hobbs time is negative, please enter the correct ending hobbs time");
     }
 
     // MODIFIES: this, postflight, toPostflight
