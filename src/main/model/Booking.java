@@ -10,7 +10,6 @@ public class Booking {
     private String dayBooked;
     private String timeBooked;
     private Preflight pref;
-    private Postflight postf;
     private String reasonCancelled;
     private String typeOfLesson;
 
@@ -23,7 +22,6 @@ public class Booking {
         dayBooked = null;
         timeBooked = null;
         pref = null;
-        postf = null;
         reasonCancelled = null;
         typeOfLesson = null;
 
@@ -39,10 +37,6 @@ public class Booking {
 
     public Preflight getPref() {
         return pref;
-    }
-
-    public Postflight getPostf() {
-        return postf;
     }
 
     public String getDayBooked() {
@@ -67,10 +61,6 @@ public class Booking {
 
     public void setPlane(Plane plane) {
         this.plane = plane;
-    }
-
-    public void setPostf(Postflight postf) {
-        this.postf = postf;
     }
 
     public void setPref(Preflight pref) {

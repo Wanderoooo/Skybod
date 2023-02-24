@@ -627,10 +627,9 @@ public class FlightPlanner {
         if (allToPostflight.size() == 0) {
             noPostflight();
         } else {
-            Postflight postflight = new Postflight();
             getAllPref(allToPostflight);
             Booking toPostflight = postInitialize(allToPostflight);
-            planeTiedDownCheck(postflight, toPostflight);
+            planeTiedDownCheck(toPostflight);
 
             double endHobbsTime = enterEndHobbsTime();
             double flightTime = endHobbsTime - toPostflight.getPref().getHobbsTimeStart();
@@ -647,7 +646,7 @@ public class FlightPlanner {
                 }
             }
 
-            lastPostProcedures(postflight, toPostflight, endHobbsTime, flightTime);
+            lastPostProcedures(toPostflight, endHobbsTime, flightTime);
         }
     }
 
@@ -666,10 +665,10 @@ public class FlightPlanner {
 
     // MODIFIES: this, postflight, toPostflight
     // EFFECT:
-    private void lastPostProcedures(Postflight postflight, Booking toPostflight,
+    private void lastPostProcedures(Booking toPostflight,
                                     double endHobbsTime, double flightTime) {
         PlaneFlightLog fl = untilMaintenance(toPostflight, flightTime);
-        completePost(postflight, toPostflight, endHobbsTime, flightTime, fl);
+        completePost(toPostflight, endHobbsTime, flightTime, fl);
         System.out.println("You've completed postflighting for " + toPostflight.getPlane().getCallSign());
     }
 
@@ -687,7 +686,7 @@ public class FlightPlanner {
 
     // MODIFIES: this, postflight, toPostflight, fl
     // EFFECT: receive input from user, updates fl, postflight, and toPosflight
-    private void completePost(Postflight postflight, Booking toPostflight,
+    private void completePost(Booking toPostflight,
                               double endHobbsTime, double flightTime, PlaneFlightLog fl) {
         System.out.println("Enter arrival airport 4-digit ICAO code");
         String arrAP = sc.next().toUpperCase();
@@ -700,7 +699,6 @@ public class FlightPlanner {
         System.out.println("Enter type of piloting completed- dual, solo");
         String typeOfPiloting = sc.next();
 
-        postflight.setDocComplete(true);
         PilotLog pilotLog = new PilotLog();
         pilotLog.setFlightTime(flightTime);
         pilotLog.setTime(toPostflight.getTimeBooked());
@@ -710,7 +708,6 @@ public class FlightPlanner {
         pilotLog.setPlaneCallSign(toPostflight.getPlane().getCallSign());
 
         toPostflight.getPlane().getPd().getFl().add(fl);
-        toPostflight.setPostf(postflight);
         pilot.getCompletedBookings().add(toPostflight);
         pilot.getPl().add(pilotLog);
         pilot.getToPostFlight().remove(toPostflight);
@@ -756,7 +753,7 @@ public class FlightPlanner {
 
     // MODIFIES: this, postflight, toPostflight
     // EFFECT: confirm with user that aircraft is tied down
-    private void planeTiedDownCheck(Postflight postflight, Booking toPostflight) {
+    private void planeTiedDownCheck(Booking toPostflight) {
         System.out.println("Is " + toPostflight.getPlane().getCallSign() + " secured (tied down) after flight?\n"
                 + "yes - true\n"
                 + "no - false");
@@ -773,7 +770,6 @@ public class FlightPlanner {
                 planeTiedDown = true;
             }
         }
-        postflight.setPlaneTiedDown(true);
     }
 
     // MODIFIES: this, allToFlight
