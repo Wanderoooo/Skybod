@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -7,7 +11,7 @@ import java.util.HashSet;
 // obtained flight ratings, availability, hourly rate (in CAD$), and years of experience instructing.
 // Instructor info can be updated via setters.
 
-public class Instructor {
+public class Instructor implements Writable {
 
     private String name;
     private String instrClass;
@@ -74,4 +78,30 @@ public class Instructor {
     public void setRatings(HashSet<String> ratings) {
         this.ratings = ratings;
     }
+
+    // EFFECT: returns instructor written to JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("class", instrClass);
+        json.put("ratings", ratingsToJson());
+        json.put("availability", avails.toJson());
+        json.put("hourly rate", hourlyRate);
+        json.put("years of experience", expYears);
+
+        return json;
+    }
+
+    private JSONArray ratingsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String r : ratings) {
+            jsonArray.put(r);
+        }
+
+        return jsonArray;
+    }
+
+
 }

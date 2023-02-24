@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -9,7 +13,7 @@ import java.util.Collections;
 // a specific day's timetable can be found provided the day, and also set to an updated timetable
 // when drastic time change occurs.
 
-public class DayTime {
+public class DayTime implements Writable {
     private ArrayList<String> monday;
     private ArrayList<String> tuesday;
     private ArrayList<String> wednesday;
@@ -17,7 +21,6 @@ public class DayTime {
     private ArrayList<String> friday;
     private ArrayList<String> saturday;
     private ArrayList<String> sunday;
-    ArrayList<String> foundDay;
 
     // EFFECT: constructs an availability timetable with no time availability added
     public DayTime() {
@@ -86,7 +89,7 @@ public class DayTime {
     // REQUIRE: d be a day name in the week
     // EFFECT: find time availability on day d and returns it
     public ArrayList<String> findDay(String d) {
-
+        ArrayList foundDay = new ArrayList();
         switch (d.toUpperCase()) {
             case "MONDAY":
                 foundDay = monday;
@@ -174,5 +177,30 @@ public class DayTime {
         return wednesday;
     }
 
+    // EFFECT: returns day time written to JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("monday", timesToJson(monday));
+        json.put("tuesday", timesToJson(tuesday));
+        json.put("wednesday", timesToJson(wednesday));
+        json.put("thursday", timesToJson(thursday));
+        json.put("friday", timesToJson(friday));
+        json.put("saturday", timesToJson(saturday));
+        json.put("sunday", timesToJson(sunday));
+
+        return json;
+    }
+
+    // EFFECT: return times available in given day to a JSON array
+    private JSONArray timesToJson(ArrayList<String> day) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String t : day) {
+            jsonArray.put(t);
+        }
+
+        return jsonArray;
+    }
 
 }

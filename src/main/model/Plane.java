@@ -7,7 +7,10 @@ package model;
 // to the max fuel capacity. Plane info can be updated via setters.
 
 
-public class Plane {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Plane implements Writable {
     private String type;
     private String callSign;
     private DayTime avails;
@@ -106,5 +109,21 @@ public class Plane {
 
     public void setMaxFuel(double maxFuel) {
         this.maxFuel = maxFuel;
+    }
+
+    // EFFECT: returns plane written to JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("type", type);
+        json.put("call sign", callSign);
+        json.put("availability", avails.toJson());
+        json.put("hourly rental rate", hourlyRentalRate);
+        json.put("hourly fuel rate", hourlyFuelRate);
+        json.put("plane doc", pd.toJson());
+        json.put("fuel amount", fuelAmount);
+        json.put("max fuel", maxFuel);
+
+        return json;
     }
 }

@@ -3,7 +3,10 @@ package model;
 // Represents a pilot log, with day & time of flight, total flight time, type of piloting conducted
 // (solo or dual), plane type flew and its call sign. Info can be updated via setters.
 
-public class PilotLog {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class PilotLog implements Writable {
     private String day;
     private String time;
     private double flightTime;
@@ -68,5 +71,18 @@ public class PilotLog {
 
     public String getTypeOfPiloting() {
         return typeOfPiloting;
+    }
+
+    // EFFECT: returns pilot log written to JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("day", day);
+        json.put("flight time", flightTime);
+        json.put("piloting type", typeOfPiloting);
+        json.put("plane type", planeType);
+        json.put("plane call sign", planeCallSign);
+
+        return json;
     }
 }

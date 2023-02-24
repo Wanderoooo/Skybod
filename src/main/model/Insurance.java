@@ -4,7 +4,10 @@ package model;
 // (in format "mm/dd/yyyy"), amount insured (in CAD$), and type of insurance (i.e. Haul)
 // Insurance document info can be updated via setters.
 
-public class Insurance {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Insurance implements Writable {
     private String dateValid;
     private String dateValidUntil;
     private int amountInsured;
@@ -51,4 +54,14 @@ public class Insurance {
         return typeOfInsurance;
     }
 
+    // EFFECT: returns insurance written to JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("validity start", dateValid);
+        json.put("validity end", dateValidUntil);
+        json.put("amount", amountInsured);
+        json.put("type", typeOfInsurance);
+        return json;
+    }
 }

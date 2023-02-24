@@ -11,7 +11,7 @@ import java.util.LinkedList;
 // Represents a pilot with name, ratings (i.e. Float, VFR, IFR, and/or Multi), medical number
 // for fitness for flight, whether he/she is a student, all his/her flying & ground less bookings,
 // all completed & cancelled bookings, bookings that needed to be postflighted, list of plane & instructors
-// available for the pilot to book, and his/her pilot logs. New ratings & booking may be added,
+// available for the pilot to book, weather info/record, and his/her pilot logs. New ratings & booking may be added,
 // and other pilot info can be updated via setters.
 
 public class Pilot implements Writable {
@@ -26,10 +26,12 @@ public class Pilot implements Writable {
     private LinkedList<PilotLog> pl;
     private ArrayList<Plane> lop;
     private ArrayList<Instructor> loi;
+    private Weather wx;
 
     // EFFECT: create an empty pilot profile with name, ratings, medical number,
     // bookings, bookings to postflight, completed bookings, cancelled bookings,
-    // pilot logs, and whether they are a student.
+    // pilot logs, list of instructor/planes available for booking, weather info/record,
+    // and whether they are a student.
     public Pilot() {
         name = null;
         ratings = new HashSet<>();
@@ -42,6 +44,7 @@ public class Pilot implements Writable {
         completedBookings = new LinkedList<>();
         loi = new ArrayList<>();
         lop = new ArrayList<>();
+        wx = null;
     }
 
     // EFFECT: add given rating to pilot's ratings
@@ -103,15 +106,109 @@ public class Pilot implements Writable {
     }
 
 
+    // EFFECT: returns pilot written to JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("ratings", ratingsToJson());
+        json.put("medical#", medNum);
+        json.put("student", isStudent);
+        json.put("bookings", bookingsToJson());
+        json.put("to postflight", bookingsToPostflightToJson());
+        json.put("completed bookings", completedBookingsToJson());
+        json.put("cancelled bookings", cancelledBookingsToJson());
+        json.put("pilot logs", plToJson());
+        json.put("list of planes", lopToJson());
+        json.put("list of instructors", loiToJson());
+        json.put("weather", wxToJson());
         return json;
     }
 
-    // EFFECTS: returns pilot's ratings in this workroom as a JSON array
+    // EFFECT: returns weather info as JSON object
+    private JSONObject wxToJson() {
+        return wx.toJson();
+    }
+
+    // EFFECT: returns list of instructors available as a JSON array
+    private JSONArray loiToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Instructor i : loi) {
+            jsonArray.put(i.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECT: returns list of planes available as a JSON array
+    private JSONArray lopToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Plane p : lop) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
+
+    }
+
+    // EFFECT: returns pilot's pilot logs as a JSON array
+    private JSONArray plToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (PilotLog log : pl) {
+            jsonArray.put(log.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECT: returns pilot's cancelled bookings as a JSON array
+    private JSONArray cancelledBookingsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Booking bk : cancelled) {
+            jsonArray.put(bk.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECT: returns pilot's completed bookings as a JSON array
+    private JSONArray completedBookingsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Booking bk : completedBookings) {
+            jsonArray.put(bk.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECT: returns pilot's bookings to postflight as a JSON array
+    private JSONArray bookingsToPostflightToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Booking bk : toPostFlight) {
+            jsonArray.put(bk.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECT: returns pilot's bookings as a JSON array
+    private JSONArray bookingsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Booking bk : bookings) {
+            jsonArray.put(bk.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECTS: returns pilot's ratings as a JSON array
     private JSONArray ratingsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -136,5 +233,13 @@ public class Pilot implements Writable {
 
     public ArrayList<Plane> getLop() {
         return lop;
+    }
+
+    public Weather getWx() {
+        return wx;
+    }
+
+    public void setWx(Weather wx) {
+        this.wx = wx;
     }
 }

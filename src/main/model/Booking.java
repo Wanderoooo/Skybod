@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
-public class Booking {
+public class Booking implements Writable {
     private Plane plane;
     private Instructor instructor;
     private String dayBooked;
@@ -85,5 +85,19 @@ public class Booking {
 
     public void setTypeOfLesson(String typeOfLesson) {
         this.typeOfLesson = typeOfLesson;
+    }
+
+    // EFFECT: returns booking written to JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("plane", plane.toJson());
+        json.put("instructor", instructor.toJson());
+        json.put("day", dayBooked);
+        json.put("time", timeBooked);
+        json.put("preflight", pref.toJson());
+        json.put("reason cancelled", reasonCancelled);
+        json.put("type of lesson", typeOfLesson);
+        return json;
     }
 }

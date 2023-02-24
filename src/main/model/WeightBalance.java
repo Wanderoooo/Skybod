@@ -4,7 +4,10 @@ package model;
 // pilot, passenger(s), and cargo. Also includes status of whether total weight is within takeoff
 // limit. Weight info can be updated via setters.
 
-public class WeightBalance {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class WeightBalance implements Writable {
     private double aircraftWeight; // weights in lb
     private double fuelGallons;
     private double fuelWeight;
@@ -79,5 +82,21 @@ public class WeightBalance {
 
     public boolean isWithinLimit() {
         return isWithinLimit;
+    }
+
+    // EFFECT: returns weight & balance calculation written to JSON object
+    @Override
+    public JSONObject toJson() {
+
+        JSONObject json = new JSONObject();
+        json.put("aircraft weight", aircraftWeight);
+        json.put("fuel gallons", fuelGallons);
+        json.put("fuel weight", fuelWeight);
+        json.put("pilot weight", pilotWeight);
+        json.put("passenger weight", passengerWeight);
+        json.put("takeoff weight", takeoffWeight);
+        json.put("within limit", isWithinLimit);
+
+        return json;
     }
 }

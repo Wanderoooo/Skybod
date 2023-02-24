@@ -29,11 +29,12 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of booking to file
+    // EFFECTS: writes JSON representation of pilot info & progress to file
     public void write(Pilot p) {
         JSONObject json = p.toJson();
         saveToFile(json.toString(TAB));
     }
+
 
     // MODIFIES: this
     // EFFECTS: closes writer

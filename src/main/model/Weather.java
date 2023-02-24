@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +12,7 @@ import java.util.Random;
 // can be updated to the most recent report if desired, at the desired airport. Last checked weather
 // can be accessed via getters.
 
-public class Weather {
+public class Weather implements Writable {
 
     private String currentMetar;
     private String currentTaf;
@@ -101,5 +105,42 @@ public class Weather {
         tafs.add("042343Z 0500/0505 VRB03KT P6SM BKN100\n"
                 + "RMK NXT FCST BY 051500Z=");
     }
+
+    // EFFECT: returns weather written into JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("current METAR", currentMetar);
+        json.put("current TAF", currentTaf);
+        json.put("possible METARs", metarsToJson());
+        json.put("possible TAFs", tafsToJson());
+
+        return json;
+    }
+
+    // EFFECT: returns tafs written into JSON array
+    private JSONArray tafsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String s : tafs) {
+            jsonArray.put(s);
+        }
+
+        return jsonArray;
+    }
+
+    // EFFECT: returns metars written into JSON array
+    private JSONArray metarsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String s : metars) {
+            jsonArray.put(s);
+        }
+
+        return jsonArray;
+    }
+
+
+
 
 }

@@ -5,7 +5,10 @@ package model;
 // passenger brief, insurance validity, hobbs time start, and departing airport code.
 // Preflight checklist may be updated via setters.
 
-public class Preflight {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Preflight implements Writable {
 
     private WeightBalance wb;
     private boolean isDocOnBoard;
@@ -111,5 +114,24 @@ public class Preflight {
 
     public void setDepartAP(String departAP) {
         this.departAP = departAP;
+    }
+
+    // EFFECT: returns preflight document written to JSON object
+    @Override
+    public JSONObject toJson() {
+
+        JSONObject json = new JSONObject();
+        json.put("weight & balance", wb.toJson());
+        json.put("doc onboard", isDocOnBoard);
+        json.put("check fire extinguisher", isCheckedFireExt);
+        json.put("walk around", isWalkAroundDone);
+        json.put("fuel enough", isFuelEnough);
+        json.put("w&b done", isWBDone);
+        json.put("passenger brief", isPassengerBriefDone);
+        json.put("insurance validity", isInsuranceValid);
+        json.put("hobbs start", hobbsTimeStart);
+        json.put("depart AP", departAP);
+
+        return json;
     }
 }

@@ -1,22 +1,41 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 // Represents a flight planner application, allows user to book, cancel booking, check weather
 // and conduct preflight and postflight documentations. Intakes a user input
 
+// CREDIT: CREDIT: json implementation code template from WorkRoomApp
+// from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
 public class FlightPlanner {
+    private static final String JSON_STORE = "./data/pilot.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private Pilot pilot;
     private String choice;
     private Scanner sc;
     private String quit;
     private Booking booking;
-    private Weather wxObject;
 
     // EFFECT: create flight planner based on user input
     public FlightPlanner() {
+        sc = new Scanner(System.in);
+        pilot = new Pilot();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
+        runFlightPlanner();
+
+    }
+
+    private void runFlightPlanner() {
         boolean isLoad = loadPilot();
         initializePlaneInstrUser(isLoad);
         while (!quit.equals("QUIT")) {
@@ -39,10 +58,10 @@ public class FlightPlanner {
 
         if (isSave.equals("1")) {
             savePilot();
-        } else {
-            System.out.println("Thanks for using Skybod Flight Planner, see you next time!");
         }
+        System.out.println("Thanks for using Skybod Flight Planner, see you next time!");
     }
+
 
     private void initializePlaneInstrUser(boolean isLoad) {
         if (!isLoad) {
@@ -60,22 +79,17 @@ public class FlightPlanner {
                 + "1 - yes\n"
                 + "2 - no");
 
-        sc = new Scanner(System.in);
-        pilot = new Pilot();
         String load = sc.next();
 
         if (load.equals("1")) {
+            try {
+                workRoom = jsonReader.read();
+                System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
+                isLoad = true;
+            } catch (IOException e) {
+                System.out.println("Unable to read from file: " + JSON_STORE);
+            }
 
-            // TODO
-            // // private void loadWorkRoom() {
-            //        try {
-            //            workRoom = jsonReader.read();
-            //            System.out.println("Loaded " + workRoom.getName() + " from " + JSON_STORE);
-            isLoad = true;
-            //        } catch (IOException e) {
-            //            System.out.println("Unable to read from file: " + JSON_STORE);
-            //        }
-            //    }
 
         }
 
@@ -84,18 +98,14 @@ public class FlightPlanner {
 
     // EFFECT: saves pilot info to file
     private void savePilot() {
-        // TODO
-        // // EFFECTS: saves the workroom to file
-        //    private void saveWorkRoom() {
-        //        try {
-        //            jsonWriter.open();
-        //            jsonWriter.write(workRoom);
-        //            jsonWriter.close();
-        //            System.out.println("Saved " + workRoom.getName() + " to " + JSON_STORE);
-        //        } catch (FileNotFoundException e) {
-        //            System.out.println("Unable to write to file: " + JSON_STORE);
-        //        }
-        //    }
+        try {
+            jsonWriter.open();
+            jsonWriter.write(pilot);
+            jsonWriter.close();
+            System.out.println("Saved " + pilot.getName() + "'s pilot info & progress to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // EFFECT: flight planner menu, choose & display next action based on user input
@@ -224,7 +234,7 @@ public class FlightPlanner {
     // MODIFIES: this
     // EFFECT: allow user to check current, and last checked weather reports & forecasts
     public void flightWX() {
-        wxObject = new Weather();
+        Weather wxObject = new Weather();
 
         System.out.println("To check most recent weather:\n\n"
                 + "Terminal Area Forecast - TAF\n"
@@ -235,7 +245,7 @@ public class FlightPlanner {
         String wxChoice = sc.next();
 
         while (!wxChoice.equalsIgnoreCase("MENU")) {
-            wxOptions(wxChoice);
+            wxOptions(wxChoice, wxObject);
 
             System.out.println("To check most recent weather:\n\n"
                     + "Terminal Area Forecast - TAF\n"
@@ -248,25 +258,28 @@ public class FlightPlanner {
     }
 
     // EFFECT: weather checking menu, displays & executes next actions based on user input
-    private void wxOptions(String wxChoice) {
+    private void wxOptions(String wxChoice, Weather wxObject) {
         switch (wxChoice.toUpperCase()) {
             case "TAF":
-                checkTaf();
+                checkTaf(wxObject);
                 break;
             case "METAR":
-                checkMetar();
+                checkMetar(wxObject);
                 break;
             case "LAST":
-                lastChecked();
+                lastChecked(wxObject);
                 break;
             default:
                 System.out.println("That's not a valid option, please try again\n");
         }
+
+        pilot.setWx(wxObject);
+
     }
 
     // MODIFIES: this
     // EFFECT: allow user to check most recent TAF (weather forecast)
-    private void checkTaf() {
+    private void checkTaf(Weather wxObject) {
         System.out.println("Enter 4-character ICAO code for TAF at desired airport");
 
         String airportIdent = sc.next().toUpperCase();
@@ -278,7 +291,7 @@ public class FlightPlanner {
 
     // MODIFIES: this
     // EFFECT: allow user to check last checked weather report & forecast
-    private void lastChecked() {
+    private void lastChecked(Weather wxObject) {
         if (wxObject.getCurrentTaf() == null && wxObject.getCurrentMetar() == null) {
             System.out.println("No last checked TAF and METAR");
         } else if (wxObject.getCurrentTaf() == null) {
@@ -298,7 +311,7 @@ public class FlightPlanner {
 
     // MODIFIES: this
     // EFFECT: allow user to check most recent METAR (weather report)
-    private void checkMetar() {
+    private void checkMetar(Weather wxObject) {
         System.out.println("Enter 4-character ICAO code for METAR at desired airport");
 
         String airportIdent = sc.next().toUpperCase();
