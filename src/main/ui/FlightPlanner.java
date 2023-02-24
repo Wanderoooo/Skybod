@@ -631,6 +631,8 @@ public class FlightPlanner {
             Booking toPostflight = postInitialize(allToPostflight);
             planeTiedDownCheck(toPostflight);
 
+// TODO, fix if hobbs time entered wrong
+
             double endHobbsTime = enterEndHobbsTime();
             double flightTime = endHobbsTime - toPostflight.getPref().getHobbsTimeStart();
             double fuelUse = 9 * flightTime;
