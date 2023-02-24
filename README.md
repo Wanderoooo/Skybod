@@ -43,3 +43,6 @@ interface with optional tutorial can enhance learning and pre-flight and post-fl
 - As a user, I want to be able to add my license and medical # in my profile
 - As a user, I want to be able to add & complete preflight and postflight documentations
 - As a user, I want to be able to record & save flight data in my pilot log
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my flight planner to 
+file and have the option to do so or not.
+- As a user, when I start the application, I want to be given the option to load my flight planner from file.
