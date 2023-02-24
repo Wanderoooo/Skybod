@@ -116,7 +116,7 @@ public class Pilot implements Writable {
         JSONArray jsonArray = new JSONArray();
 
         for (String r : ratings) {
-            jsonArray.put(r.toJson());
+            jsonArray.put(r);
         }
 
         return jsonArray;
