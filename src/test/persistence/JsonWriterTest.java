@@ -134,4 +134,69 @@ class JsonWriterTest {
             fail("Exception should not have been thrown");
         }
     }
+
+    @Test
+    void testWriterLotOfInfoPilot() {
+        try {
+            Pilot p = new Pilot();
+
+            PlaneFlightLog fl = new PlaneFlightLog();
+            fl.setArrivingAP("ZZTT");
+            fl.setDepartingAP("TTZZ");
+            fl.setHoursTillMaint(20.0);
+            fl.setHobbsTimeStart(1.1);
+            fl.setHobbsTimeEnd(2.2);
+
+            PlaneDocuments pd = new PlaneDocuments();
+            pd.setWeightInfo(50.0);
+            pd.getFl().add(fl);
+
+            ArrayList<String> monday = new ArrayList<>();
+            monday.add("0000");
+            monday.add("0100");
+            monday.add("0200");
+
+            DayTime dt = new DayTime();
+            dt.setDay("monday", monday);
+
+            Plane pl = new Plane();
+            pl.setAvails(dt);
+            pl.setPd(pd);
+
+            HashSet<String> ratings = new HashSet<>();
+            ratings.add("Float");
+            ratings.add("VFR");
+
+            Instructor i = new Instructor();
+            i.setRatings(ratings);
+
+            p.getLop().add(pl);
+            p.getLoi().add(i);
+
+            JsonWriter writer = new JsonWriter("./data/testWriterLotOfInfoPilot.json");
+            writer.open();
+            writer.write(p);
+            writer.close();
+
+            assertTrue(p.getLop().contains(pl));
+            assertTrue(p.getLoi().contains(i));
+            assertTrue(p.getLoi().get(0).getRatings().contains("Float"));
+            assertTrue(p.getLop().get(0).getAvails().getMonday().contains("0000"));
+            assertTrue(p.getLop().get(0).getAvails().getMonday().contains("0100"));
+            assertTrue(p.getLop().get(0).getAvails().getMonday().contains("0200"));
+            assertFalse(p.getLop().get(0).getAvails().getMonday().contains("0300"));
+            assertEquals(3, p.getLop().get(0).getAvails().getMonday().size());
+            assertEquals(1, p.getLop().size());
+            PlaneFlightLog fl1 = p.getLop().get(0).getPd().getFl().get(0);
+
+            assertEquals("ZZTT",fl1.getArrivingAP());
+            assertEquals("TTZZ", fl1.getDepartingAP());
+            assertEquals(20.0, fl1.getHoursTillMaint());
+            assertEquals(1.1, fl1.getHobbsTimeStart());
+            assertEquals(2.2, fl1.getHobbsTimeEnd());
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
 }
