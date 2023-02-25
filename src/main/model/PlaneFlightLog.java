@@ -20,8 +20,8 @@ public class PlaneFlightLog implements Writable {
     public PlaneFlightLog() {
         hobbsTimeStart = 0.0;
         hobbsTimeEnd = 0.0;
-        departingAP = null;
-        arrivingAP = null;
+        departingAP = "";
+        arrivingAP = "";
         hoursTillMaint = 0.0;
     }
 
@@ -74,7 +74,7 @@ public class PlaneFlightLog implements Writable {
         json.put("hobbs end", hobbsTimeEnd);
         json.put("departing AP", departingAP);
         json.put("arriving AP", arrivingAP);
-        json.put("hours til' maintenance", hoursTillMaint);
+        json.put("hours til maintenance", hoursTillMaint);
 
         return json;
     }

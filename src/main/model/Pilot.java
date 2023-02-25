@@ -33,7 +33,7 @@ public class Pilot implements Writable {
     // pilot logs, list of instructor/planes available for booking, weather info/record,
     // and whether they are a student.
     public Pilot() {
-        name = null;
+        name = "";
         ratings = new HashSet<>();
         medNum = 0;
         isStudent = false;
@@ -44,7 +44,7 @@ public class Pilot implements Writable {
         completedBookings = new LinkedList<>();
         loi = new ArrayList<>();
         lop = new ArrayList<>();
-        wx = null;
+        wx = new Weather();
     }
 
     // EFFECT: add given rating to pilot's ratings
@@ -145,13 +145,8 @@ public class Pilot implements Writable {
         json.put("pilot logs", plToJson());
         json.put("list of planes", lopToJson());
         json.put("list of instructors", loiToJson());
-        json.put("weather", wxToJson());
+        json.put("wx", wx.toJson());
         return json;
-    }
-
-    // EFFECT: returns weather info as JSON object
-    private JSONObject wxToJson() {
-        return wx.toJson();
     }
 
     // EFFECT: returns list of instructors available as a JSON array

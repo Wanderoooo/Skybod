@@ -19,7 +19,7 @@ public class PlaneDocuments implements Writable {
     // and weight info.
     public PlaneDocuments() {
         fl = new LinkedList<>();
-        insurance = null;
+        insurance = new Insurance();
         weightInfo = 0.0;
     }
 

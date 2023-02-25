@@ -21,13 +21,13 @@ public class Booking implements Writable {
     // preflight & post-flight checklist, type of lesson if applicable,
     // and if it's cancelled along with the reason of cancellation.
     public Booking() {
-        plane = null;
-        instructor = null;
-        dayBooked = null;
-        timeBooked = null;
-        pref = null;
-        reasonCancelled = null;
-        typeOfLesson = null;
+        plane = new Plane();
+        instructor = new Instructor();
+        dayBooked = "";
+        timeBooked = "";
+        pref = new Preflight();
+        reasonCancelled = "";
+        typeOfLesson = "";
 
     }
 

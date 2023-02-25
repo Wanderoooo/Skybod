@@ -16,10 +16,10 @@ public class Insurance implements Writable {
     // EFFECT: creates an empty insurance documentation with validity timeframe,
     // amount insured, and type of insurance.
     public Insurance() {
-        dateValid = null;
-        dateValidUntil = null;
+        dateValid = "";
+        dateValidUntil = "";
         amountInsured = 0;
-        typeOfInsurance = null;
+        typeOfInsurance = "";
     }
 
     public void setAmountInsured(int amountInsured) {

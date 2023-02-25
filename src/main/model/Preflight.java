@@ -24,7 +24,7 @@ public class Preflight implements Writable {
 
     // EFFECTS: create an empty preflight checklist with status on plane and preflight items.
     public Preflight() {
-        wb = null;
+        wb = new WeightBalance();
         isDocOnBoard = false;
         isCheckedFireExt = false;
         isWalkAroundDone = false;
@@ -33,7 +33,7 @@ public class Preflight implements Writable {
         isPassengerBriefDone = false;
         isInsuranceValid = false;
         hobbsTimeStart = 0.0;
-        departAP = null;
+        departAP = "";
     }
 
     public void setWb(WeightBalance wb) {

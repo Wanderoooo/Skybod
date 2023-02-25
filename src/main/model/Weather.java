@@ -21,8 +21,8 @@ public class Weather implements Writable {
 
     // EFFECT: create an empty weather record with current weather and forecast
     public Weather() {
-        currentMetar = null;
-        currentTaf = null;
+        currentMetar = "";
+        currentTaf = "";
         setUpWx();
     }
 

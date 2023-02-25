@@ -23,10 +23,10 @@ public class Instructor implements Writable {
     // EFFECT: create an instructor with empty name, instructor class, ratings,
     // availability, hourly rate, and years of experience.
     public Instructor() {
-        name = null;
-        instrClass = null;
+        name = "";
+        instrClass = "";
         ratings = new HashSet<>();
-        avails = null;
+        avails = new DayTime();
         hourlyRate = 0;
         expYears = 0;
     }

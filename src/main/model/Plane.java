@@ -24,12 +24,12 @@ public class Plane implements Writable {
     // EFFECT: creates an empty plane profile with plane type, call sign, availability for booking,
     // hourly rental and fuel rate, fuel amount in plane, and plane documents.
     public Plane() {
-        type = null;
-        callSign = null;
-        avails = null;
+        type = "";
+        callSign = "";
+        avails = new DayTime();
         hourlyRentalRate = 0;
         hourlyFuelRate = 0;
-        pd = null;
+        pd = new PlaneDocuments();
         fuelAmount = 0.0;
         maxFuel = 0.0;
     }

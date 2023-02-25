@@ -37,7 +37,11 @@ public class FlightPlanner {
 
     private void runFlightPlanner() {
         boolean isLoad = loadPilot();
-        initializePlaneInstrUser(isLoad);
+        if (!isLoad) {
+            initializePlaneInstrUser();
+        }
+
+        printMenu();
         while (!quit.equals("QUIT")) {
             menuOptions();
             System.out.println("To manage booking - 'BOOKING'\n"
@@ -63,11 +67,9 @@ public class FlightPlanner {
     }
 
 
-    private void initializePlaneInstrUser(boolean isLoad) {
-        if (!isLoad) {
-            initializePlaneInstr();
-            registerUser();
-        }
+    private void initializePlaneInstrUser() {
+        initializePlaneInstr();
+        registerUser();
     }
 
     // MODIFIES: this
@@ -84,7 +86,7 @@ public class FlightPlanner {
         if (load.equals("1")) {
             try {
                 pilot = jsonReader.read();
-                System.out.println("Loaded " + pilot.getName() + "'s info & progress from " + JSON_STORE);
+                System.out.println("Loaded " + pilot.getName() + "'s info & progress from " + JSON_STORE + "\n");
                 isLoad = true;
             } catch (IOException e) {
                 System.out.println("Unable to read from file: " + JSON_STORE);
@@ -183,9 +185,11 @@ public class FlightPlanner {
                 + "Student - enter true\n"
                 + "Otherwise - enter false");
 
-        // guard against non-boolean input?
         boolean isStud = sc.nextBoolean();
         pilot.setStudent(isStud);
+    }
+
+    private void printMenu() {
         System.out.println("Great! You are all set up!\n"
                 + "To manage booking - 'BOOKING'\n"
                 + "To check weather - 'WX'\n"
@@ -234,7 +238,7 @@ public class FlightPlanner {
     // MODIFIES: this
     // EFFECT: allow user to check current, and last checked weather reports & forecasts
     public void flightWX() {
-        Weather wxObject = new Weather();
+        Weather wxObject = pilot.getWx();
 
         System.out.println("To check most recent weather:\n\n"
                 + "Terminal Area Forecast - TAF\n"
@@ -255,10 +259,12 @@ public class FlightPlanner {
 
             wxChoice = sc.next();
         }
+
+        pilot.setWx(wxObject);
     }
 
-    // EFFECT: weather checking menu, displays & executes next actions based on user input
-    private void wxOptions(String wxChoice, Weather wxObject) {
+    // EFFECT: weather checking menu, displays & executes next actions based on user input, returns wxObject
+    private Weather wxOptions(String wxChoice, Weather wxObject) {
         switch (wxChoice.toUpperCase()) {
             case "TAF":
                 checkTaf(wxObject);
@@ -273,7 +279,7 @@ public class FlightPlanner {
                 System.out.println("That's not a valid option, please try again\n");
         }
 
-        pilot.setWx(wxObject);
+        return wxObject;
 
     }
 
@@ -292,13 +298,13 @@ public class FlightPlanner {
     // MODIFIES: this
     // EFFECT: allow user to check last checked weather report & forecast
     private void lastChecked(Weather wxObject) {
-        if (wxObject.getCurrentTaf() == null && wxObject.getCurrentMetar() == null) {
+        if (wxObject.getCurrentTaf().equals("") && wxObject.getCurrentMetar().equals("")) {
             System.out.println("No last checked TAF and METAR");
-        } else if (wxObject.getCurrentTaf() == null) {
+        } else if (wxObject.getCurrentTaf().equals("")) {
             System.out.println("The last checked METAR is:\n\n"
                     + wxObject.getCurrentMetar() + "\n\n"
                     + "No last checked TAF");
-        } else if (wxObject.getCurrentMetar() == null) {
+        } else if (wxObject.getCurrentMetar().equals("")) {
             System.out.println("The last checked TAF is:\n\n"
                     + wxObject.getCurrentTaf() + "\n\n"
                     + "No last checked METAR");
@@ -1141,14 +1147,14 @@ public class FlightPlanner {
 
         Booking cancelBooking = getBooking(bookingsOnDay, time);
 
-        if (!(cancelBooking == null)) {
+        if (!(cancelBooking.getDayBooked().equals(""))) {
             printCancelReason();
             String reasonCancel = sc.next();
             String cancelDay = cancelBooking.getDayBooked();
             String cancelTime = cancelBooking.getTimeBooked();
-            if (!(cancelBooking.getPlane() == null)) {
+            if (!(cancelBooking.getPlane().getType().equals(""))) {
                 cancelBooking.getPlane().getAvails().addBackTimeGivenDay(cancelDay, cancelTime);
-            } else if (!(cancelBooking.getInstructor() == null)) {
+            } else if (!(cancelBooking.getInstructor().getName().equals(""))) {
                 cancelBooking.getInstructor().getAvails().addBackTimeGivenDay(cancelDay, cancelTime);
             }
             cancelThisBooking(cancelBooking, reasonCancel);
@@ -1219,10 +1225,10 @@ public class FlightPlanner {
 
     // EFFECT: print all user's bookings
     public void printBooking(Booking b) {
-        if (b.getPlane() == null) {
+        if (b.getPlane().getType().equals("")) {
             System.out.println(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " with "
                     + b.getInstructor().getName());
-        } else if (b.getInstructor() == null) {
+        } else if (b.getInstructor().getName().equals("")) {
             System.out.println("AIRCRAFT at " + b.getTimeBooked() + " for " + b.getPlane().getType() + " "
                     + b.getPlane().getCallSign());
         } else {

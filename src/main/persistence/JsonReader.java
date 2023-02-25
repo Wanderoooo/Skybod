@@ -55,7 +55,7 @@ public class JsonReader {
         JSONArray pilotLogs = jsonObject.getJSONArray("pilot logs");
         JSONArray listOfPlanes = jsonObject.getJSONArray("list of planes");
         JSONArray listOfInstructors = jsonObject.getJSONArray("list of instructors");
-        JSONObject wx = jsonObject.getJSONObject("weather");
+        JSONObject wx = jsonObject.getJSONObject("wx");
 
         Pilot p = new Pilot();
         p.setName(name);
@@ -449,7 +449,7 @@ public class JsonReader {
         double hobbsEnd = nextfl.getDouble("hobbs end");
         String depAP = nextfl.getString("departing AP");
         String arrAP = nextfl.getString("arriving AP");
-        double hoursTilMaint = nextfl.getDouble("hours till' maintenance");
+        double hoursTilMaint = nextfl.getDouble("hours til maintenance");
 
         PlaneFlightLog pfl = new PlaneFlightLog();
         pfl.setHobbsTimeStart(hobbsStart);

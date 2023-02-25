@@ -17,12 +17,12 @@ public class PilotLog implements Writable {
     // EFFECT: create an empty record for pilot in command of flight; recording how long she/he flew,
     // type of piloting, and what plane she/he flew.
     public PilotLog() {
-        day = null;
-        time = null;
+        day = "";
+        time = "";
         flightTime = 0.0;
-        typeOfPiloting = null;
-        planeType = null;
-        planeCallSign = null;
+        typeOfPiloting = "";
+        planeType = "";
+        planeCallSign = "";
     }
 
     public void setDay(String day) {
