@@ -78,6 +78,7 @@ public class PilotLog implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("day", day);
+        json.put("time", time);
         json.put("flight time", flightTime);
         json.put("piloting type", typeOfPiloting);
         json.put("plane type", planeType);

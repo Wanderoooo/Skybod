@@ -68,10 +68,173 @@ public class JsonReader {
         addCancelledBookings(p, cancelledBookings);
         addPilotLogs(p, pilotLogs);
         addPlanes(p, listOfPlanes);
-        addInstr(p, listOfInstructors);
+        addInstrsPilot(p, listOfInstructors);
         addWx(p, wx);
 
         return p;
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses wx from JSON object and adds them to pilot's weather
+    private void addWx(Pilot p, JSONObject wx) {
+        Weather parsedWx = parseWx(wx);
+        p.setWx(parsedWx);
+    }
+
+    // EFFECT: parses weather from JSON object & returns it
+    private Weather parseWx(JSONObject wx) {
+        // json.put("current METAR", currentMetar);
+        //        json.put("current TAF", currentTaf);
+        //        json.put("possible METARs", metarsToJson());
+        //        json.put("possible TAFs", tafsToJson());
+
+        String metar = wx.getString("current METAR");
+        String taf = wx.getString("current TAF");
+        JSONArray metars = wx.getJSONArray("possible METARs");
+        JSONArray tafs = wx.getJSONArray("possible TAFs");
+
+        Weather weather = new Weather();
+        weather.setCurrentMetar(metar);
+        weather.setCurrentTaf(taf);
+        addMetars(weather, metars);
+        addTafs(weather, tafs);
+
+        return weather;
+    }
+
+    // MODIFIES: weather
+    // EFFECTS: parses tafs from JSON array and adds them to weather
+    private void addTafs(Weather weather, JSONArray tafs) {
+        for (Object json : tafs) {
+            String nextTaf = (String) json;
+            weather.getTafs().add(nextTaf);
+        }
+    }
+
+    // MODIFIES: weather
+    // EFFECTS: parses metars from JSON array and adds them to weather
+    private void addMetars(Weather weather, JSONArray metars) {
+        for (Object json : metars) {
+            String nextMet = (String) json;
+            weather.getMetars().add(nextMet);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses instructors from JSON array and adds them to pilot's list of instructors
+    private void addInstrsPilot(Pilot p, JSONArray listOfInstructors) {
+        for (Object json : listOfInstructors) {
+            JSONObject nextInstr = (JSONObject) json;
+            addInstrPilot(p, nextInstr);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses instructor from JSON object and adds them to pilot's list of instructors
+    private void addInstrPilot(Pilot p, JSONObject nextInstr) {
+        Instructor parsedInstructor = parseInstr(nextInstr);
+        p.getLoi().add(parsedInstructor);
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses planes from JSON array and adds them to pilot's list of planes
+    private void addPlanes(Pilot p, JSONArray listOfPlanes) {
+        for (Object json : listOfPlanes) {
+            JSONObject nextPlane = (JSONObject) json;
+            addPlanePilot(p, nextPlane);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses plane from JSON object and adds them to pilot's list of planes
+    private void addPlanePilot(Pilot p, JSONObject nextPlane) {
+        Plane parsedPlane = parsePlane(nextPlane);
+        p.getLop().add(parsedPlane);
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses pilot logs from JSON array and adds them to pilot's logs
+    private void addPilotLogs(Pilot p, JSONArray pilotLogs) {
+        for (Object json : pilotLogs) {
+            JSONObject nextPL = (JSONObject) json;
+            addPL(p, nextPL);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses pilot log from JSON object and adds them to pilot's pilot logs
+    private void addPL(Pilot p, JSONObject nextPL) {
+        PilotLog parsedPl = parsePl(nextPL);
+        p.getPl().add(parsedPl);
+    }
+
+    // EFFECT: parses pilot log from JSON object & returns it
+    private PilotLog parsePl(JSONObject nextPL) {
+        
+        String day1 = nextPL.getString("day");
+        String time1 = nextPL.getString("time");
+        double ft = nextPL.getDouble("flight time");
+        String pilotType = nextPL.getString("piloting type");
+        String planeType = nextPL.getString("plane type");
+        String planeCallS = nextPL.getString("plane call sign");
+        
+        PilotLog pl1 = new PilotLog();
+        pl1.setFlightTime(ft);
+        pl1.setPlaneType(planeType);
+        pl1.setTime(time1);
+        pl1.setDay(day1);
+        pl1.setTypeOfPiloting(pilotType);
+        pl1.setPlaneCallSign(planeCallS);
+        
+        return pl1;
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses bookings for cancelled from JSON array and adds them to pilot's cancelled bookings
+    private void addCancelledBookings(Pilot p, JSONArray cancelledBookings) {
+        for (Object json : cancelledBookings) {
+            JSONObject nextBooking = (JSONObject) json;
+            addCancelled(p, nextBooking);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses bookings for cancelled bookings from JSON array and adds them to pilot's cancelled bookings list
+    private void addCancelled(Pilot p, JSONObject nextBooking) {
+        Booking parsedBooking = parseBooking(nextBooking);
+        p.getCancelled().add(parsedBooking);
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses bookings for completed from JSON array and adds them to pilot's completed bookings
+    private void addCompletedBookings(Pilot p, JSONArray completedBookings) {
+        for (Object json : completedBookings) {
+            JSONObject nextBooking = (JSONObject) json;
+            addCompleted(p, nextBooking);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses bookings for completed bookings from JSON array and adds them to pilot's completed bookings list
+    private void addCompleted(Pilot p, JSONObject nextBooking) {
+        Booking parsedBooking = parseBooking(nextBooking);
+        p.getCompletedBookings().add(parsedBooking);
+    }
+
+    // MODIFIES: p
+    // EFFECTS: parses bookings for postflight from JSON array and adds them to pilot's postflight list
+    private void addToPostflight(Pilot p, JSONArray toPostFlight) {
+        for (Object json : toPostFlight) {
+            JSONObject nextBooking = (JSONObject) json;
+            addPostFlight(p, nextBooking);
+        }
+    }
+
+    // MODIFIES: p
+    // EFFECT: parses booking, and adds it to pilot's postflight list
+    private void addPostFlight(Pilot p, JSONObject booking) {
+        Booking parsedBooking = parseBooking(booking);
+        p.getToPostFlight().add(parsedBooking);
     }
 
     // MODIFIES: p
@@ -115,6 +278,76 @@ public class JsonReader {
     }
 
     // MODIFIES: b
+    // EFFECT: parses preflight & adds it to booking b
+    private void addPref(Booking b, JSONObject pref) {
+        Preflight pf = parsePref(pref);
+        b.setPref(pf);
+    }
+
+    // EFFECT: parses preflight from JSON object & returns it
+    private Preflight parsePref(JSONObject pref) {
+
+        boolean doc = pref.getBoolean("doc onboard");
+        boolean fire = pref.getBoolean("check fire extinguisher");
+        boolean walk = pref.getBoolean("walk around");
+        boolean fuel = pref.getBoolean("fuel enough");
+        boolean wb = pref.getBoolean("w&b done");
+        boolean passBrief = pref.getBoolean("passenger brief");
+        boolean insVal = pref.getBoolean("insurance validity");
+        double hobbsStart = pref.getDouble("hobbs start");
+        String depAP = pref.getString("depart AP");
+
+        Preflight pf = new Preflight();
+        pf.setDocOnBoard(doc);
+        pf.setCheckedFireExt(fire);
+        pf.setWalkAroundDone(walk);
+        pf.setFuelEnough(fuel);
+        pf.setWBDone(wb);
+        pf.setPassengerBriefDone(passBrief);
+        pf.setInsuranceValid(insVal);
+        pf.setHobbsTimeStart(hobbsStart);
+        pf.setDepartAP(depAP);
+
+        return pf;
+    }
+
+    // MODIFIES: b
+    // EFFECT: parses instructor & adds it to booking b
+    private void addInstr(Booking b, JSONObject instr) {
+        Instructor instr1 = parseInstr(instr);
+        b.setInstructor(instr1);
+    }
+
+
+    // EFFECT: parses instructor from JSON object & returns it
+    private Instructor parseInstr(JSONObject instr) {
+
+        String insName = instr.getString("name");
+        String insClass = instr.getString("class");
+        JSONArray ratings = instr.getJSONArray("ratings");
+        JSONObject avails = instr.getJSONObject("availability");
+        int hourlyR = instr.getInt("hourly rate");
+        int experience = instr.getInt("years of experience");
+
+        Instructor i1 = new Instructor();
+        i1.setName(insName);
+        i1.setInstrClass(insClass);
+        addRatings(i1, ratings);
+        addInstrAvail(i1, avails);
+        i1.setHourlyRate(hourlyR);
+        i1.setExpYears(experience);
+
+        return i1;
+    }
+
+    // MODIFIES: i
+    // EFFECT: parses avail from JSON object, add to instructor i
+    private void addInstrAvail(Instructor i, JSONObject avails) {
+        DayTime avail = parseAvails(avails);
+        i.setAvails(avail);
+    }
+
+    // MODIFIES: b
     // EFFECT: parses plane & adds plane to booking
     private void addPlane(Booking b, JSONObject plane) {
         Plane parsedPlane = parsePlane(plane);
@@ -123,14 +356,6 @@ public class JsonReader {
 
     // EFFECT: parses plane from JSON object and returns it
     private Plane parsePlane(JSONObject plane) {
-        //        json.put("type", type);
-        //        json.put("call sign", callSign);
-        //        json.put("availability", avails.toJson());
-        //        json.put("hourly rental rate", hourlyRentalRate);
-        //        json.put("hourly fuel rate", hourlyFuelRate);
-        //        json.put("plane doc", pd.toJson());
-        //        json.put("fuel amount", fuelAmount);
-        //        json.put("max fuel", maxFuel);
 
         String type = plane.getString("type");
         String callSign = plane.getString("call sign");
@@ -178,7 +403,31 @@ public class JsonReader {
     }
 
     // MODIFIES: pd1
-    // EFFECT: parses fls from JSON array, add to plane1
+    // EFFECT: parses ins from JSON object, add to pd1
+    private void addIns(PlaneDocuments pd1, JSONObject ins) {
+        Insurance ins1 = parseIns(ins);
+        pd1.setInsurance(ins1);
+    }
+
+    // EFFECT: parses ins from JSON object and returns it
+    private Insurance parseIns(JSONObject ins) {
+
+        String vd = ins.getString("validity start");
+        String vde = ins.getString("validity end");
+        int amount = ins.getInt("amount");
+        String type = ins.getString("type");
+
+        Insurance insurance = new Insurance();
+        insurance.setDateValid(vd);
+        insurance.setDateValidUntil(vde);
+        insurance.setAmountInsured(amount);
+        insurance.setTypeOfInsurance(type);
+
+        return insurance;
+    }
+
+    // MODIFIES: pd1
+    // EFFECT: parses fls from JSON array, add to pd1
     private void addFls(PlaneDocuments pd1, JSONArray fls) {
         for (Object json : fls) {
             JSONObject nextfl = (JSONObject) json;
@@ -196,18 +445,18 @@ public class JsonReader {
     // EFFECT: parses nextfl from JSON object and returns it
     private PlaneFlightLog parseFl(JSONObject nextfl) {
 
-        double hStart = nextfl.getDouble("hobbs start");
-        double hEnd = nextfl.getDouble("hobbs end");
-        String dAP = nextfl.getString("departing AP");
-        String aAP = nextfl.getString("arriving AP");
-        double hTilMaint = nextfl.getDouble("hours till' maintenance");
+        double hobbsStart = nextfl.getDouble("hobbs start");
+        double hobbsEnd = nextfl.getDouble("hobbs end");
+        String depAP = nextfl.getString("departing AP");
+        String arrAP = nextfl.getString("arriving AP");
+        double hoursTilMaint = nextfl.getDouble("hours till' maintenance");
 
         PlaneFlightLog pfl = new PlaneFlightLog();
-        pfl.setHobbsTimeStart(hStart);
-        pfl.setHobbsTimeEnd(hEnd);
-        pfl.setDepartingAP(dAP);
-        pfl.setArrivingAP(aAP);
-        pfl.setHoursTillMaint(hTilMaint);
+        pfl.setHobbsTimeStart(hobbsStart);
+        pfl.setHobbsTimeEnd(hobbsEnd);
+        pfl.setDepartingAP(depAP);
+        pfl.setArrivingAP(arrAP);
+        pfl.setHoursTillMaint(hoursTilMaint);
 
         return pfl;
     }
@@ -314,15 +563,13 @@ public class JsonReader {
         }
     }
 
-
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
-    private void addThingy(WorkRoom wr, JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
-        Category category = Category.valueOf(jsonObject.getString("category"));
-        Thingy thingy = new Thingy(name, category);
-        wr.addThingy(thingy);
+    // MODIFIES: i
+    // EFFECTS: parses ratings from JSON array and adds them to instructor's ratings
+    private void addRatings(Instructor i, JSONArray ratings) {
+        for (Object json : ratings) {
+            String nextRating = (String) json;
+            i.getRatings().add(nextRating);
+        }
     }
 }
 
-}
