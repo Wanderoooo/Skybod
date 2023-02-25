@@ -73,7 +73,6 @@ public class DayTimeTest {
         dt1.addGivenDayTime("wednesday", "0000", "0100");
         ArrayList<String> w1 = new ArrayList<>();
         w1.add("0000");
-        w1.add("0100");
         assertEquals(w1, dt1.getWednesday());
 
         dt2.addGivenDayTime("THURSDAY", "0000", "0400");
@@ -82,25 +81,17 @@ public class DayTimeTest {
         t1.add("0100");
         t1.add("0200");
         t1.add("0300");
-        t1.add("0400");
         assertEquals(t1, dt2.getThursday());
 
         dt2.addGivenDayTime("Saturday", "0500", "0700");
         ArrayList<String> s1 = new ArrayList<>();
         s1.add("0500");
         s1.add("0600");
-        s1.add("0700");
         assertEquals(s1, dt2.getSaturday());
 
         dt2.addGivenDayTime("saturday", "0800", "0900");
         s1.add("0800");
-        s1.add("0900");
         assertEquals(s1, dt2.getSaturday());
-
-        dt3.addGivenDayTime("sunday", "0000", "0000");
-        ArrayList<String> zeroTime = new ArrayList<>();
-        zeroTime.add("0000");
-        assertEquals(zeroTime, dt3.getSunday());
     }
 
     @Test

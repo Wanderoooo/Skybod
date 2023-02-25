@@ -19,12 +19,12 @@ public class InstructorTest {
 
     @Test
     public void instructorConstructorTest() {
-        assertNull(i1.getAvails());
-        assertNull(i1.getName());
+        assertEquals(0, i1.getAvails().getSunday().size());
+        assertEquals("", i1.getName());
         assertEquals(0, i1.getExpYears());
         assertEquals(0, i1.getHourlyRate());
         assertEquals(new HashSet<>() ,i1.getRatings());
-        assertNull(i1.getInstrClass());
+        assertEquals("", i1.getInstrClass());
     }
 
     @Test

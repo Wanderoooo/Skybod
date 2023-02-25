@@ -18,11 +18,11 @@ public class PilotLogTest {
 
     @Test
     public void pilotLogConstructorTest() {
-        assertNull(pl1.getDay());
-        assertNull(pl1.getTime());
-        assertNull(pl1.getPlaneType());
-        assertNull(pl1.getTypeOfPiloting());
-        assertNull(pl1.getPlaneCallSign());
+        assertEquals("", pl1.getDay());
+        assertEquals("", pl1.getTime());
+        assertEquals("", pl1.getPlaneType());
+        assertEquals("", pl1.getTypeOfPiloting());
+        assertEquals("", pl1.getPlaneCallSign());
         assertEquals(0.0, pl1.getFlightTime());
     }
 

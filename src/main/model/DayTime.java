@@ -65,18 +65,16 @@ public class DayTime implements Writable {
         setDay(d, backToStringList);
     }
 
-    // REQUIRES: 0000 <= from <= 2400, 0 <= to <= 2400, from <= to, from & to both are in exact hundreds,
+    // REQUIRES: 0000 <= from < 2400, 0 <= to < 2400, from < to, from & to both are in exact hundreds,
     // d must be a day name in the week, object not already available any time at and between [from - to].
     // MODIFIES: this
     // EFFECT: 24h clock system, add availability on given day from: from - to, in hour increments
     public void addGivenDayTime(String d, String from, String to) {
-
-        // add prevention of user from entering whatever
         ArrayList<String> givenDay = findDay(d);
         int f = Integer.parseInt(from);
         int t = Integer.parseInt(to);
 
-        for (int i = f; i <= t; i += 100) {
+        for (int i = f; i < t; i += 100) {
             String time = Integer.toString(i);
 
             while (time.length() < 4) {
@@ -92,28 +90,21 @@ public class DayTime implements Writable {
         ArrayList foundDay = new ArrayList();
         switch (d.toUpperCase()) {
             case "MONDAY":
-                foundDay = monday;
-                break;
+                return foundDay = monday;
             case "TUESDAY":
-                foundDay = tuesday;
-                break;
+                return foundDay = tuesday;
             case "WEDNESDAY":
-                foundDay = wednesday;
-                break;
+                return foundDay = wednesday;
             case "THURSDAY":
-                foundDay = thursday;
-                break;
+                return foundDay = thursday;
             case "FRIDAY":
-                foundDay = friday;
-                break;
+                return foundDay = friday;
             case "SATURDAY":
-                foundDay = saturday;
-                break;
+                return foundDay = saturday;
             default:
-                foundDay = sunday;
+                return foundDay = sunday;
         }
 
-        return foundDay;
     }
 
     // REQUIRE: d be a day name, dayAvail is a list of time availability incrementing by 100s

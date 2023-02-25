@@ -46,3 +46,8 @@ interface with optional tutorial can enhance learning and pre-flight and post-fl
 - As a user, when I select the quit option from the application menu, I want to be reminded to save my flight planner to 
 file and have the option to do so or not.
 - As a user, when I start the application, I want to be given the option to load my flight planner from file.
+
+## Code Credit
+JsonWriter JsonReader classes, along with corresponding tests, Writable interface, implementation
+of toJson in each class in model package all involve code with inspiration/direct usage of
+code template from WorkRoomApp at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git

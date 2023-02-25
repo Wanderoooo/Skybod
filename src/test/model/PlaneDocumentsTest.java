@@ -19,7 +19,7 @@ public class PlaneDocumentsTest {
     @Test
     public void pdConstructorTest() {
         assertEquals(new LinkedList<>(), doc152.getFl());
-        assertNull(doc152.getInsurance());
+        assertEquals("", doc152.getInsurance().getTypeOfInsurance());
         assertEquals(0.0, doc152.getWeightInfo());
     }
 

@@ -18,8 +18,8 @@ public class WeatherTest {
 
     @Test
     public void weatherConstructorTest() {
-        assertNull(wx.getCurrentTaf());
-        assertNull(wx.getCurrentMetar());
+        assertEquals("", wx.getCurrentTaf());
+        assertEquals("", wx.getCurrentMetar());
 
         ArrayList<String> metars = new ArrayList<>();
         metars.add("050000Z 09017KT 20SM SCT030 SCT080 OVC100 09/06 A2987 RMK SC3AC1AC4 SLP117=");

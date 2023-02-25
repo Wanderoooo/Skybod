@@ -16,9 +16,9 @@ public class InsuranceTest {
 
     @Test
     public void insuranceConstructorTest() {
-        assertNull(ins1.getDateValid());
-        assertNull(ins1.getTypeOfInsurance());
-        assertNull(ins1.getDateValidUntil());
+        assertEquals("", ins1.getDateValid());
+        assertEquals("", ins1.getTypeOfInsurance());
+        assertEquals("", ins1.getDateValidUntil());
         assertEquals(0, ins1.getAmountInsured());
     }
 

@@ -21,7 +21,7 @@ public class PilotTest {
 
     @Test
     public void pilotConstructorTest() {
-        assertNull(p1.getName());
+        assertEquals("", p1.getName());
         assertEquals(new LinkedList<>(),p1.getBookings());
         assertEquals(new LinkedList<>(), p1.getCancelled());
         assertEquals(new LinkedList<>() ,p1.getToPostFlight());

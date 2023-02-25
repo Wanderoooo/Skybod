@@ -16,8 +16,8 @@ public class PreflightTest {
 
     @Test
     public void pfConstructorTest() {
-        assertNull(pf.getWb());
-        assertNull(pf.getDepartAP());
+        assertEquals(0.0, pf.getWb().getPassengerWeight());
+        assertEquals("", pf.getDepartAP());
         assertEquals(0.0, pf.getHobbsTimeStart());
         assertFalse(pf.isWBDone());
         assertFalse(pf.isCheckedFireExt());

@@ -16,13 +16,13 @@ public class BookingTest {
 
     @Test
     public void bookingConstructorTest() {
-        assertNull(tb1.getDayBooked());
-        assertNull(tb1.getInstructor());
-        assertNull(tb1.getPlane());
-        assertNull(tb1.getPref());
-        assertNull(tb1.getTimeBooked());
-        assertNull(tb1.getReasonCancelled());
-        assertNull(tb1.getTypeOfLesson());
+        assertEquals("", tb1.getDayBooked());
+        assertEquals("", tb1.getInstructor().getName());
+        assertEquals("", tb1.getPlane().getCallSign());
+        assertEquals("", tb1.getPref().getDepartAP());
+        assertEquals("", tb1.getTimeBooked());
+        assertEquals("", tb1.getReasonCancelled());
+        assertEquals("", tb1.getTypeOfLesson());
     }
 
     @Test
@@ -69,11 +69,9 @@ public class BookingTest {
         assertEquals(t1, tb1.getTimeBooked());
         assertEquals(t2, tb2.getTimeBooked());
         assertEquals(r1, tb1.getReasonCancelled());
-        assertNull(tb2.getReasonCancelled());
+        assertEquals("", tb2.getReasonCancelled());
         assertEquals(type1, tb1.getTypeOfLesson());
         assertEquals(type2, tb2.getTypeOfLesson());
-
-
     }
 
 }

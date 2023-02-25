@@ -21,8 +21,8 @@ public class PlaneFlightLogTest {
         assertEquals(0.0, fl.getHobbsTimeEnd());
         assertEquals(0.0, fl.getHoursTillMaint());
         assertEquals(0.0, fl.getHobbsTimeStart());
-        assertNull(fl.getDepartingAP());
-        assertNull(fl.getArrivingAP());
+        assertEquals("", fl.getDepartingAP());
+        assertEquals("", fl.getArrivingAP());
     }
 
     @Test

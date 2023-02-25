@@ -20,10 +20,10 @@ public class PlaneTest {
 
     @Test
     public void planeConstructorTest() {
-        assertNull(p1.getType());
-        assertNull(p1.getCallSign());
-        assertNull(p1.getAvails());
-        assertNull(p1.getPd());
+        assertEquals("", p1.getType());
+        assertEquals("", p1.getCallSign());
+        assertEquals(0, p1.getAvails().getSunday().size());
+        assertEquals(0.0, p1.getPd().getWeightInfo());
         assertEquals(0, p1.getHourlyFuelRate());
         assertEquals(0, p1.getHourlyRentalRate());
         assertEquals(0.0, p1.getFuelAmount());

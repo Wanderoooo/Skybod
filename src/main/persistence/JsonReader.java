@@ -3,13 +3,10 @@ package persistence;
 import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.awt.print.Book;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 // Represents a reader that reads pilot from JSON data stored in file
@@ -42,6 +39,7 @@ public class JsonReader {
     }
 
     // EFFECTS: parses pilot from JSON object and returns it
+    @SuppressWarnings("methodlength") // suppress warnings tag approved by ____ ?
     private Pilot parsePilot(JSONObject jsonObject) {
 
         String name = jsonObject.getString("name");
