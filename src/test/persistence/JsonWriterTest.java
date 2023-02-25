@@ -178,8 +178,8 @@ class JsonWriterTest {
             writer.write(p);
             writer.close();
 
-            assertTrue(p.getLop().contains(pl));
-            assertTrue(p.getLoi().contains(i));
+            JsonReader reader = new JsonReader("./data/testWriterLotOfInfoPilot.json");
+            p = reader.read();
             assertTrue(p.getLoi().get(0).getRatings().contains("Float"));
             assertTrue(p.getLop().get(0).getAvails().getMonday().contains("0000"));
             assertTrue(p.getLop().get(0).getAvails().getMonday().contains("0100"));
@@ -187,6 +187,7 @@ class JsonWriterTest {
             assertFalse(p.getLop().get(0).getAvails().getMonday().contains("0300"));
             assertEquals(3, p.getLop().get(0).getAvails().getMonday().size());
             assertEquals(1, p.getLop().size());
+            assertEquals(1, p.getLoi().size());
             PlaneFlightLog fl1 = p.getLop().get(0).getPd().getFl().get(0);
 
             assertEquals("ZZTT",fl1.getArrivingAP());
