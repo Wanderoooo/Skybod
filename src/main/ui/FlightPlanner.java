@@ -333,8 +333,10 @@ public class FlightPlanner {
         Preflight preflight = new Preflight();
         System.out.println("All your current aeroplane bookings:");
         int n = 1;
+        LinkedList<Booking> allFlightBookings = new LinkedList<>();
         for (Booking b : allMyBookings) {
             if (b.getTypeOfLesson().equals("FLIGHT")) {
+                allFlightBookings.add(b);
                 System.out.print(n + " - ");
                 printBooking(b);
                 System.out.println("");
@@ -345,14 +347,14 @@ public class FlightPlanner {
         if (n == 1) {
             System.out.println("You don't have any flight bookings");
         } else {
-            prefChecklist(allMyBookings, preflight);
+            prefChecklist(allFlightBookings, preflight);
         }
     }
 
     // MODIFIES: this, allMyBookings, preflight
     // EFFECT: updates bookings and preflight status
-    private void prefChecklist(List<Booking> allMyBookings, Preflight preflight) {
-        Booking toPreflight = prefSelection(allMyBookings);
+    private void prefChecklist(List<Booking> allFlightBookings, Preflight preflight) {
+        Booking toPreflight = prefSelection(allFlightBookings);
         docCheck();
         insuranceCheck(preflight, toPreflight);
         walkaroundCheck(preflight);
@@ -681,11 +683,11 @@ public class FlightPlanner {
 
     // MODIFIES: this, allMyBookings
     // EFFECT: allow user to select booking to preflight, prints out confirmation once completed
-    private Booking prefSelection(List<Booking> allMyBookings) {
+    private Booking prefSelection(List<Booking> allFlightBookings) {
         System.out.println("Enter the corresponding number for the booking you'd like to preflight");
         int bookingNum = sc.nextInt();
 
-        Booking toPreflight = allMyBookings.get(bookingNum - 1);
+        Booking toPreflight = allFlightBookings.get(bookingNum - 1);
         System.out.print("You are preflighting for ");
         printBooking(toPreflight);
 
@@ -1062,8 +1064,7 @@ public class FlightPlanner {
         printDayAvail(choice, booking.getInstructor().getAvails());
         ArrayList<String> dayAvail = booking.getInstructor().getAvails().findDay(choice);
 
-        System.out.println("\nTo book a time - enter the hour"
-                + "\nTo return to previous option - 'PREV'");
+        System.out.println("\nTo book a time - enter the hour");
 
         String c = sc.next();
         boolean successBookTime = false;
@@ -1082,12 +1083,11 @@ public class FlightPlanner {
         if (successBookTime) {
             System.out.println("You've booked " + booking.getInstructor().getName()
                     + " on " + choice + " at " + c);
+            booking.setTypeOfLesson("GROUND");
+            pilot.addBooking(booking);
         } else {
             System.out.println("The time you've selected is unavailable, please try again");
         }
-
-        booking.setTypeOfLesson("GROUND");
-        pilot.addBooking(booking);
     }
 
     // MODIFIES: this, dayAvail

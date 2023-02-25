@@ -3,6 +3,7 @@ package persistence;
 // Testing class for JsonReader
 // CREDIT: code template from WorkRoomApp from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 import model.Pilot;
+import model.Plane;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -65,4 +66,30 @@ public class JsonReaderTest {
             fail("Couldn't read from file");
         }
     }
+
+    @Test
+    void testReaderLotOfInfoPilot() {
+        JsonReader reader = new JsonReader("./data/testReaderLotOfInfoPilot.json");
+        try {
+            Pilot p = reader.read();
+            assertEquals(1, p.getBookings().size());
+            assertEquals("0200", p.getBookings().get(0).getTimeBooked());
+            assertEquals(1, p.getToPostFlight().size());
+            assertFalse(p.getLop().get(0).getAvails().getTuesday().contains("0200"));
+            assertTrue(p.getRatings().contains("VFR"));
+
+            Plane cessna152 = new Plane();
+            for (Plane plane : p.getLop())  {
+                if (plane.getType().equalsIgnoreCase("cessna-152")) {
+                    cessna152 = plane;
+                }
+            }
+
+            assertFalse(cessna152.getPd().getFl().size() == 0);
+
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
 }
+
