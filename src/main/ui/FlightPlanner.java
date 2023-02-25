@@ -337,6 +337,7 @@ public class FlightPlanner {
             if (b.getTypeOfLesson().equals("FLIGHT")) {
                 System.out.print(n + " - ");
                 printBooking(b);
+                System.out.println("");
                 n++;
             }
         }
@@ -762,6 +763,7 @@ public class FlightPlanner {
         for (Booking b : allToPostflight) {
             System.out.print(n + " - ");
             printBooking(b);
+            System.out.println("");
             n++;
         }
     }
@@ -1202,6 +1204,7 @@ public class FlightPlanner {
         System.out.println("Your bookings on " + day + " are:");
         for (Booking b : bookingsOnDay) {
             printBooking(b);
+            System.out.println("");
         }
     }
 
@@ -1217,6 +1220,7 @@ public class FlightPlanner {
 
             for (Booking b : myBookings) {
                 printBooking(b);
+                System.out.println(" on " + b.getDayBooked());
             }
 
             System.out.println(" ");
@@ -1226,13 +1230,13 @@ public class FlightPlanner {
     // EFFECT: print all user's bookings
     public void printBooking(Booking b) {
         if (b.getPlane().getType().equals("")) {
-            System.out.println(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " with "
+            System.out.print(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " with "
                     + b.getInstructor().getName());
         } else if (b.getInstructor().getName().equals("")) {
-            System.out.println("AIRCRAFT at " + b.getTimeBooked() + " for " + b.getPlane().getType() + " "
+            System.out.print("AIRCRAFT at " + b.getTimeBooked() + " for " + b.getPlane().getType() + " "
                     + b.getPlane().getCallSign());
         } else {
-            System.out.println(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " on " + b.getPlane().getType()
+            System.out.print(b.getTypeOfLesson() + " lesson at " + b.getTimeBooked() + " on " + b.getPlane().getType()
                     + " "
                     + b.getPlane().getCallSign() + " with " + b.getInstructor().getName());
         }

@@ -1,0 +1,697 @@
+{
+  "to postflight": [
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    },
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    }
+  ],
+  "wx": {
+    "current METAR": "ZZZZ 130000Z 08009KT 10SM -RA FEW007 OVC021 06/06 A3006 RMK SC2SC6 SLP182=",
+    "possible TAFs": [
+      "042340Z 0500/0606 10012G22KT P6SM SCT012 BKN025 TEMPO\n0500/0504 P6SM -RA BKN015\nFM050400 09010KT P6SM SCT020 BKN060\nFM050900 09008KT P6SM SCT060 BKN200 TEMPO 0509/0516 BKN060\nFM051600 08008KT P6SM BKN040 TEMPO 0516/0606 P6SM -RA BKN020\nRMK NXT FCST BY 050300Z",
+      "042340Z 0500/0524 VRB03KT P6SM -RA SCT015 BKN025 TEMPO\n0500/0505 5SM -RA BR BKN012\nFM050500 04008KT P6SM SCT060 BKN120 TEMPO 0505/0509 BKN050\nFM051800 VRB03KT P6SM BKN050 TEMPO 0518/0524 P6SM -RA BKN020\nRMK NXT FCST BY 050600Z=",
+      "042343Z 0500/0505 VRB03KT P6SM BKN100\nRMK NXT FCST BY 051500Z="
+    ],
+    "possible METARs": [
+      "050000Z 09017KT 20SM SCT030 SCT080 OVC100 09/06 A2987 RMK SC3AC1AC4 SLP117=",
+      "042300Z 09013G20KT 20SM BKN030 OVC038 09/07 A2989 RMK SC6SC2 SLP123",
+      "08011G18KT 20SM OVC032 09/07 A2991 RMK SC8 SLP130=",
+      "130100Z 09010KT 6SM -RA BR SCT007 OVC030 05/05 A3001 RMK SC3SC5 SLP166=",
+      "130024Z 08010KT 3SM -RA BR SCT015 OVC029 06/06 A3004 RMK SC4NS4 PRESFR SLP176=",
+      "130012Z CCA 08009KT 2 1/2SM RA BR SCT013 OVC029 06/06 A3006 RMK SC4NS4 SLP181=",
+      "130012Z 08009KT 2 1/2SM -RA BR SCT013 OVC029 06/06 A3006 RMK SC4SC4 SLP181=",
+      "130000Z 08009KT 10SM -RA FEW007 OVC021 06/06 A3006 RMK SC2SC6 SLP182="
+    ],
+    "current TAF": "YYYY 042340Z 0500/0524 VRB03KT P6SM -RA SCT015 BKN025 TEMPO\n0500/0505 5SM -RA BR BKN012\nFM050500 04008KT P6SM SCT060 BKN120 TEMPO 0505/0509 BKN050\nFM051800 VRB03KT P6SM BKN050 TEMPO 0518/0524 P6SM -RA BKN020\nRMK NXT FCST BY 050600Z="
+  },
+  "medical#": 12345,
+  "completed bookings": [
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    },
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    }
+  ],
+  "student": true,
+  "ratings": [
+    "Float",
+    "VFR",
+    "Multi"
+  ],
+  "list of instructors": [
+    {
+      "ratings": [],
+      "name": "",
+      "availability": {
+        "sunday": [],
+        "saturday": [],
+        "tuesday": [],
+        "wednesday": [],
+        "thursday": [],
+        "friday": [],
+        "monday": []
+      },
+      "class": "",
+      "hourly rate": 0,
+      "years of experience": 0
+    },
+    {
+      "ratings": [],
+      "name": "",
+      "availability": {
+        "sunday": [],
+        "saturday": [],
+        "tuesday": [],
+        "wednesday": [],
+        "thursday": [],
+        "friday": [],
+        "monday": []
+      },
+      "class": "",
+      "hourly rate": 0,
+      "years of experience": 0
+    }
+  ],
+  "name": "Mona",
+  "pilot logs": [
+    {
+      "flight time": 0,
+      "piloting type": "",
+      "time": "",
+      "plane call sign": "",
+      "plane type": "",
+      "day": ""
+    },
+    {
+      "flight time": 0,
+      "piloting type": "",
+      "time": "",
+      "plane call sign": "",
+      "plane type": "",
+      "day": ""
+    }
+  ],
+  "list of planes": [
+    {
+      "call sign": "",
+      "hourly fuel rate": 0,
+      "hourly rental rate": 0,
+      "fuel amount": 0,
+      "plane doc": {
+        "insurance": {
+          "amount": 0,
+          "validity start": "",
+          "validity end": "",
+          "type": ""
+        },
+        "weight": 0,
+        "flight logs": []
+      },
+      "max fuel": 0,
+      "availability": {
+        "sunday": [],
+        "saturday": [],
+        "tuesday": [],
+        "wednesday": [],
+        "thursday": [],
+        "friday": [],
+        "monday": []
+      },
+      "type": ""
+    },
+    {
+      "call sign": "",
+      "hourly fuel rate": 0,
+      "hourly rental rate": 0,
+      "fuel amount": 0,
+      "plane doc": {
+        "insurance": {
+          "amount": 0,
+          "validity start": "",
+          "validity end": "",
+          "type": ""
+        },
+        "weight": 0,
+        "flight logs": []
+      },
+      "max fuel": 0,
+      "availability": {
+        "sunday": [],
+        "saturday": [],
+        "tuesday": [],
+        "wednesday": [],
+        "thursday": [],
+        "friday": [],
+        "monday": []
+      },
+      "type": ""
+    }
+  ],
+  "bookings": [
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    },
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    }
+  ],
+  "cancelled bookings": [
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    },
+    {
+      "plane": {
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+          "insurance": {
+            "amount": 0,
+            "validity start": "",
+            "validity end": "",
+            "type": ""
+          },
+          "weight": 0,
+          "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "type": ""
+      },
+      "type of lesson": "",
+      "instructor": {
+        "ratings": [],
+        "name": "",
+        "availability": {
+          "sunday": [],
+          "saturday": [],
+          "tuesday": [],
+          "wednesday": [],
+          "thursday": [],
+          "friday": [],
+          "monday": []
+        },
+        "class": "",
+        "hourly rate": 0,
+        "years of experience": 0
+      },
+      "reason cancelled": "",
+      "time": "",
+      "day": "",
+      "preflight": {
+        "passenger brief": false,
+        "doc onboard": false,
+        "walk around": false,
+        "weight & balance": {
+          "aircraft weight": 0,
+          "fuel weight": 0,
+          "fuel gallons": 0,
+          "passenger weight": 0,
+          "within limit": false,
+          "takeoff weight": 0,
+          "pilot weight": 0
+        },
+        "hobbs start": 0,
+        "depart AP": "",
+        "insurance validity": false,
+        "w&b done": false,
+        "fuel enough": false,
+        "check fire extinguisher": false
+      }
+    }
+  ]
+}
