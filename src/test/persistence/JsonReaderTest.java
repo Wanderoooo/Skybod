@@ -4,6 +4,7 @@ package persistence;
 // CREDIT: code template from WorkRoomApp from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 import model.Pilot;
 import model.Plane;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,6 +12,14 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest {
+    private Pilot pilotOneItemEach;
+
+    @BeforeEach
+    void runBefore() {
+        pilotOneItemEach = new Pilot();
+
+
+    }
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
