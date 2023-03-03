@@ -128,8 +128,10 @@ public class Weather implements Writable {
             return false;
         }
         Weather weather = (Weather) o;
-        return currentMetar.equals(weather.currentMetar) && currentTaf.equals(weather.currentTaf)
-                && metars.equals(weather.metars) && tafs.equals(weather.tafs);
+        return currentMetar.equals(weather.currentMetar)
+                && currentTaf.equals(weather.currentTaf)
+                && metars.equals(weather.metars)
+                && tafs.equals(weather.tafs);
     }
 
     @Override

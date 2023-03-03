@@ -63,6 +63,11 @@ public class PlaneDocumentsTest {
         assertTrue(doc152.equals(pl1));
         assertTrue(doc152.equals(doc152));
         assertFalse(doc152.equals(null));
+
+        PlaneDocuments pd = new PlaneDocuments();
+        pd.setWeightInfo(19);
+
+        assertFalse(pl1.equals(pd));
     }
 
     @Test

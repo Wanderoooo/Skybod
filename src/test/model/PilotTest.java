@@ -126,6 +126,13 @@ public class PilotTest {
         assertTrue(p2.equals(p1));
         assertTrue(p1.equals(p1));
         assertFalse(p1.equals(null));
+
+        Pilot p = new Pilot();
+        p.setStudent(true);
+        p.setName("Donna");
+        p.setMedNum(132);
+
+        assertFalse(p1.equals(p));
     }
 
     @Test

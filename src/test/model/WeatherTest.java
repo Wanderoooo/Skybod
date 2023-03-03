@@ -149,6 +149,11 @@ public class WeatherTest {
         assertTrue(wx2.equals(wx1));
         assertTrue(wx1.equals(wx1));
         assertFalse(wx1.equals(null));
+
+        Weather wx = new Weather();
+        wx.tafUpdate("fsdf");
+        wx.metarUpdate("gbdf");
+        assertFalse(wx1.equals(wx));
     }
 
     @Test

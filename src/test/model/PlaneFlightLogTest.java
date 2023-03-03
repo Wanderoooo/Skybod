@@ -48,6 +48,14 @@ public class PlaneFlightLogTest {
         assertTrue(fl.equals(piperfl));
         assertTrue(fl.equals(fl));
         assertFalse(fl.equals(null));
+
+        PlaneFlightLog pfl = new PlaneFlightLog();
+        pfl.setHobbsTimeEnd(10);
+        pfl.setHobbsTimeStart(1);
+        pfl.setDepartingAP("DFAA");
+        pfl.setArrivingAP("VFSA");
+
+        assertFalse(fl.equals(pfl));
     }
 
     @Test

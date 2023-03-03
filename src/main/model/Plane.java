@@ -139,9 +139,13 @@ public class Plane implements Writable {
         }
 
         Plane plane = (Plane) o;
-        return hourlyRentalRate == plane.hourlyRentalRate && hourlyFuelRate == plane.hourlyFuelRate
-                && Double.compare(plane.fuelAmount, fuelAmount) == 0 && Double.compare(plane.maxFuel, maxFuel) == 0
-                && type.equals(plane.type) && callSign.equals(plane.callSign) && avails.equals(plane.avails)
+        return hourlyRentalRate == plane.hourlyRentalRate
+                && hourlyFuelRate == plane.hourlyFuelRate
+                && Double.compare(plane.fuelAmount, fuelAmount) == 0
+                && Double.compare(plane.maxFuel, maxFuel) == 0
+                && type.equals(plane.type)
+                && callSign.equals(plane.callSign)
+                && avails.equals(plane.avails)
                 && pd.equals(plane.pd);
     }
 

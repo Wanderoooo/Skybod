@@ -45,6 +45,14 @@ public class InsuranceTest {
         assertTrue(ins2.equals(ins1));
         assertTrue(ins1.equals(ins1));
         assertFalse(ins1.equals(null));
+
+        Insurance i = new Insurance();
+        i.setTypeOfInsurance("Haul");
+        i.setAmountInsured(12);
+        i.setDateValid("11");
+        i.setDateValidUntil("12");
+
+        assertFalse(ins1.equals(i));
     }
 
     @Test

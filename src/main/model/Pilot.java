@@ -272,11 +272,18 @@ public class Pilot implements Writable {
             return false;
         }
         Pilot pilot = (Pilot) o;
-        return medNum == pilot.medNum && isStudent == pilot.isStudent && name.equals(pilot.name)
-                && ratings.equals(pilot.ratings) && bookings.equals(pilot.bookings)
-                && toPostFlight.equals(pilot.toPostFlight) && completedBookings.equals(pilot.completedBookings)
-                && cancelled.equals(pilot.cancelled) && pl.equals(pilot.pl) && lop.equals(pilot.lop)
-                && loi.equals(pilot.loi) && wx.equals(pilot.wx);
+        return medNum == pilot.medNum
+                && isStudent == pilot.isStudent
+                && name.equals(pilot.name)
+                && ratings.equals(pilot.ratings)
+                && bookings.equals(pilot.bookings)
+                && toPostFlight.equals(pilot.toPostFlight)
+                && completedBookings.equals(pilot.completedBookings)
+                && cancelled.equals(pilot.cancelled)
+                && pl.equals(pilot.pl)
+                && lop.equals(pilot.lop)
+                && loi.equals(pilot.loi)
+                && wx.equals(pilot.wx);
     }
 
     @Override

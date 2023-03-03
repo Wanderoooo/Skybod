@@ -64,6 +64,16 @@ public class PreflightTest {
         assertTrue(pf2.equals(pf1));
         assertTrue(pf1.equals(pf1));
         assertFalse(pf1.equals(null));
+
+        Preflight pf = new Preflight();
+        pf.setDepartAP("sdfs");
+        pf.setHobbsTimeStart(13);
+        pf.setInsuranceValid(true);
+        pf.setPassengerBriefDone(true);
+        pf.setWalkAroundDone(true);
+        pf.setCheckedFireExt(true);
+
+        assertFalse(pf2.equals(pf));
     }
 
     @Test

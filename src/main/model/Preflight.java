@@ -146,11 +146,17 @@ public class Preflight implements Writable {
             return false;
         }
         Preflight preflight = (Preflight) o;
-        return isDocOnBoard == preflight.isDocOnBoard && isCheckedFireExt == preflight.isCheckedFireExt
-                && isWalkAroundDone == preflight.isWalkAroundDone && isFuelEnough == preflight.isFuelEnough
-                && isWBDone == preflight.isWBDone && isPassengerBriefDone == preflight.isPassengerBriefDone
-                && isInsuranceValid == preflight.isInsuranceValid && Double.compare(preflight.hobbsTimeStart,
-                hobbsTimeStart) == 0 && wb.equals(preflight.wb) && departAP.equals(preflight.departAP);
+        return isDocOnBoard == preflight.isDocOnBoard
+                && isCheckedFireExt == preflight.isCheckedFireExt
+                && isWalkAroundDone == preflight.isWalkAroundDone
+                && isFuelEnough == preflight.isFuelEnough
+                && isWBDone == preflight.isWBDone
+                && isPassengerBriefDone == preflight.isPassengerBriefDone
+                && isInsuranceValid == preflight.isInsuranceValid
+                && Double.compare(preflight.hobbsTimeStart,
+                hobbsTimeStart) == 0
+                && wb.equals(preflight.wb)
+                && departAP.equals(preflight.departAP);
     }
 
     @Override

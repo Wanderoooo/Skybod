@@ -58,6 +58,12 @@ public class InstructorTest {
         assertTrue(i2.equals(i1));
         assertTrue(i1.equals(i1));
         assertFalse(i1.equals(null));
+
+        Instructor i = new Instructor();
+        i.setHourlyRate(20);
+        i.setName("Mona");
+
+        assertFalse(i1.equals(i));
     }
 
     @Test

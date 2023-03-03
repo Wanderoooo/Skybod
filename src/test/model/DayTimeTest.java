@@ -160,6 +160,19 @@ public class DayTimeTest {
         assertTrue(dt1.equals(dt1));
         assertFalse(dt1.equals(null));
         assertTrue(dt2.equals(dt1));
+
+        DayTime dto = new DayTime();
+        ArrayList<String> dayTime = new ArrayList<>();
+        dayTime.add("1100");
+        dto.setDay("monday", dayTime);
+        dto.setDay("tuesday", dayTime);
+        dto.setDay("wednesday", dayTime);
+        dto.setDay("thursday", dayTime);
+        dto.setDay("friday", dayTime);
+        dto.setDay("saturday", dayTime);
+        dto.setDay("sunday", dayTime);
+
+        assertFalse(dto.equals(dt1));
     }
 
     @Test

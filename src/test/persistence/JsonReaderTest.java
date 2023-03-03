@@ -92,10 +92,6 @@ public class JsonReaderTest {
             plane.getAvails().setDay("sunday", oneDay);
             pb.getLop().add(plane);
 
-            writer.open();
-            writer.write(pb);
-            writer.close();
-
             Pilot pa = reader.read();
             assertTrue(pa.getLop().contains(plane));
             assertTrue(pa.getLop().get(0).equals(plane));

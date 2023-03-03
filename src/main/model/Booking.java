@@ -112,9 +112,12 @@ public class Booking implements Writable {
             return false;
         }
         Booking booking = (Booking) o;
-        return plane.equals(booking.plane) && instructor.equals(booking.instructor)
-                && dayBooked.equals(booking.dayBooked) && timeBooked.equals(booking.timeBooked)
-                && pref.equals(booking.pref) && reasonCancelled.equals(booking.reasonCancelled)
+        return plane.equals(booking.plane)
+                && instructor.equals(booking.instructor)
+                && dayBooked.equals(booking.dayBooked)
+                && timeBooked.equals(booking.timeBooked)
+                && pref.equals(booking.pref)
+                && reasonCancelled.equals(booking.reasonCancelled)
                 && typeOfLesson.equals(booking.typeOfLesson);
     }
 

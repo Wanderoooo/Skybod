@@ -111,10 +111,14 @@ public class WeightBalance implements Writable {
             return false;
         }
         WeightBalance that = (WeightBalance) o;
-        return Double.compare(that.aircraftWeight, aircraftWeight) == 0 && Double.compare(that.fuelGallons, fuelGallons)
-                == 0 && Double.compare(that.fuelWeight, fuelWeight) == 0 && Double.compare(that.pilotWeight,
-                pilotWeight) == 0 && Double.compare(that.passengerWeight, passengerWeight) == 0
-                && Double.compare(that.takeoffWeight, takeoffWeight) == 0 && isWithinLimit == that.isWithinLimit;
+        return Double.compare(that.aircraftWeight, aircraftWeight) == 0
+                && Double.compare(that.fuelGallons, fuelGallons) == 0
+                && Double.compare(that.fuelWeight, fuelWeight) == 0
+                && Double.compare(that.pilotWeight,
+                pilotWeight) == 0
+                && Double.compare(that.passengerWeight, passengerWeight) == 0
+                && Double.compare(that.takeoffWeight, takeoffWeight) == 0
+                && isWithinLimit == that.isWithinLimit;
     }
 
     @Override

@@ -114,6 +114,15 @@ public class PlaneTest {
         assertTrue(p2.equals(p1));
         assertTrue(p1.equals(p1));
         assertFalse(p1.equals(null));
+
+        Plane p = new Plane();
+        p.setMaxFuel(99);
+        p.setType("Cessna");
+        p.setCallSign("C-GOSD");
+        p.setHourlyRentalRate(827);
+        p.setHourlyFuelRate(31);
+
+        assertFalse(p2.equals(p));
     }
 
     @Test

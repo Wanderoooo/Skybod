@@ -51,6 +51,13 @@ public class PilotLogTest {
         assertTrue(pl2.equals(pl1));
         assertTrue(pl2.equals(pl2));
         assertFalse(pl2.equals(null));
+
+        PilotLog pl = new PilotLog();
+        pl.setPlaneCallSign("GYZZ");
+        pl.setTypeOfPiloting("solo");
+        pl.setDay("Tuesday");
+        pl.setFlightTime(12);
+        assertFalse(pl1.equals(pl));
     }
 
     @Test

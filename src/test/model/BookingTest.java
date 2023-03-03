@@ -82,6 +82,20 @@ public class BookingTest {
         assertTrue(tb1.equals(tb2));
         assertTrue(tb1.equals(tb1));
         assertFalse(tb1.equals(null));
+
+        Booking bk1 = new Booking();
+        bk1.setTimeBooked("0030");
+        bk1.setTypeOfLesson("FLIGHT");
+        bk1.setReasonCancelled("wx");
+        bk1.setDayBooked("Tuesday");
+
+        Booking bk2 = new Booking();
+        bk2.setTimeBooked("0040");
+        bk2.setDayBooked("Monday");
+        bk2.setReasonCancelled("sick");
+        bk2.setTypeOfLesson("GROUND");
+
+        assertFalse(bk1.equals(bk2));
     }
 
     @Test
