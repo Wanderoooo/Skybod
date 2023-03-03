@@ -7,6 +7,7 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 
 // Represents a pilot with name, ratings (i.e. Float, VFR, IFR, and/or Multi), medical number
 // for fitness for flight, whether he/she is a student, all his/her flying & ground less bookings,
@@ -260,5 +261,27 @@ public class Pilot implements Writable {
 
     public void setWx(Weather wx) {
         this.wx = wx;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Pilot pilot = (Pilot) o;
+        return medNum == pilot.medNum && isStudent == pilot.isStudent && name.equals(pilot.name)
+                && ratings.equals(pilot.ratings) && bookings.equals(pilot.bookings)
+                && toPostFlight.equals(pilot.toPostFlight) && completedBookings.equals(pilot.completedBookings)
+                && cancelled.equals(pilot.cancelled) && pl.equals(pilot.pl) && lop.equals(pilot.lop)
+                && loi.equals(pilot.loi) && wx.equals(pilot.wx);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, ratings, medNum, isStudent, bookings, toPostFlight, completedBookings, cancelled,
+                pl, lop, loi, wx);
     }
 }

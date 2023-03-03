@@ -10,6 +10,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class Plane implements Writable {
     private String type;
     private String callSign;
@@ -125,5 +127,26 @@ public class Plane implements Writable {
         json.put("max fuel", maxFuel);
 
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Plane plane = (Plane) o;
+        return hourlyRentalRate == plane.hourlyRentalRate && hourlyFuelRate == plane.hourlyFuelRate
+                && Double.compare(plane.fuelAmount, fuelAmount) == 0 && Double.compare(plane.maxFuel, maxFuel) == 0
+                && type.equals(plane.type) && callSign.equals(plane.callSign) && avails.equals(plane.avails)
+                && pd.equals(plane.pd);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, callSign, avails, hourlyRentalRate, hourlyFuelRate, pd, fuelAmount, maxFuel);
     }
 }

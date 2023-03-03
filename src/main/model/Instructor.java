@@ -6,6 +6,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 
 // Represents a flight instructor with name, instructor class level (i.e. CFII), his/her
 // obtained flight ratings, availability, hourly rate (in CAD$), and years of experience instructing.
@@ -103,5 +104,22 @@ public class Instructor implements Writable {
         return jsonArray;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
+        Instructor that = (Instructor) o;
+        return hourlyRate == that.hourlyRate && expYears == that.expYears && name.equals(that.name)
+                && instrClass.equals(that.instrClass) && ratings.equals(that.ratings) && avails.equals(that.avails);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, instrClass, ratings, avails, hourlyRate, expYears);
+    }
 }

@@ -6,6 +6,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 // Represents an availability schedule, including times when something is available on specific
 // days of the week. Time availability can be added to a specific day individually, or by an
@@ -194,4 +195,22 @@ public class DayTime implements Writable {
         return jsonArray;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DayTime dayTime = (DayTime) o;
+        return monday.equals(dayTime.monday) && tuesday.equals(dayTime.tuesday) && wednesday.equals(dayTime.wednesday)
+                && thursday.equals(dayTime.thursday) && friday.equals(dayTime.friday)
+                && saturday.equals(dayTime.saturday) && sunday.equals(dayTime.sunday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
+    }
 }

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 // Represents weather reporting system, with current weather forecast (taf) and report (metar),
@@ -23,7 +24,11 @@ public class Weather implements Writable {
     public Weather() {
         currentMetar = "";
         currentTaf = "";
-        setUpWx();
+        metars = new ArrayList<>();
+        tafs = new ArrayList<>();
+        if (metars.size() == 0 && tafs.size() == 0) {
+            setUpWx();
+        }
     }
 
     // MODIFIES: this
@@ -112,8 +117,6 @@ public class Weather implements Writable {
         JSONObject json = new JSONObject();
         json.put("current METAR", currentMetar);
         json.put("current TAF", currentTaf);
-        json.put("possible METARs", metarsToJson());
-        json.put("possible TAFs", tafsToJson());
 
         return json;
     }
@@ -140,7 +143,21 @@ public class Weather implements Writable {
         return jsonArray;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Weather weather = (Weather) o;
+        return currentMetar.equals(weather.currentMetar) && currentTaf.equals(weather.currentTaf)
+                && metars.equals(weather.metars) && tafs.equals(weather.tafs);
+    }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentMetar, currentTaf, metars, tafs);
+    }
 }

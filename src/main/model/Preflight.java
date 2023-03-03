@@ -8,6 +8,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class Preflight implements Writable {
 
     private WeightBalance wb;
@@ -133,5 +135,27 @@ public class Preflight implements Writable {
         json.put("depart AP", departAP);
 
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Preflight preflight = (Preflight) o;
+        return isDocOnBoard == preflight.isDocOnBoard && isCheckedFireExt == preflight.isCheckedFireExt
+                && isWalkAroundDone == preflight.isWalkAroundDone && isFuelEnough == preflight.isFuelEnough
+                && isWBDone == preflight.isWBDone && isPassengerBriefDone == preflight.isPassengerBriefDone
+                && isInsuranceValid == preflight.isInsuranceValid && Double.compare(preflight.hobbsTimeStart,
+                hobbsTimeStart) == 0 && wb.equals(preflight.wb) && departAP.equals(preflight.departAP);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(wb, isDocOnBoard, isCheckedFireExt, isWalkAroundDone, isFuelEnough, isWBDone,
+                isPassengerBriefDone, isInsuranceValid, hobbsTimeStart, departAP);
     }
 }

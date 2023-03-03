@@ -7,6 +7,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class PlaneFlightLog implements Writable {
     private double hobbsTimeStart;
     private double hobbsTimeEnd;
@@ -77,5 +79,24 @@ public class PlaneFlightLog implements Writable {
         json.put("hours til maintenance", hoursTillMaint);
 
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlaneFlightLog that = (PlaneFlightLog) o;
+        return Double.compare(that.hobbsTimeStart, hobbsTimeStart) == 0 && Double.compare(that.hobbsTimeEnd,
+                hobbsTimeEnd) == 0 && Double.compare(that.hoursTillMaint, hoursTillMaint) == 0
+                && departingAP.equals(that.departingAP) && arrivingAP.equals(that.arrivingAP);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hobbsTimeStart, hobbsTimeEnd, departingAP, arrivingAP, hoursTillMaint);
     }
 }

@@ -81,42 +81,17 @@ public class JsonReader {
 
     // EFFECT: parses weather from JSON object & returns it
     private Weather parseWx(JSONObject wx) {
-        // json.put("current METAR", currentMetar);
-        //        json.put("current TAF", currentTaf);
-        //        json.put("possible METARs", metarsToJson());
-        //        json.put("possible TAFs", tafsToJson());
 
         String metar = wx.getString("current METAR");
         String taf = wx.getString("current TAF");
-        JSONArray metars = wx.getJSONArray("possible METARs");
-        JSONArray tafs = wx.getJSONArray("possible TAFs");
 
         Weather weather = new Weather();
         weather.setCurrentMetar(metar);
         weather.setCurrentTaf(taf);
-        addMetars(weather, metars);
-        addTafs(weather, tafs);
 
         return weather;
     }
 
-    // MODIFIES: weather
-    // EFFECTS: parses tafs from JSON array and adds them to weather
-    private void addTafs(Weather weather, JSONArray tafs) {
-        for (Object json : tafs) {
-            String nextTaf = (String) json;
-            weather.getTafs().add(nextTaf);
-        }
-    }
-
-    // MODIFIES: weather
-    // EFFECTS: parses metars from JSON array and adds them to weather
-    private void addMetars(Weather weather, JSONArray metars) {
-        for (Object json : metars) {
-            String nextMet = (String) json;
-            weather.getMetars().add(nextMet);
-        }
-    }
 
     // MODIFIES: p
     // EFFECTS: parses instructors from JSON array and adds them to pilot's list of instructors

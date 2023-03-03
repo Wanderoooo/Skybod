@@ -6,6 +6,7 @@ import persistence.Writable;
 import ui.FlightPlanner;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 // Represents plane documents with flight log, insurance info, and weight info. Plane document
 // info can be updated via setters.
@@ -68,5 +69,23 @@ public class PlaneDocuments implements Writable {
         }
 
         return jsonArray;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PlaneDocuments that = (PlaneDocuments) o;
+        return Double.compare(that.weightInfo, weightInfo) == 0
+                && fl.equals(that.fl) && insurance.equals(that.insurance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fl, insurance, weightInfo);
     }
 }

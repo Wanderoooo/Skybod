@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class Booking implements Writable {
     private Plane plane;
     private Instructor instructor;
@@ -99,5 +101,25 @@ public class Booking implements Writable {
         json.put("reason cancelled", reasonCancelled);
         json.put("type of lesson", typeOfLesson);
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Booking booking = (Booking) o;
+        return plane.equals(booking.plane) && instructor.equals(booking.instructor)
+                && dayBooked.equals(booking.dayBooked) && timeBooked.equals(booking.timeBooked)
+                && pref.equals(booking.pref) && reasonCancelled.equals(booking.reasonCancelled)
+                && typeOfLesson.equals(booking.typeOfLesson);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(plane, instructor, dayBooked, timeBooked, pref, reasonCancelled, typeOfLesson);
     }
 }

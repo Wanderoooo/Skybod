@@ -7,6 +7,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class WeightBalance implements Writable {
     private double aircraftWeight; // weights in lb
     private double fuelGallons;
@@ -98,5 +100,26 @@ public class WeightBalance implements Writable {
         json.put("within limit", isWithinLimit);
 
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        WeightBalance that = (WeightBalance) o;
+        return Double.compare(that.aircraftWeight, aircraftWeight) == 0 && Double.compare(that.fuelGallons, fuelGallons)
+                == 0 && Double.compare(that.fuelWeight, fuelWeight) == 0 && Double.compare(that.pilotWeight,
+                pilotWeight) == 0 && Double.compare(that.passengerWeight, passengerWeight) == 0
+                && Double.compare(that.takeoffWeight, takeoffWeight) == 0 && isWithinLimit == that.isWithinLimit;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(aircraftWeight, fuelGallons, fuelWeight, pilotWeight, passengerWeight, takeoffWeight,
+                isWithinLimit);
     }
 }

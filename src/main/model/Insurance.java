@@ -7,6 +7,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class Insurance implements Writable {
     private String dateValid;
     private String dateValidUntil;
@@ -63,5 +65,23 @@ public class Insurance implements Writable {
         json.put("amount", amountInsured);
         json.put("type", typeOfInsurance);
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Insurance insurance = (Insurance) o;
+        return amountInsured == insurance.amountInsured && dateValid.equals(insurance.dateValid)
+                && dateValidUntil.equals(insurance.dateValidUntil) && typeOfInsurance.equals(insurance.typeOfInsurance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dateValid, dateValidUntil, amountInsured, typeOfInsurance);
     }
 }

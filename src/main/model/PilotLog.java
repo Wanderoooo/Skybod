@@ -6,6 +6,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 public class PilotLog implements Writable {
     private String day;
     private String time;
@@ -85,5 +87,24 @@ public class PilotLog implements Writable {
         json.put("plane call sign", planeCallSign);
 
         return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PilotLog pilotLog = (PilotLog) o;
+        return Double.compare(pilotLog.flightTime, flightTime) == 0 && day.equals(pilotLog.day)
+                && time.equals(pilotLog.time) && typeOfPiloting.equals(pilotLog.typeOfPiloting)
+                && planeType.equals(pilotLog.planeType) && planeCallSign.equals(pilotLog.planeCallSign);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, time, flightTime, typeOfPiloting, planeType, planeCallSign);
     }
 }
