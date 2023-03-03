@@ -45,6 +45,7 @@ public class PilotLogTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(pl2.equals(pl1));
         assertTrue(pl2.equals(pl2));
         assertFalse(pl2.equals(null));
     }

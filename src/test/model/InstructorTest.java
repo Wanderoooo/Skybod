@@ -52,6 +52,7 @@ public class InstructorTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(i2.equals(i1));
         assertTrue(i1.equals(i1));
         assertFalse(i1.equals(null));
     }

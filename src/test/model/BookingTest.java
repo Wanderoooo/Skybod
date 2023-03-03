@@ -76,6 +76,7 @@ public class BookingTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(tb1.equals(tb2));
         assertTrue(tb1.equals(tb1));
         assertFalse(tb1.equals(null));
     }

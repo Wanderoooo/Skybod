@@ -57,6 +57,7 @@ public class PlaneDocumentsTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(doc152.equals(pl1));
         assertTrue(doc152.equals(doc152));
         assertFalse(doc152.equals(null));
     }

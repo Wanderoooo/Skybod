@@ -39,6 +39,7 @@ public class InsuranceTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(ins2.equals(ins1));
         assertTrue(ins1.equals(ins1));
         assertFalse(ins1.equals(null));
     }

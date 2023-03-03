@@ -143,6 +143,7 @@ public class WeatherTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(wx2.equals(wx1));
         assertTrue(wx1.equals(wx1));
         assertFalse(wx1.equals(null));
     }

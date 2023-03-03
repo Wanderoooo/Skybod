@@ -28,7 +28,7 @@ public class WeightBalanceTest {
     }
 
     @Test
-    public void getterSetterTest() {
+    public void getterSetterEqualTest() {
         wb1.setTakeoffWeight(1111.2);
         wb1.setFuelGallons(20.5);
         wb1.setPilotWeight(150);
@@ -48,6 +48,7 @@ public class WeightBalanceTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(wb2.equals(wb1));
         assertTrue(wb1.equals(wb1));
         assertFalse(wb1.equals(null));
     }

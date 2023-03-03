@@ -58,6 +58,7 @@ public class PreflightTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(pf2.equals(pf1));
         assertTrue(pf1.equals(pf1));
         assertFalse(pf1.equals(null));
     }

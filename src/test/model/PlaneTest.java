@@ -108,6 +108,7 @@ public class PlaneTest {
 
     @Test
     public void equalsTest() {
+        assertTrue(p2.equals(p1));
         assertTrue(p1.equals(p1));
         assertFalse(p1.equals(null));
     }

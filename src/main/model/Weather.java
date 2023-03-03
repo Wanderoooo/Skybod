@@ -26,9 +26,7 @@ public class Weather implements Writable {
         currentTaf = "";
         metars = new ArrayList<>();
         tafs = new ArrayList<>();
-        if (metars.size() == 0 && tafs.size() == 0) {
-            setUpWx();
-        }
+        setUpWx();
     }
 
     // MODIFIES: this
@@ -119,28 +117,6 @@ public class Weather implements Writable {
         json.put("current TAF", currentTaf);
 
         return json;
-    }
-
-    // EFFECT: returns tafs written into JSON array
-    private JSONArray tafsToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (String s : tafs) {
-            jsonArray.put(s);
-        }
-
-        return jsonArray;
-    }
-
-    // EFFECT: returns metars written into JSON array
-    private JSONArray metarsToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (String s : metars) {
-            jsonArray.put(s);
-        }
-
-        return jsonArray;
     }
 
     @Override
