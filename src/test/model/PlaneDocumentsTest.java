@@ -57,6 +57,9 @@ public class PlaneDocumentsTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(doc152.equals(bk));
         assertTrue(doc152.equals(pl1));
         assertTrue(doc152.equals(doc152));
         assertFalse(doc152.equals(null));

@@ -48,6 +48,9 @@ public class WeightBalanceTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(wb1.equals(bk));
         assertTrue(wb2.equals(wb1));
         assertTrue(wb1.equals(wb1));
         assertFalse(wb1.equals(null));

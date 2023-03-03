@@ -58,6 +58,9 @@ public class PreflightTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(pf2.equals(bk));
         assertTrue(pf2.equals(pf1));
         assertTrue(pf1.equals(pf1));
         assertFalse(pf1.equals(null));

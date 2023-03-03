@@ -52,6 +52,9 @@ public class InstructorTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(i1.equals(bk));
         assertTrue(i2.equals(i1));
         assertTrue(i1.equals(i1));
         assertFalse(i1.equals(null));

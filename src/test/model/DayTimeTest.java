@@ -154,6 +154,9 @@ public class DayTimeTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(dt1.equals(bk));
         assertTrue(dt1.equals(dt1));
         assertFalse(dt1.equals(null));
         assertTrue(dt2.equals(dt1));

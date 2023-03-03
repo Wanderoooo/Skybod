@@ -120,6 +120,9 @@ public class PilotTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(p1.equals(bk));
         assertTrue(p2.equals(p1));
         assertTrue(p1.equals(p1));
         assertFalse(p1.equals(null));

@@ -42,6 +42,9 @@ public class PlaneFlightLogTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(fl.equals(bk));
         assertTrue(fl.equals(piperfl));
         assertTrue(fl.equals(fl));
         assertFalse(fl.equals(null));

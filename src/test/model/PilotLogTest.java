@@ -45,6 +45,9 @@ public class PilotLogTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(pl1.equals(bk));
         assertTrue(pl2.equals(pl1));
         assertTrue(pl2.equals(pl2));
         assertFalse(pl2.equals(null));

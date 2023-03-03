@@ -76,6 +76,9 @@ public class BookingTest {
 
     @Test
     public void equalsTest() {
+        Insurance ins = new Insurance();
+
+        assertFalse(tb1.equals(ins));
         assertTrue(tb1.equals(tb2));
         assertTrue(tb1.equals(tb1));
         assertFalse(tb1.equals(null));

@@ -143,6 +143,9 @@ public class WeatherTest {
 
     @Test
     public void equalsTest() {
+        Booking bk = new Booking();
+
+        assertFalse(wx2.equals(bk));
         assertTrue(wx2.equals(wx1));
         assertTrue(wx1.equals(wx1));
         assertFalse(wx1.equals(null));
