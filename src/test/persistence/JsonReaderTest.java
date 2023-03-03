@@ -8,18 +8,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonReaderTest {
-    private Pilot pilotOneItemEach;
 
-    @BeforeEach
-    void runBefore() {
-        pilotOneItemEach = new Pilot();
-
-
-    }
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
@@ -79,52 +73,37 @@ public class JsonReaderTest {
         }
     }
 
-//    @Test
-//    void testReaderGeneralPilot() {
-//        JsonReader reader = new JsonReader("./data/testReaderGeneralPilot.json");
-//        try {
-//            Pilot p1 = reader.read();
-//            assertEquals(3, p1.getRatings().size());
-//            assertEquals(12345, p1.getMedNum());
-//            assertEquals("Mona", p1.getName());
-//            assertTrue(p1.getStudentStatus());
-//            assertEquals(2, p1.getBookings().size());
-//            assertEquals(2, p1.getPl().size());
-//            assertEquals(2, p1.getCancelled().size());
-//            assertEquals(2, p1.getToPostFlight().size());
-//            assertEquals(2, p1.getCompletedBookings().size());
-//            assertEquals(2, p1.getLop().size());
-//            assertEquals(2, p1.getLoi().size());
-//            assertEquals("ZZZZ 130000Z 08009KT 10SM -RA FEW007 OVC021 06/06 A3006 RMK SC2SC6 SLP182=",
-//                    p1.getWx().getCurrentMetar());
-//        } catch (IOException e) {
-//            fail("Couldn't read from file");
-//        }
-//    }
-//
-//    @Test
-//    void testReaderLotOfInfoPilot() {
-//        JsonReader reader = new JsonReader("./data/testReaderLotOfInfoPilot.json");
-//        try {
-//            Pilot p = reader.read();
-//            assertEquals(1, p.getBookings().size());
-//            assertEquals("0200", p.getBookings().get(0).getTimeBooked());
-//            assertEquals(1, p.getToPostFlight().size());
-//            assertFalse(p.getLop().get(0).getAvails().getTuesday().contains("0200"));
-//            assertTrue(p.getRatings().contains("VFR"));
-//
-//            Plane cessna152 = new Plane();
-//            for (Plane plane : p.getLop())  {
-//                if (plane.getType().equalsIgnoreCase("cessna-152")) {
-//                    cessna152 = plane;
-//                }
-//            }
-//
-//            assertFalse(cessna152.getPd().getFl().size() == 0);
-//
-//        } catch (IOException e) {
-//            fail("Couldn't read from file");
-//        }
-//    }
+    @Test
+    void testReaderDayTime() {
+        JsonWriter writer = new JsonWriter("./data/testReaderDayTime.json");
+        JsonReader reader = new JsonReader("./data/testReaderDayTime.json");
+        try {
+            Pilot pb = new Pilot();
+
+            ArrayList<String> oneDay = new ArrayList<>();
+            oneDay.add("0000");
+            Plane plane = new Plane();
+            plane.getAvails().setDay("monday", oneDay);
+            plane.getAvails().setDay("tuesday", oneDay);
+            plane.getAvails().setDay("wednesday", oneDay);
+            plane.getAvails().setDay("thursday", oneDay);
+            plane.getAvails().setDay("friday", oneDay);
+            plane.getAvails().setDay("saturday", oneDay);
+            plane.getAvails().setDay("sunday", oneDay);
+            pb.getLop().add(plane);
+
+            writer.open();
+            writer.write(pb);
+            writer.close();
+
+            Pilot pa = reader.read();
+            assertTrue(pa.getLop().contains(plane));
+            assertTrue(pa.getLop().get(0).equals(plane));
+
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
 }
 

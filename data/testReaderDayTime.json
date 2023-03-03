@@ -1,0 +1,43 @@
+{
+    "to postflight": [],
+    "wx": {
+        "current METAR": "",
+        "current TAF": ""
+    },
+    "medical#": 0,
+    "completed bookings": [],
+    "student": false,
+    "ratings": [],
+    "list of instructors": [],
+    "name": "",
+    "pilot logs": [],
+    "list of planes": [{
+        "call sign": "",
+        "hourly fuel rate": 0,
+        "hourly rental rate": 0,
+        "fuel amount": 0,
+        "plane doc": {
+            "insurance": {
+                "amount": 0,
+                "validity start": "",
+                "validity end": "",
+                "type": ""
+            },
+            "weight": 0,
+            "flight logs": []
+        },
+        "max fuel": 0,
+        "availability": {
+            "sunday": ["0000"],
+            "saturday": ["0000"],
+            "tuesday": ["0000"],
+            "wednesday": ["0000"],
+            "thursday": ["0000"],
+            "friday": ["0000"],
+            "monday": ["0000"]
+        },
+        "type": ""
+    }],
+    "bookings": [],
+    "cancelled bookings": []
+}
