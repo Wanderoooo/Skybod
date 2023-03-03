@@ -80,9 +80,15 @@ public class PlaneDocuments implements Writable {
             return false;
         }
         PlaneDocuments that = (PlaneDocuments) o;
-        return Double.compare(that.weightInfo, weightInfo) == 0
+        return isPlaneDocEqual(that);
+    }
+
+    private boolean isPlaneDocEqual(PlaneDocuments that) {
+        boolean b =  Double.compare(that.weightInfo, weightInfo) == 0
                 && fl.equals(that.fl)
                 && insurance.equals(that.insurance);
+
+        return b;
     }
 
     @Override

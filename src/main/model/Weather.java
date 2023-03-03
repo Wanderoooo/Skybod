@@ -128,10 +128,16 @@ public class Weather implements Writable {
             return false;
         }
         Weather weather = (Weather) o;
-        return currentMetar.equals(weather.currentMetar)
+        return isWeatherEqual(weather);
+    }
+
+    private boolean isWeatherEqual(Weather weather) {
+        boolean b = currentMetar.equals(weather.currentMetar)
                 && currentTaf.equals(weather.currentTaf)
                 && metars.equals(weather.metars)
                 && tafs.equals(weather.tafs);
+
+        return b;
     }
 
     @Override

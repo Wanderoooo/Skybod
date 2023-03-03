@@ -146,7 +146,11 @@ public class Preflight implements Writable {
             return false;
         }
         Preflight preflight = (Preflight) o;
-        return isDocOnBoard == preflight.isDocOnBoard
+        return isPreflightEqual(preflight);
+    }
+
+    private boolean isPreflightEqual(Preflight preflight) {
+        boolean b = isDocOnBoard == preflight.isDocOnBoard
                 && isCheckedFireExt == preflight.isCheckedFireExt
                 && isWalkAroundDone == preflight.isWalkAroundDone
                 && isFuelEnough == preflight.isFuelEnough
@@ -157,6 +161,8 @@ public class Preflight implements Writable {
                 hobbsTimeStart) == 0
                 && wb.equals(preflight.wb)
                 && departAP.equals(preflight.departAP);
+
+        return b;
     }
 
     @Override

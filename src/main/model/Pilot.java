@@ -272,7 +272,11 @@ public class Pilot implements Writable {
             return false;
         }
         Pilot pilot = (Pilot) o;
-        return medNum == pilot.medNum
+        return isPilotEqual(pilot);
+    }
+
+    private boolean isPilotEqual(Pilot pilot) {
+        boolean b = medNum == pilot.medNum
                 && isStudent == pilot.isStudent
                 && name.equals(pilot.name)
                 && ratings.equals(pilot.ratings)
@@ -284,6 +288,8 @@ public class Pilot implements Writable {
                 && lop.equals(pilot.lop)
                 && loi.equals(pilot.loi)
                 && wx.equals(pilot.wx);
+
+        return b;
     }
 
     @Override

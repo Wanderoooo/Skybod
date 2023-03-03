@@ -204,13 +204,19 @@ public class DayTime implements Writable {
             return false;
         }
         DayTime dayTime = (DayTime) o;
-        return monday.equals(dayTime.monday)
+        return isEqualDayTime(dayTime);
+    }
+
+    private boolean isEqualDayTime(DayTime dayTime) {
+        boolean b = monday.equals(dayTime.monday)
                 && tuesday.equals(dayTime.tuesday)
                 && wednesday.equals(dayTime.wednesday)
                 && thursday.equals(dayTime.thursday)
                 && friday.equals(dayTime.friday)
                 && saturday.equals(dayTime.saturday)
                 && sunday.equals(dayTime.sunday);
+
+        return b;
     }
 
     @Override

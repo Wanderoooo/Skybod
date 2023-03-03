@@ -98,12 +98,18 @@ public class PilotLog implements Writable {
             return false;
         }
         PilotLog pilotLog = (PilotLog) o;
-        return Double.compare(pilotLog.flightTime, flightTime) == 0
+        return isPilotLogEqual(pilotLog);
+    }
+
+    private boolean isPilotLogEqual(PilotLog pilotLog) {
+        boolean b = Double.compare(pilotLog.flightTime, flightTime) == 0
                 && day.equals(pilotLog.day)
                 && time.equals(pilotLog.time)
                 && typeOfPiloting.equals(pilotLog.typeOfPiloting)
                 && planeType.equals(pilotLog.planeType)
                 && planeCallSign.equals(pilotLog.planeCallSign);
+
+        return b;
     }
 
     @Override

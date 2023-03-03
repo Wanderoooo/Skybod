@@ -130,7 +130,7 @@ public class PilotTest {
         Pilot p = new Pilot();
         p.setStudent(true);
         p.setName("Donna");
-        p.setMedNum(132);
+        p.setMedNum(13999);
 
         assertFalse(p1.equals(p));
     }

@@ -114,12 +114,18 @@ public class Instructor implements Writable {
         }
 
         Instructor that = (Instructor) o;
-        return hourlyRate == that.hourlyRate
+        return isInstructorEqual(that);
+    }
+
+    private boolean isInstructorEqual(Instructor that) {
+        boolean b = hourlyRate == that.hourlyRate
                 && expYears == that.expYears
                 && name.equals(that.name)
                 && instrClass.equals(that.instrClass)
                 && ratings.equals(that.ratings)
                 && avails.equals(that.avails);
+
+        return b;
     }
 
     @Override

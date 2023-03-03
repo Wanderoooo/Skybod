@@ -139,7 +139,11 @@ public class Plane implements Writable {
         }
 
         Plane plane = (Plane) o;
-        return hourlyRentalRate == plane.hourlyRentalRate
+        return isPlaneEqual(plane);
+    }
+
+    private boolean isPlaneEqual(Plane plane) {
+        boolean b = hourlyRentalRate == plane.hourlyRentalRate
                 && hourlyFuelRate == plane.hourlyFuelRate
                 && Double.compare(plane.fuelAmount, fuelAmount) == 0
                 && Double.compare(plane.maxFuel, maxFuel) == 0
@@ -147,6 +151,8 @@ public class Plane implements Writable {
                 && callSign.equals(plane.callSign)
                 && avails.equals(plane.avails)
                 && pd.equals(plane.pd);
+
+        return b;
     }
 
     @Override

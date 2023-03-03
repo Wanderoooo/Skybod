@@ -90,12 +90,18 @@ public class PlaneFlightLog implements Writable {
             return false;
         }
         PlaneFlightLog that = (PlaneFlightLog) o;
-        return Double.compare(that.hobbsTimeStart, hobbsTimeStart) == 0
+        return isPlaneFlightLogEqual(that);
+    }
+
+    private boolean isPlaneFlightLogEqual(PlaneFlightLog that) {
+        boolean b = Double.compare(that.hobbsTimeStart, hobbsTimeStart) == 0
                 && Double.compare(that.hobbsTimeEnd,
                 hobbsTimeEnd) == 0
                 && Double.compare(that.hoursTillMaint, hoursTillMaint) == 0
                 && departingAP.equals(that.departingAP)
                 && arrivingAP.equals(that.arrivingAP);
+
+        return b;
     }
 
     @Override

@@ -76,10 +76,16 @@ public class Insurance implements Writable {
             return false;
         }
         Insurance insurance = (Insurance) o;
-        return amountInsured == insurance.amountInsured
+        return isInsuranceEqual(insurance);
+    }
+
+    private boolean isInsuranceEqual(Insurance insurance) {
+        boolean b = amountInsured == insurance.amountInsured
                 && dateValid.equals(insurance.dateValid)
                 && dateValidUntil.equals(insurance.dateValidUntil)
                 && typeOfInsurance.equals(insurance.typeOfInsurance);
+
+        return b;
     }
 
     @Override
