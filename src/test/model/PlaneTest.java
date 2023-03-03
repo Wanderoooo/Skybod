@@ -10,11 +10,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaneTest {
     private Plane p1;
+    private Plane p2;
     private Plane cessna172;
 
     @BeforeEach
     public void runBefore() {
         p1 = new Plane();
+        p2 = new Plane();
         cessna172 = new Plane();
     }
 
@@ -102,5 +104,17 @@ public class PlaneTest {
         p1.setMaxFuel(20.5);
         p1.setFuelToMaxFuel();
         assertEquals(20.5, p1.getFuelAmount());
+    }
+
+    @Test
+    public void equalsTest() {
+        assertTrue(p1.equals(p1));
+        assertFalse(p1.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(p1.equals(p2) && p2.equals(p1));
+        assertTrue(p1.hashCode() == p2.hashCode());
     }
 }

@@ -152,4 +152,16 @@ public class DayTimeTest {
         assertEquals(s1, dt3.getSunday());
     }
 
+    @Test
+    public void equalsTest() {
+        assertTrue(dt1.equals(dt1));
+        assertFalse(dt1.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(dt1.equals(dt2) && dt2.equals(dt1));
+        assertTrue(dt1.hashCode() == dt2.hashCode());
+    }
+
 }

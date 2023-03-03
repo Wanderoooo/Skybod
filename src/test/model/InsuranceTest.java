@@ -8,10 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class InsuranceTest {
     private Insurance ins1;
+    private Insurance ins2;
 
     @BeforeEach
     public void runBefore() {
         ins1 = new Insurance();
+        ins2 = new Insurance();
     }
 
     @Test
@@ -33,5 +35,17 @@ public class InsuranceTest {
         assertEquals("Haul", ins1.getTypeOfInsurance());
         assertEquals("11/02/2024", ins1.getDateValidUntil());
         assertEquals("11/02/2022", ins1.getDateValid());
+    }
+
+    @Test
+    public void equalsTest() {
+        assertTrue(ins1.equals(ins1));
+        assertFalse(ins1.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(ins1.equals(ins2) && ins2.equals(ins1));
+        assertTrue(ins1.hashCode() == ins2.hashCode());
     }
 }

@@ -42,4 +42,16 @@ public class PilotLogTest {
         assertEquals("1100", pl1.getTime());
         assertEquals("Cessna-152", pl1.getPlaneType());
     }
+
+    @Test
+    public void equalsTest() {
+        assertTrue(pl2.equals(pl2));
+        assertFalse(pl2.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(pl1.equals(pl2) && pl2.equals(pl1));
+        assertTrue(pl1.hashCode() == pl2.hashCode());
+    }
 }

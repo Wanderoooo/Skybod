@@ -9,17 +9,19 @@ import static org.junit.jupiter.api.Assertions.*;
 // Testing class for Weather
 
 public class WeatherTest {
-    private Weather wx;
+    private Weather wx1;
+    private Weather wx2;
 
     @BeforeEach
     public void runBefore() {
-        wx = new Weather();
+        wx1 = new Weather();
+        wx2 = new Weather();
     }
 
     @Test
     public void weatherConstructorTest() {
-        assertEquals("", wx.getCurrentTaf());
-        assertEquals("", wx.getCurrentMetar());
+        assertEquals("", wx1.getCurrentTaf());
+        assertEquals("", wx1.getCurrentMetar());
 
         ArrayList<String> metars = new ArrayList<>();
         metars.add("050000Z 09017KT 20SM SCT030 SCT080 OVC100 09/06 A2987 RMK SC3AC1AC4 SLP117=");
@@ -46,27 +48,27 @@ public class WeatherTest {
         tafs.add("042343Z 0500/0505 VRB03KT P6SM BKN100\n"
                 + "RMK NXT FCST BY 051500Z=");
 
-        assertEquals(tafs, wx.getTafs());
-        assertEquals(metars, wx.getMetars());
+        assertEquals(tafs, wx1.getTafs());
+        assertEquals(metars, wx1.getMetars());
     }
 
     @Test
     public void getterSetterTest() {
-        wx.setCurrentMetar("currMet");
-        wx.setCurrentTaf("currTaf");
+        wx1.setCurrentMetar("currMet");
+        wx1.setCurrentTaf("currTaf");
         ArrayList<String> metars = new ArrayList<>();
         metars.add("test1");
         metars.add("test2");
-        wx.setMetars(metars);
+        wx1.setMetars(metars);
         ArrayList<String> tafs = new ArrayList<>();
         tafs.add("test3");
         tafs.add("test4");
-        wx.setTafs(tafs);
+        wx1.setTafs(tafs);
 
-        assertEquals(tafs, wx.getTafs());
-        assertEquals(metars, wx.getMetars());
-        assertEquals("currMet", wx.getCurrentMetar());
-        assertEquals("currTaf", wx.getCurrentTaf());
+        assertEquals(tafs, wx1.getTafs());
+        assertEquals(metars, wx1.getMetars());
+        assertEquals("currMet", wx1.getCurrentMetar());
+        assertEquals("currTaf", wx1.getCurrentTaf());
     }
 
     // CREDIT: the following two tests for randomness includes code inspired by "coin toss" practice problem from EDX:
@@ -77,23 +79,23 @@ public class WeatherTest {
     @Test
     public void tafUpdateTest() {
         int timesChanged = 0;
-        String lastStatus = wx.getCurrentTaf();
+        String lastStatus = wx1.getCurrentTaf();
 
         for (int i = 0; i < 100; i++) {
-            wx.tafUpdate("CZBB");
-            String currTaf = wx.getCurrentTaf();
+            wx1.tafUpdate("CZBB");
+            String currTaf = wx1.getCurrentTaf();
 
-            assertTrue(wx.getCurrentTaf().equals("CZBB 042340Z 0500/0606 10012G22KT P6SM SCT012 BKN025 TEMPO\n"
+            assertTrue(wx1.getCurrentTaf().equals("CZBB 042340Z 0500/0606 10012G22KT P6SM SCT012 BKN025 TEMPO\n"
                     + "0500/0504 P6SM -RA BKN015\n"
                     + "FM050400 09010KT P6SM SCT020 BKN060\n"
                     + "FM050900 09008KT P6SM SCT060 BKN200 TEMPO 0509/0516 BKN060\n"
                     + "FM051600 08008KT P6SM BKN040 TEMPO 0516/0606 P6SM -RA BKN020\n"
-                    + "RMK NXT FCST BY 050300Z") || wx.getCurrentTaf().equals("CZBB 042340Z 0500/0524 VRB03KT P6SM "
+                    + "RMK NXT FCST BY 050300Z") || wx1.getCurrentTaf().equals("CZBB 042340Z 0500/0524 VRB03KT P6SM "
                     + "-RA SCT015 BKN025 TEMPO\n"
                     + "0500/0505 5SM -RA BR BKN012\n"
                     + "FM050500 04008KT P6SM SCT060 BKN120 TEMPO 0505/0509 BKN050\n"
                     + "FM051800 VRB03KT P6SM BKN050 TEMPO 0518/0524 P6SM -RA BKN020\n"
-                    + "RMK NXT FCST BY 050600Z=") || wx.getCurrentTaf().equals("CZBB 042343Z 0500/0505 VRB03KT P6SM "
+                    + "RMK NXT FCST BY 050600Z=") || wx1.getCurrentTaf().equals("CZBB 042343Z 0500/0505 VRB03KT P6SM "
                     + "BKN100\n"
                     + "RMK NXT FCST BY 051500Z="));
 
@@ -109,25 +111,25 @@ public class WeatherTest {
     @Test
     public void metarUpdateTest() {
         int timesChanged = 0;
-        String lastStatus = wx.getCurrentMetar();
+        String lastStatus = wx1.getCurrentMetar();
 
         for (int i = 0; i < 100; i++) {
-            wx.metarUpdate("CZBB");
-            String currMetar = wx.getCurrentMetar();
+            wx1.metarUpdate("CZBB");
+            String currMetar = wx1.getCurrentMetar();
 
-            assertTrue(wx.getCurrentMetar().equals("CZBB 050000Z 09017KT 20SM SCT030 SCT080 OVC100"
+            assertTrue(wx1.getCurrentMetar().equals("CZBB 050000Z 09017KT 20SM SCT030 SCT080 OVC100"
                     + " 09/06 A2987 RMK SC3AC1AC4 SLP117=")
-            || wx.getCurrentMetar().equals("CZBB 042300Z 09013G20KT 20SM BKN030 OVC038 09/07 A2989 RMK SC6SC2 SLP123")
-            || wx.getCurrentMetar().equals("CZBB 08011G18KT 20SM OVC032 09/07 A2991 RMK SC8 SLP130=")
-            || wx.getCurrentMetar().equals("CZBB 130100Z 09010KT 6SM -RA BR SCT007 OVC030 05/05 "
+            || wx1.getCurrentMetar().equals("CZBB 042300Z 09013G20KT 20SM BKN030 OVC038 09/07 A2989 RMK SC6SC2 SLP123")
+            || wx1.getCurrentMetar().equals("CZBB 08011G18KT 20SM OVC032 09/07 A2991 RMK SC8 SLP130=")
+            || wx1.getCurrentMetar().equals("CZBB 130100Z 09010KT 6SM -RA BR SCT007 OVC030 05/05 "
                     + "A3001 RMK SC3SC5 SLP166=")
-            || wx.getCurrentMetar().equals("CZBB 130024Z 08010KT 3SM -RA BR SCT015 OVC029 06/06 A3004 RMK "
+            || wx1.getCurrentMetar().equals("CZBB 130024Z 08010KT 3SM -RA BR SCT015 OVC029 06/06 A3004 RMK "
                     + "SC4NS4 PRESFR SLP176=")
-            || wx.getCurrentMetar().equals("CZBB 130012Z CCA 08009KT 2 1/2SM RA BR SCT013 OVC029 06/06 "
+            || wx1.getCurrentMetar().equals("CZBB 130012Z CCA 08009KT 2 1/2SM RA BR SCT013 OVC029 06/06 "
                     + "A3006 RMK SC4NS4 SLP181=")
-            || wx.getCurrentMetar().equals("CZBB 130012Z 08009KT 2 1/2SM -RA BR SCT013 OVC029 06/06 A3006 RMK "
+            || wx1.getCurrentMetar().equals("CZBB 130012Z 08009KT 2 1/2SM -RA BR SCT013 OVC029 06/06 A3006 RMK "
                     + "SC4SC4 SLP181=")
-            || wx.getCurrentMetar().equals("CZBB 130000Z 08009KT 10SM -RA FEW007 OVC021 06/06 A3006"
+            || wx1.getCurrentMetar().equals("CZBB 130000Z 08009KT 10SM -RA FEW007 OVC021 06/06 A3006"
                     + " RMK SC2SC6 SLP182="));
 
             if (!currMetar.equals(lastStatus)) {
@@ -137,6 +139,18 @@ public class WeatherTest {
         }
 
         assertFalse(timesChanged == 0);
+    }
+
+    @Test
+    public void equalsTest() {
+        assertTrue(wx1.equals(wx1));
+        assertFalse(wx1.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(wx1.equals(wx2) && wx2.equals(wx1));
+        assertTrue(wx1.hashCode() == wx2.hashCode());
     }
 
 }

@@ -74,4 +74,15 @@ public class BookingTest {
         assertEquals(type2, tb2.getTypeOfLesson());
     }
 
+    @Test
+    public void equalsTest() {
+        assertTrue(tb1.equals(tb1));
+        assertFalse(tb1.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(tb1.equals(tb2) && tb2.equals(tb1));
+        assertTrue(tb1.hashCode() == tb2.hashCode());
+    }
 }

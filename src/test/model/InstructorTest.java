@@ -15,6 +15,7 @@ public class InstructorTest {
     @BeforeEach
     public void runBefore() {
         i1 = new Instructor();
+        i2 = new Instructor();
     }
 
     @Test
@@ -47,6 +48,18 @@ public class InstructorTest {
         assertEquals(120, i1.getHourlyRate());
         assertEquals(3, i1.getExpYears());
         assertEquals("CFII", i1.getInstrClass());
+    }
+
+    @Test
+    public void equalsTest() {
+        assertTrue(i1.equals(i1));
+        assertFalse(i1.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(i1.equals(i2) && i2.equals(i1));
+        assertTrue(i1.hashCode() == i2.hashCode());
     }
 
 }

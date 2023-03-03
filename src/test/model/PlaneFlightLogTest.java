@@ -40,4 +40,15 @@ public class PlaneFlightLogTest {
         assertEquals(104.8, piperfl.getHoursTillMaint());
     }
 
+    @Test
+    public void equalsTest() {
+        assertTrue(fl.equals(fl));
+        assertFalse(fl.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(fl.equals(piperfl) && piperfl.equals(fl));
+        assertTrue(fl.hashCode() == piperfl.hashCode());
+    }
 }

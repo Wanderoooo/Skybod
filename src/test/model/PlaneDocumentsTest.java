@@ -10,10 +10,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaneDocumentsTest {
     private PlaneDocuments doc152;
+    private PlaneDocuments pl1;
+    private PlaneDocuments pl2;
 
     @BeforeEach
     public void runBefore() {
         doc152 = new PlaneDocuments();
+        pl1 = new PlaneDocuments();
+        pl2 = new PlaneDocuments();
+
     }
 
     @Test
@@ -48,5 +53,17 @@ public class PlaneDocumentsTest {
         assertEquals(logs152, doc152.getFl());
         assertEquals(1138.26, doc152.getWeightInfo());
         assertEquals(c152ins, doc152.getInsurance());
+    }
+
+    @Test
+    public void equalsTest() {
+        assertTrue(doc152.equals(doc152));
+        assertFalse(doc152.equals(null));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(pl1.equals(pl2) && pl2.equals(pl1));
+        assertTrue(pl1.hashCode() == pl2.hashCode());
     }
 }
