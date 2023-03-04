@@ -65,9 +65,20 @@ public class PlaneDocumentsTest {
         assertFalse(doc152.equals(null));
 
         PlaneDocuments pd = new PlaneDocuments();
-        pd.setWeightInfo(19);
+        LinkedList<PlaneFlightLog> pfls = new LinkedList<>();
+        pfls.add(new PlaneFlightLog());
+        pfls.add(new PlaneFlightLog());
+        pd.setFl(pfls);
+        assertFalse(pd.equals(pl1));
 
-        assertFalse(pl1.equals(pd));
+        Insurance i = new Insurance();
+        i.setTypeOfInsurance("Plane Bod");
+        pd.setInsurance(i);
+        assertFalse(pd.equals(pl1));
+
+        pd.setWeightInfo(128);
+        assertFalse(pd.equals(pl1));
+
     }
 
     @Test

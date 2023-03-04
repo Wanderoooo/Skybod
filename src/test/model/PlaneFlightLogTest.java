@@ -50,10 +50,21 @@ public class PlaneFlightLogTest {
         assertFalse(fl.equals(null));
 
         PlaneFlightLog pfl = new PlaneFlightLog();
-        pfl.setHobbsTimeEnd(10);
-        pfl.setHobbsTimeStart(1);
-        pfl.setDepartingAP("DFAA");
-        pfl.setArrivingAP("VFSA");
+
+        pfl.setHobbsTimeStart(1.1);
+        assertFalse(pfl.equals(fl));
+
+        pfl.setHobbsTimeEnd(3.2);
+        assertFalse(pfl.equals(fl));
+
+        pfl.setDepartingAP("PSKF");
+        assertFalse(pfl.equals(fl));
+
+        pfl.setArrivingAP("FSDF");
+        assertFalse(pfl.equals(fl));
+
+        pfl.setHoursTillMaint(33);
+        assertFalse(pfl.equals(fl));
 
         assertFalse(fl.equals(pfl));
     }

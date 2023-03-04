@@ -133,6 +133,69 @@ public class PilotTest {
         p.setMedNum(13999);
 
         assertFalse(p1.equals(p));
+
+        Pilot pilot1 = new Pilot();
+        pilot1.setName("SS");
+        assertFalse(pilot1.equals(p1));
+
+        HashSet<String> r = new HashSet<>();
+        r.add("VFR");
+
+        pilot1.setRatings(r);
+        assertFalse(pilot1.equals(p1));
+
+        pilot1.setMedNum(1123);
+        assertFalse(pilot1.equals(p1));
+
+        pilot1.setStudent(true);
+        assertFalse(pilot1.equals(p1));
+
+        LinkedList<Booking> bks = new LinkedList<>();
+        bks.add(new Booking());
+        bks.add(new Booking());
+        bks.add(new Booking());
+
+        pilot1.setBookings(bks);
+        assertFalse(pilot1.equals(p1));
+
+        bks.add(new Booking());
+        pilot1.setToPostFlight(bks);
+        assertFalse(pilot1.equals(p1));
+
+        bks.add(new Booking());
+        pilot1.setCancelled(bks);
+        assertFalse(pilot1.equals(p1));
+
+        bks.add(new Booking());
+        pilot1.setCompletedBookings(bks);
+        assertFalse(pilot1.equals(p1));
+
+        LinkedList<PilotLog> pls = new LinkedList<>();
+        pls.add(new PilotLog());
+        pls.add(new PilotLog());
+        pls.add(new PilotLog());
+        pilot1.setPl(pls);
+
+        assertFalse(pilot1.equals(p1));
+
+        ArrayList<Plane> planes = new ArrayList<>();
+        planes.add(new Plane());
+        planes.add(new Plane());
+        pilot1.setLop(planes);
+        assertFalse(pilot1.equals(p1));
+
+        ArrayList<Instructor> instructors = new ArrayList<>();
+        instructors.add(new Instructor());
+        instructors.add(new Instructor());
+        pilot1.setLoi(instructors);
+        assertFalse(pilot1.equals(p1));
+
+        Weather wx1 = new Weather();
+        wx1.metarUpdate("WWWW");
+        wx1.tafUpdate("GGGG");
+        pilot1.setWx(wx1);
+        assertFalse(pilot1.equals(p1));
+
     }
 
     @Test

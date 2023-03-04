@@ -53,6 +53,20 @@ public class InsuranceTest {
         i.setDateValidUntil("12");
 
         assertFalse(ins1.equals(i));
+
+        Insurance i1 = new Insurance();
+        i1.setDateValid("3234");
+        assertFalse(i1.equals(ins1));
+
+        i1.setAmountInsured(2);
+        assertFalse(i1.equals(ins1));
+
+        i1.setDateValidUntil("4345");
+        assertFalse(i1.equals(ins1));
+
+        i1.setTypeOfInsurance("Haul & Wings");
+        assertFalse(i1.equals(ins1));
+
     }
 
     @Test

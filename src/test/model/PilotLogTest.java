@@ -53,11 +53,24 @@ public class PilotLogTest {
         assertFalse(pl2.equals(null));
 
         PilotLog pl = new PilotLog();
-        pl.setPlaneCallSign("GYZZ");
-        pl.setTypeOfPiloting("solo");
-        pl.setDay("Tuesday");
-        pl.setFlightTime(12);
+        pl.setDay("Friday");
         assertFalse(pl1.equals(pl));
+
+        pl.setTime("2222");
+        assertFalse(pl1.equals(pl));
+
+        pl.setFlightTime(93);
+        assertFalse(pl1.equals(pl));
+
+        pl.setTypeOfPiloting("dual");
+        assertFalse(pl1.equals(pl));
+
+        pl.setPlaneCallSign("SLLD");
+        assertFalse(pl1.equals(pl));
+
+        pl.setPlaneType("cessna");
+        assertFalse(pl1.equals(pl));
+
     }
 
     @Test

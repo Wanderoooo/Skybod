@@ -151,8 +151,16 @@ public class WeatherTest {
         assertFalse(wx1.equals(null));
 
         Weather wx = new Weather();
-        wx.tafUpdate("fsdf");
-        wx.metarUpdate("gbdf");
+        wx.tafUpdate("FGGG");
+        assertFalse(wx1.equals(wx));
+
+        wx.metarUpdate("KKGK");
+        assertFalse(wx1.equals(wx));
+
+        wx.setTafs(new ArrayList<>());
+        assertFalse(wx1.equals(wx));
+
+        wx.setMetars(new ArrayList<>());
         assertFalse(wx1.equals(wx));
     }
 

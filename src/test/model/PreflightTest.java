@@ -66,14 +66,48 @@ public class PreflightTest {
         assertFalse(pf1.equals(null));
 
         Preflight pf = new Preflight();
-        pf.setDepartAP("sdfs");
-        pf.setHobbsTimeStart(13);
-        pf.setInsuranceValid(true);
-        pf.setPassengerBriefDone(true);
-        pf.setWalkAroundDone(true);
-        pf.setCheckedFireExt(true);
+        //    private WeightBalance wb;
+        //    private boolean isDocOnBoard;
+        //    private boolean isCheckedFireExt;
+        //    private boolean isWalkAroundDone;
+        //    private boolean isFuelEnough;
+        //    private boolean isWBDone;
+        //    private boolean isPassengerBriefDone;
+        //    private boolean isInsuranceValid;
+        //    private double hobbsTimeStart;
+        //    private String departAP;
 
-        assertFalse(pf2.equals(pf));
+        WeightBalance wbs = new WeightBalance();
+        wbs.setFuelGallons(23894);
+        pf.setWb(wbs);
+        assertFalse(pf.equals(pf1));
+
+        pf.setDocOnBoard(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setCheckedFireExt(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setWalkAroundDone(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setFuelEnough(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setWBDone(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setPassengerBriefDone(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setInsuranceValid(true);
+        assertFalse(pf.equals(pf1));
+
+        pf.setHobbsTimeStart(43.2);
+        assertFalse(pf.equals(pf1));
+
+        pf.setDepartAP("SMMM");
+        assertFalse(pf.equals(pf1));
     }
 
     @Test

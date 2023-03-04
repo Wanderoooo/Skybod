@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -116,13 +117,39 @@ public class PlaneTest {
         assertFalse(p1.equals(null));
 
         Plane p = new Plane();
-        p.setMaxFuel(99);
-        p.setType("Cessna");
-        p.setCallSign("C-GOSD");
-        p.setHourlyRentalRate(827);
-        p.setHourlyFuelRate(31);
+        p.setType("Piper");
+        assertFalse(p.equals(p1));
 
-        assertFalse(p2.equals(p));
+        p.setCallSign("MSMD");
+        assertFalse(p.equals(p1));
+
+        ArrayList<String> day = new ArrayList<>();
+        day.add("0903");
+        DayTime dt = new DayTime();
+        dt.setDay("monday", day);
+        p.setAvails(dt);
+        assertFalse(p.equals(p1));
+
+        p.setHourlyFuelRate(6);
+        assertFalse(p.equals(p1));
+
+        p.setHourlyRentalRate(34);
+        assertFalse(p.equals(p1));
+
+        PlaneDocuments pdo = new PlaneDocuments();
+        pdo.setWeightInfo(23999);
+        p.setPd(pdo);
+        assertFalse(p.equals(p1));
+
+        p.setFuelAmount(23424);
+        assertFalse(p.equals(p1));
+
+        p.setFuelAmount(299);
+        assertFalse(p.equals(p1));
+
+        p.setMaxFuel(888);
+        assertFalse(p.equals(p1));
+
     }
 
     @Test

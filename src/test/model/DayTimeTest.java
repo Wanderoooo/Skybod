@@ -173,6 +173,28 @@ public class DayTimeTest {
         dto.setDay("sunday", dayTime);
 
         assertFalse(dto.equals(dt1));
+
+        DayTime dt4 = new DayTime();
+        dt4.setDay("monday", dayTime);
+        assertFalse(dt4.equals(dt1));
+
+        dt4.setDay("tuesday", dayTime);
+        assertFalse(dt4.equals(dt1));
+
+        dt4.setDay("wednesday", dayTime);
+        assertFalse(dt4.equals(dt1));
+
+        dt4.setDay("thursday", dayTime);
+        assertFalse(dt4.equals(dt1));
+
+        dt4.setDay("friday", dayTime);
+        assertFalse(dt4.equals(dt1));
+
+        dt4.setDay("saturday", dayTime);
+        assertFalse(dt4.equals(dt1));
+
+        dt4.setDay("sunday", dayTime);
+        assertFalse(dt4.equals(dt1));
     }
 
     @Test

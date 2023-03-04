@@ -2,7 +2,11 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.awt.print.Book;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 // Testing class for Booking
 public class BookingTest {
     private Booking tb1;
@@ -84,18 +88,42 @@ public class BookingTest {
         assertFalse(tb1.equals(null));
 
         Booking bk1 = new Booking();
-        bk1.setTimeBooked("0030");
-        bk1.setTypeOfLesson("FLIGHT");
-        bk1.setReasonCancelled("wx");
-        bk1.setDayBooked("Tuesday");
+        Plane pl1 = new Plane();
+        pl1.setHourlyFuelRate(30);
+
+        bk1.setPlane(pl1);
+        assertFalse(bk1.equals(tb1));
 
         Booking bk2 = new Booking();
-        bk2.setTimeBooked("0040");
-        bk2.setDayBooked("Monday");
-        bk2.setReasonCancelled("sick");
-        bk2.setTypeOfLesson("GROUND");
+        Instructor i1 = new Instructor();
+        i1.setName("Jonny");
+        bk2.setInstructor(i1);
 
-        assertFalse(bk1.equals(bk2));
+        assertFalse(bk2.equals(tb1));
+
+        Booking bk3 = new Booking();
+        bk3.setDayBooked("Sunday");
+
+        assertFalse(bk3.equals(tb1));
+
+        Booking bk4 = new Booking();
+        bk4.setTimeBooked("2300");
+
+        assertFalse(bk4.equals(tb1));
+
+        Preflight pf = new Preflight();
+        pf.setCheckedFireExt(true);
+        bk4.setPref(pf);
+
+        assertFalse(bk4.equals(tb1));
+
+        bk4.setReasonCancelled("sick");
+        assertFalse(bk4.equals(tb1));
+
+        bk4.setTypeOfLesson("GROUND");
+        assertFalse(bk4.equals(tb1));
+
+
     }
 
     @Test

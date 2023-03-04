@@ -56,12 +56,25 @@ public class WeightBalanceTest {
         assertFalse(wb1.equals(null));
 
         WeightBalance wb = new WeightBalance();
-        wb.setPassengerWeight(23);
-        wb.setAircraftWeight(45);
-        wb.setWithinLimit(true);
-        wb.setFuelWeight(53);
-        wb.setFuelGallons(4);
+        wb.setAircraftWeight(77);
+        assertFalse(wb1.equals(wb));
 
+        wb.setFuelGallons(282);
+        assertFalse(wb1.equals(wb));
+
+        wb.setFuelWeight(88);
+        assertFalse(wb1.equals(wb));
+
+        wb.setPilotWeight(4.44);
+        assertFalse(wb1.equals(wb));
+
+        wb.setPassengerWeight(90);
+        assertFalse(wb1.equals(wb));
+
+        wb.setTakeoffWeight(5.65);
+        assertFalse(wb1.equals(wb));
+
+        wb.setWithinLimit(true);
         assertFalse(wb1.equals(wb));
     }
 

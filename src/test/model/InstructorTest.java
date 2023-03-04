@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,10 +61,27 @@ public class InstructorTest {
         assertFalse(i1.equals(null));
 
         Instructor i = new Instructor();
-        i.setHourlyRate(20);
-        i.setName("Mona");
+        i.setName("On");
+        assertFalse(i.equals(i1));
 
-        assertFalse(i1.equals(i));
+        HashSet<String> hs = new HashSet<>();
+        hs.add("Float");
+        i.setRatings(hs);
+        assertFalse(i.equals(i1));
+
+        DayTime dt = new DayTime();
+        ArrayList<String> d = new ArrayList<>();
+        d.add("1900");
+        dt.setDay("monday", d);
+        i.setAvails(dt);
+        assertFalse(i.equals(i1));
+
+        i.setHourlyRate(88);
+        assertFalse(i.equals(i1));
+
+        i.setExpYears(7);
+        assertFalse(i.equals(i1));
+
     }
 
     @Test
