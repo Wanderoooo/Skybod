@@ -165,7 +165,7 @@ public class WeatherTest {
         a.add("two");
         wx3.setCurrentTaf(wx2.getCurrentTaf());
         wx3.setCurrentTaf(wx2.getCurrentMetar());
-        wx3.setTafs(a);
+        wx3.setMetars(a);
         assertFalse(wx3.equals(wx2));
 
         Weather wx4 = new Weather();
@@ -173,8 +173,8 @@ public class WeatherTest {
         b.add("three");
         wx4.setCurrentTaf(wx2.getCurrentTaf());
         wx4.setCurrentTaf(wx2.getCurrentMetar());
-        wx4.setTafs(a);
-        wx4.setMetars(b);
+        wx4.setMetars(a);
+        wx4.setTafs(b);
         assertFalse(wx4.equals(wx3));
     }
 

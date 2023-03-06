@@ -64,12 +64,18 @@ public class InstructorTest {
         i2.setName("On");
         assertFalse(i2.equals(i1));
 
+        Instructor anotherI = new Instructor();
+        anotherI.setName("On");
+        anotherI.setInstrClass("CFII");
+        assertFalse(anotherI.equals(i2));
+
         Instructor i3 = new Instructor();
         HashSet<String> hs = new HashSet<>();
         hs.add("Float");
         i3.setName("On");
+        i3.setInstrClass("CFII");
         i3.setRatings(hs);
-        assertFalse(i3.equals(i2));
+        assertFalse(i3.equals(anotherI));
 
         Instructor i4 = new Instructor();
         DayTime dt = new DayTime();
@@ -77,6 +83,7 @@ public class InstructorTest {
         d.add("1900");
         dt.setDay("monday", d);
         i4.setName("On");
+        i4.setInstrClass("CFII");
         i4.setRatings(hs);
         i4.setAvails(dt);
         assertFalse(i4.equals(i3));
@@ -86,6 +93,7 @@ public class InstructorTest {
         i5.setRatings(hs);
         i5.setAvails(dt);
         i5.setHourlyRate(88);
+        i5.setInstrClass("CFII");
         assertFalse(i5.equals(i4));
 
         Instructor i6 = new Instructor();
@@ -94,6 +102,7 @@ public class InstructorTest {
         i6.setAvails(dt);
         i6.setHourlyRate(88);
         i6.setExpYears(7);
+        i6.setInstrClass("CFII");
         assertFalse(i6.equals(i5));
 
     }
