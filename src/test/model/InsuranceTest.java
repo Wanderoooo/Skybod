@@ -58,14 +58,23 @@ public class InsuranceTest {
         i1.setDateValid("3234");
         assertFalse(i1.equals(ins1));
 
-        i1.setAmountInsured(2);
-        assertFalse(i1.equals(ins1));
+        Insurance i2 = new Insurance();
+        i2.setDateValid("3234");
+        i2.setAmountInsured(2);
+        assertFalse(i2.equals(i1));
 
-        i1.setDateValidUntil("4345");
-        assertFalse(i1.equals(ins1));
+        Insurance i3 = new Insurance();
+        i3.setDateValid("3234");
+        i3.setAmountInsured(2);
+        i3.setDateValidUntil("4345");
+        assertFalse(i3.equals(i2));
 
-        i1.setTypeOfInsurance("Haul & Wings");
-        assertFalse(i1.equals(ins1));
+        Insurance i4 = new Insurance();
+        i4.setDateValid("3234");
+        i4.setAmountInsured(2);
+        i4.setDateValidUntil("4345");
+        i4.setTypeOfInsurance("Haul & Wings");
+        assertFalse(i4.equals(i3));
 
     }
 

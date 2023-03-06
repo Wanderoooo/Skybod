@@ -71,13 +71,18 @@ public class PlaneDocumentsTest {
         pd.setFl(pfls);
         assertFalse(pd.equals(pl1));
 
+        PlaneDocuments pd1 = new PlaneDocuments();
         Insurance i = new Insurance();
         i.setTypeOfInsurance("Plane Bod");
-        pd.setInsurance(i);
-        assertFalse(pd.equals(pl1));
+        pd1.setFl(pfls);
+        pd1.setInsurance(i);
+        assertFalse(pd1.equals(pd));
 
-        pd.setWeightInfo(128);
-        assertFalse(pd.equals(pl1));
+        PlaneDocuments pd2 = new PlaneDocuments();
+        pd2.setFl(pfls);
+        pd2.setInsurance(i);
+        pd2.setWeightInfo(128);
+        assertFalse(pd2.equals(pd1));
 
     }
 

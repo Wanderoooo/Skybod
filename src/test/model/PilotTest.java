@@ -134,67 +134,144 @@ public class PilotTest {
 
         assertFalse(p1.equals(p));
 
-        Pilot pilot1 = new Pilot();
-        pilot1.setName("SS");
-        assertFalse(pilot1.equals(p1));
+        Pilot pl1 = new Pilot();
+        pl1.setName("SS");
+        assertFalse(pl1.equals(p1));
 
+        Pilot pl2 = new Pilot();
         HashSet<String> r = new HashSet<>();
         r.add("VFR");
+        pl2.setName("SS");
+        pl2.setRatings(r);
+        assertFalse(pl2.equals(pl1));
 
-        pilot1.setRatings(r);
-        assertFalse(pilot1.equals(p1));
+        Pilot pl3 = new Pilot();
+        pl3.setName("SS");
+        pl3.setRatings(r);
+        pl3.setMedNum(1123);
+        assertFalse(pl3.equals(pl2));
 
-        pilot1.setMedNum(1123);
-        assertFalse(pilot1.equals(p1));
+        Pilot pl4 = new Pilot();
+        pl4.setName("SS");
+        pl4.setRatings(r);
+        pl4.setMedNum(1123);
+        pl4.setStudent(true);
+        assertFalse(pl4.equals(pl3));
 
-        pilot1.setStudent(true);
-        assertFalse(pilot1.equals(p1));
-
+        Pilot pl5 = new Pilot();
         LinkedList<Booking> bks = new LinkedList<>();
         bks.add(new Booking());
         bks.add(new Booking());
         bks.add(new Booking());
 
-        pilot1.setBookings(bks);
-        assertFalse(pilot1.equals(p1));
+        pl5.setName("SS");
+        pl5.setRatings(r);
+        pl5.setMedNum(1123);
+        pl5.setStudent(true);
+        pl5.setBookings(bks);
+        assertFalse(pl5.equals(pl4));
 
+        Pilot pl6 = new Pilot();
+        LinkedList<Booking> bks1 = new LinkedList<>();
+        bks1.add(new Booking());
+        pl6.setName("SS");
+        pl6.setRatings(r);
+        pl6.setMedNum(1123);
+        pl6.setStudent(true);
+        pl6.setBookings(bks);
+        pl6.setToPostFlight(bks1);
+        assertFalse(pl6.equals(pl5));
+
+        Pilot pl7 = new Pilot();
         bks.add(new Booking());
-        pilot1.setToPostFlight(bks);
-        assertFalse(pilot1.equals(p1));
+        pl7.setName("SS");
+        pl7.setRatings(r);
+        pl7.setMedNum(1123);
+        pl7.setStudent(true);
+        pl7.setBookings(bks);
+        pl7.setToPostFlight(bks1);
+        pl7.setCancelled(bks);
+        assertFalse(pl7.equals(pl6));
 
+        Pilot pl8 = new Pilot();
         bks.add(new Booking());
-        pilot1.setCancelled(bks);
-        assertFalse(pilot1.equals(p1));
+        pl8.setName("SS");
+        pl8.setRatings(r);
+        pl8.setMedNum(1123);
+        pl8.setStudent(true);
+        pl8.setBookings(bks);
+        pl8.setToPostFlight(bks1);
+        pl8.setCancelled(bks);
+        pl8.setCompletedBookings(bks);
+        assertFalse(pl8.equals(pl7));
 
-        bks.add(new Booking());
-        pilot1.setCompletedBookings(bks);
-        assertFalse(pilot1.equals(p1));
-
+        Pilot pl9 = new Pilot();
         LinkedList<PilotLog> pls = new LinkedList<>();
         pls.add(new PilotLog());
         pls.add(new PilotLog());
         pls.add(new PilotLog());
-        pilot1.setPl(pls);
+        pl9.setPl(pls);
+        pl9.setName("SS");
+        pl9.setRatings(r);
+        pl9.setMedNum(1123);
+        pl9.setStudent(true);
+        pl9.setBookings(bks);
+        pl9.setToPostFlight(bks1);
+        pl9.setCancelled(bks);
+        pl9.setCompletedBookings(bks);
 
-        assertFalse(pilot1.equals(p1));
+        assertFalse(pl9.equals(pl8));
 
+        Pilot pl10 = new Pilot();
         ArrayList<Plane> planes = new ArrayList<>();
         planes.add(new Plane());
         planes.add(new Plane());
-        pilot1.setLop(planes);
-        assertFalse(pilot1.equals(p1));
+        pl10.setPl(pls);
+        pl10.setName("SS");
+        pl10.setRatings(r);
+        pl10.setMedNum(1123);
+        pl10.setStudent(true);
+        pl10.setBookings(bks);
+        pl10.setToPostFlight(bks1);
+        pl10.setCancelled(bks);
+        pl10.setCompletedBookings(bks);
+        pl10.setLop(planes);
+        assertFalse(pl10.equals(pl9));
 
+        Pilot pl11 = new Pilot();
         ArrayList<Instructor> instructors = new ArrayList<>();
         instructors.add(new Instructor());
         instructors.add(new Instructor());
-        pilot1.setLoi(instructors);
-        assertFalse(pilot1.equals(p1));
+        pl11.setPl(pls);
+        pl11.setName("SS");
+        pl11.setRatings(r);
+        pl11.setMedNum(1123);
+        pl11.setStudent(true);
+        pl11.setBookings(bks);
+        pl11.setToPostFlight(bks1);
+        pl11.setCancelled(bks);
+        pl11.setCompletedBookings(bks);
+        pl11.setLop(planes);
+        pl11.setLoi(instructors);
+        assertFalse(pl11.equals(pl10));
 
+        Pilot pl12 = new Pilot();
         Weather wx1 = new Weather();
         wx1.metarUpdate("WWWW");
         wx1.tafUpdate("GGGG");
-        pilot1.setWx(wx1);
-        assertFalse(pilot1.equals(p1));
+        pl12.setPl(pls);
+        pl12.setName("SS");
+        pl12.setRatings(r);
+        pl12.setMedNum(1123);
+        pl12.setStudent(true);
+        pl12.setBookings(bks);
+        pl12.setToPostFlight(bks1);
+        pl12.setCancelled(bks);
+        pl12.setCompletedBookings(bks);
+        pl12.setLop(planes);
+        pl12.setLoi(instructors);
+        pl12.setWx(wx1);
+        assertFalse(pl12.equals(pl11));
 
     }
 

@@ -120,35 +120,69 @@ public class PlaneTest {
         p.setType("Piper");
         assertFalse(p.equals(p1));
 
-        p.setCallSign("MSMD");
+        Plane p1 = new Plane();
+        p1.setType("Piper");
+        p1.setCallSign("MSMD");
         assertFalse(p.equals(p1));
 
+        Plane p2 = new Plane();
         ArrayList<String> day = new ArrayList<>();
         day.add("0903");
         DayTime dt = new DayTime();
         dt.setDay("monday", day);
-        p.setAvails(dt);
-        assertFalse(p.equals(p1));
+        p2.setType("Piper");
+        p2.setCallSign("MSMD");
+        p2.setAvails(dt);
+        assertFalse(p2.equals(p1));
 
-        p.setHourlyFuelRate(6);
-        assertFalse(p.equals(p1));
+        Plane p3 = new Plane();
+        p3.setType("Piper");
+        p3.setCallSign("MSMD");
+        p3.setAvails(dt);
+        p3.setHourlyFuelRate(6);
+        assertFalse(p3.equals(p2));
 
-        p.setHourlyRentalRate(34);
-        assertFalse(p.equals(p1));
+        Plane p4 = new Plane();
+        p4.setType("Piper");
+        p4.setCallSign("MSMD");
+        p4.setAvails(dt);
+        p4.setHourlyFuelRate(6);
+        p4.setHourlyRentalRate(34);
+        assertFalse(p4.equals(p3));
 
+        Plane p5 = new Plane();
         PlaneDocuments pdo = new PlaneDocuments();
         pdo.setWeightInfo(23999);
-        p.setPd(pdo);
-        assertFalse(p.equals(p1));
+        p5.setType("Piper");
+        p5.setCallSign("MSMD");
+        p5.setAvails(dt);
+        p5.setHourlyFuelRate(6);
+        p5.setHourlyRentalRate(34);
+        p5.setPd(pdo);
+        assertFalse(p5.equals(p4));
 
-        p.setFuelAmount(23424);
-        assertFalse(p.equals(p1));
+        Plane p6 = new Plane();
+        p6.setType("Piper");
+        p6.setCallSign("MSMD");
+        p6.setAvails(dt);
+        p6.setHourlyFuelRate(6);
+        p6.setHourlyRentalRate(34);
+        p6.setPd(pdo);
+        p6.setFuelAmount(23424);
+        assertFalse(p6.equals(p5));
 
-        p.setFuelAmount(299);
-        assertFalse(p.equals(p1));
 
-        p.setMaxFuel(888);
-        assertFalse(p.equals(p1));
+        Plane p8 = new Plane();
+        p8.setFuelAmount(299);
+        p8.setType("Piper");
+        p8.setCallSign("MSMD");
+        p8.setAvails(dt);
+        p8.setHourlyFuelRate(6);
+        p8.setHourlyRentalRate(34);
+        p8.setPd(pdo);
+        p8.setFuelAmount(23424);
+        p8.setMaxFuel(888);
+        assertFalse(p8.equals(p6));
 
     }
 

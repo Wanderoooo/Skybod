@@ -174,27 +174,54 @@ public class DayTimeTest {
 
         assertFalse(dto.equals(dt1));
 
+        DayTime dt2 = new DayTime();
+        dt2.setDay("monday", dayTime);
+        assertFalse(dt2.equals(dt1));
+
+        DayTime dt3 = new DayTime();
+        dt3.setDay("monday", dayTime);
+        dt3.setDay("tuesday", dayTime);
+        assertFalse(dt3.equals(dt2));
+
         DayTime dt4 = new DayTime();
         dt4.setDay("monday", dayTime);
-        assertFalse(dt4.equals(dt1));
-
         dt4.setDay("tuesday", dayTime);
-        assertFalse(dt4.equals(dt1));
-
         dt4.setDay("wednesday", dayTime);
-        assertFalse(dt4.equals(dt1));
+        assertFalse(dt4.equals(dt3));
 
-        dt4.setDay("thursday", dayTime);
-        assertFalse(dt4.equals(dt1));
+        DayTime dt5 = new DayTime();
+        dt5.setDay("monday", dayTime);
+        dt5.setDay("tuesday", dayTime);
+        dt5.setDay("wednesday", dayTime);
+        dt5.setDay("thursday", dayTime);
+        assertFalse(dt5.equals(dt4));
 
-        dt4.setDay("friday", dayTime);
-        assertFalse(dt4.equals(dt1));
+        DayTime dt6 = new DayTime();
+        dt6.setDay("monday", dayTime);
+        dt6.setDay("tuesday", dayTime);
+        dt6.setDay("wednesday", dayTime);
+        dt6.setDay("thursday", dayTime);
+        dt6.setDay("friday", dayTime);
+        assertFalse(dt6.equals(dt5));
 
-        dt4.setDay("saturday", dayTime);
-        assertFalse(dt4.equals(dt1));
+        DayTime dt7 = new DayTime();
+        dt7.setDay("monday", dayTime);
+        dt7.setDay("tuesday", dayTime);
+        dt7.setDay("wednesday", dayTime);
+        dt7.setDay("thursday", dayTime);
+        dt7.setDay("friday", dayTime);
+        dt7.setDay("saturday", dayTime);
+        assertFalse(dt7.equals(dt6));
 
-        dt4.setDay("sunday", dayTime);
-        assertFalse(dt4.equals(dt1));
+        DayTime dt8 = new DayTime();
+        dt8.setDay("monday", dayTime);
+        dt8.setDay("tuesday", dayTime);
+        dt8.setDay("wednesday", dayTime);
+        dt8.setDay("thursday", dayTime);
+        dt8.setDay("friday", dayTime);
+        dt8.setDay("saturday", dayTime);
+        dt8.setDay("sunday", dayTime);
+        assertFalse(dt8.equals(dt7));
     }
 
     @Test

@@ -59,23 +59,50 @@ public class WeightBalanceTest {
         wb.setAircraftWeight(77);
         assertFalse(wb1.equals(wb));
 
-        wb.setFuelGallons(282);
-        assertFalse(wb1.equals(wb));
+        WeightBalance wb2 = new WeightBalance();
+        wb2.setAircraftWeight(77);
+        wb2.setFuelGallons(282);
+        assertFalse(wb2.equals(wb));
 
-        wb.setFuelWeight(88);
-        assertFalse(wb1.equals(wb));
+        WeightBalance wb3 = new WeightBalance();
+        wb3.setAircraftWeight(77);
+        wb3.setFuelGallons(282);
+        wb3.setFuelWeight(88);
+        assertFalse(wb3.equals(wb2));
 
-        wb.setPilotWeight(4.44);
-        assertFalse(wb1.equals(wb));
+        WeightBalance wb4 = new WeightBalance();
+        wb4.setAircraftWeight(77);
+        wb4.setFuelGallons(282);
+        wb4.setFuelWeight(88);
+        wb4.setPilotWeight(4.44);
+        assertFalse(wb4.equals(wb3));
 
-        wb.setPassengerWeight(90);
-        assertFalse(wb1.equals(wb));
+        WeightBalance wb5 = new WeightBalance();
+        wb5.setAircraftWeight(77);
+        wb5.setFuelGallons(282);
+        wb5.setFuelWeight(88);
+        wb5.setPilotWeight(4.44);
+        wb5.setPassengerWeight(90);
+        assertFalse(wb5.equals(wb4));
 
-        wb.setTakeoffWeight(5.65);
-        assertFalse(wb1.equals(wb));
+        WeightBalance wb6 = new WeightBalance();
+        wb6.setAircraftWeight(77);
+        wb6.setFuelGallons(282);
+        wb6.setFuelWeight(88);
+        wb6.setPilotWeight(4.44);
+        wb6.setPassengerWeight(90);
+        wb6.setTakeoffWeight(5.65);
+        assertFalse(wb6.equals(wb5));
 
-        wb.setWithinLimit(true);
-        assertFalse(wb1.equals(wb));
+        WeightBalance wb7 = new WeightBalance();
+        wb7.setAircraftWeight(77);
+        wb7.setFuelGallons(282);
+        wb7.setFuelWeight(88);
+        wb7.setPilotWeight(4.44);
+        wb7.setPassengerWeight(90);
+        wb7.setTakeoffWeight(5.65);
+        wb7.setWithinLimit(true);
+        assertFalse(wb7.equals(wb6));
     }
 
     @Test

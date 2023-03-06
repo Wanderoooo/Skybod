@@ -60,27 +60,41 @@ public class InstructorTest {
         assertTrue(i1.equals(i1));
         assertFalse(i1.equals(null));
 
-        Instructor i = new Instructor();
-        i.setName("On");
-        assertFalse(i.equals(i1));
+        Instructor i2 = new Instructor();
+        i2.setName("On");
+        assertFalse(i2.equals(i1));
 
+        Instructor i3 = new Instructor();
         HashSet<String> hs = new HashSet<>();
         hs.add("Float");
-        i.setRatings(hs);
-        assertFalse(i.equals(i1));
+        i3.setName("On");
+        i3.setRatings(hs);
+        assertFalse(i3.equals(i2));
 
+        Instructor i4 = new Instructor();
         DayTime dt = new DayTime();
         ArrayList<String> d = new ArrayList<>();
         d.add("1900");
         dt.setDay("monday", d);
-        i.setAvails(dt);
-        assertFalse(i.equals(i1));
+        i4.setName("On");
+        i4.setRatings(hs);
+        i4.setAvails(dt);
+        assertFalse(i4.equals(i3));
 
-        i.setHourlyRate(88);
-        assertFalse(i.equals(i1));
+        Instructor i5 = new Instructor();
+        i5.setName("On");
+        i5.setRatings(hs);
+        i5.setAvails(dt);
+        i5.setHourlyRate(88);
+        assertFalse(i5.equals(i4));
 
-        i.setExpYears(7);
-        assertFalse(i.equals(i1));
+        Instructor i6 = new Instructor();
+        i6.setName("On");
+        i6.setRatings(hs);
+        i6.setAvails(dt);
+        i6.setHourlyRate(88);
+        i6.setExpYears(7);
+        assertFalse(i6.equals(i5));
 
     }
 

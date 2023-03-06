@@ -154,14 +154,28 @@ public class WeatherTest {
         wx.tafUpdate("FGGG");
         assertFalse(wx1.equals(wx));
 
-        wx.metarUpdate("KKGK");
-        assertFalse(wx1.equals(wx));
+        Weather wx2 = new Weather();
+        wx2.setCurrentTaf(wx.getCurrentTaf());
+        wx2.metarUpdate("KKGK");
+        assertFalse(wx2.equals(wx));
 
-        wx.setTafs(new ArrayList<>());
-        assertFalse(wx1.equals(wx));
+        Weather wx3 = new Weather();
+        ArrayList<String> a = new ArrayList<>();
+        a.add("one");
+        a.add("two");
+        wx3.setCurrentTaf(wx2.getCurrentTaf());
+        wx3.setCurrentTaf(wx2.getCurrentMetar());
+        wx3.setTafs(a);
+        assertFalse(wx3.equals(wx2));
 
-        wx.setMetars(new ArrayList<>());
-        assertFalse(wx1.equals(wx));
+        Weather wx4 = new Weather();
+        ArrayList<String> b = new ArrayList<>();
+        b.add("three");
+        wx4.setCurrentTaf(wx2.getCurrentTaf());
+        wx4.setCurrentTaf(wx2.getCurrentMetar());
+        wx4.setTafs(a);
+        wx4.setMetars(b);
+        assertFalse(wx4.equals(wx3));
     }
 
     @Test

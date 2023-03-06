@@ -50,23 +50,35 @@ public class PlaneFlightLogTest {
         assertFalse(fl.equals(null));
 
         PlaneFlightLog pfl = new PlaneFlightLog();
-
         pfl.setHobbsTimeStart(1.1);
         assertFalse(pfl.equals(fl));
 
-        pfl.setHobbsTimeEnd(3.2);
-        assertFalse(pfl.equals(fl));
+        PlaneFlightLog pfl1 = new PlaneFlightLog();
+        pfl1.setHobbsTimeStart(1.1);
+        pfl1.setHobbsTimeEnd(3.2);
+        assertFalse(pfl1.equals(pfl));
 
-        pfl.setDepartingAP("PSKF");
-        assertFalse(pfl.equals(fl));
+        PlaneFlightLog pfl2 = new PlaneFlightLog();
+        pfl2.setHobbsTimeStart(1.1);
+        pfl2.setHobbsTimeEnd(3.2);
+        pfl2.setDepartingAP("PSKF");
+        assertFalse(pfl2.equals(pfl1));
 
-        pfl.setArrivingAP("FSDF");
-        assertFalse(pfl.equals(fl));
+        PlaneFlightLog pfl3 = new PlaneFlightLog();
+        pfl3.setHobbsTimeStart(1.1);
+        pfl3.setHobbsTimeEnd(3.2);
+        pfl3.setDepartingAP("PSKF");
+        pfl3.setArrivingAP("FSDF");
+        assertFalse(pfl3.equals(pfl2));
 
-        pfl.setHoursTillMaint(33);
-        assertFalse(pfl.equals(fl));
+        PlaneFlightLog pfl4 = new PlaneFlightLog();
+        pfl4.setHobbsTimeStart(1.1);
+        pfl4.setHobbsTimeEnd(3.2);
+        pfl4.setDepartingAP("PSKF");
+        pfl4.setArrivingAP("FSDF");
+        pfl4.setHoursTillMaint(33);
+        assertFalse(pfl4.equals(pfl3));
 
-        assertFalse(fl.equals(pfl));
     }
 
     @Test

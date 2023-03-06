@@ -90,7 +90,6 @@ public class BookingTest {
         Booking bk1 = new Booking();
         Plane pl1 = new Plane();
         pl1.setHourlyFuelRate(30);
-
         bk1.setPlane(pl1);
         assertFalse(bk1.equals(tb1));
 
@@ -98,31 +97,55 @@ public class BookingTest {
         Instructor i1 = new Instructor();
         i1.setName("Jonny");
         bk2.setInstructor(i1);
+        bk2.setPlane(pl1);
 
-        assertFalse(bk2.equals(tb1));
+        assertFalse(bk2.equals(bk1));
 
         Booking bk3 = new Booking();
         bk3.setDayBooked("Sunday");
+        bk3.setInstructor(i1);
+        bk3.setPlane(pl1);
 
-        assertFalse(bk3.equals(tb1));
+        assertFalse(bk3.equals(bk2));
 
         Booking bk4 = new Booking();
         bk4.setTimeBooked("2300");
+        bk4.setDayBooked("Sunday");
+        bk4.setInstructor(i1);
+        bk4.setPlane(pl1);
 
-        assertFalse(bk4.equals(tb1));
+        assertFalse(bk4.equals(bk3));
 
+        Booking bk5 = new Booking();
         Preflight pf = new Preflight();
         pf.setCheckedFireExt(true);
-        bk4.setPref(pf);
+        bk5.setPref(pf);
+        bk5.setTimeBooked("2300");
+        bk5.setDayBooked("Sunday");
+        bk5.setInstructor(i1);
+        bk5.setPlane(pl1);
 
-        assertFalse(bk4.equals(tb1));
+        assertFalse(bk5.equals(bk4));
 
-        bk4.setReasonCancelled("sick");
-        assertFalse(bk4.equals(tb1));
+        Booking bk6 = new Booking();
+        bk6.setReasonCancelled("sick");
+        bk6.setPref(pf);
+        bk6.setTimeBooked("2300");
+        bk6.setDayBooked("Sunday");
+        bk6.setInstructor(i1);
+        bk6.setPlane(pl1);
 
-        bk4.setTypeOfLesson("GROUND");
-        assertFalse(bk4.equals(tb1));
+        assertFalse(bk6.equals(bk5));
 
+        Booking bk7 = new Booking();
+        bk7.setTypeOfLesson("GROUND");
+        bk7.setReasonCancelled("sick");
+        bk7.setPref(pf);
+        bk7.setTimeBooked("2300");
+        bk7.setDayBooked("Sunday");
+        bk7.setInstructor(i1);
+        bk7.setPlane(pl1);
+        assertFalse(bk7.equals(bk6));
 
     }
 
