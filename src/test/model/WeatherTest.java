@@ -171,8 +171,8 @@ public class WeatherTest {
         Weather wx4 = new Weather();
         ArrayList<String> b = new ArrayList<>();
         b.add("three");
-        wx4.setCurrentTaf(wx2.getCurrentTaf());
-        wx4.setCurrentTaf(wx2.getCurrentMetar());
+        wx4.setCurrentTaf(wx3.getCurrentTaf());
+        wx4.setCurrentMetar(wx3.getCurrentMetar());
         wx4.setMetars(a);
         wx4.setTafs(b);
         assertFalse(wx4.equals(wx3));
