@@ -164,7 +164,7 @@ public class WeatherTest {
         a.add("one");
         a.add("two");
         wx3.setCurrentTaf(wx2.getCurrentTaf());
-        wx3.setCurrentTaf(wx2.getCurrentMetar());
+        wx3.setCurrentMetar(wx2.getCurrentMetar());
         wx3.setMetars(a);
         assertFalse(wx3.equals(wx2));
 
