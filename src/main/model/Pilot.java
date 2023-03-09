@@ -263,6 +263,8 @@ public class Pilot implements Writable {
         this.wx = wx;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -275,6 +277,7 @@ public class Pilot implements Writable {
         return isPilotEqual(pilot);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isPilotEqual(Pilot pilot) {
         boolean b = medNum == pilot.medNum
                 && isStudent == pilot.isStudent

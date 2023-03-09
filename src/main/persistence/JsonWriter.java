@@ -6,7 +6,6 @@ import model.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.*;
 
 // Represents a writer that writes JSON representation of a booking to file
 // CREDIT: code template from WorkRoomApp from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git

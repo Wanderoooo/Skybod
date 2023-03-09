@@ -195,6 +195,8 @@ public class DayTime implements Writable {
         return jsonArray;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -207,6 +209,7 @@ public class DayTime implements Writable {
         return isEqualDayTime(dayTime);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isEqualDayTime(DayTime dayTime) {
         boolean b = monday.equals(dayTime.monday)
                 && tuesday.equals(dayTime.tuesday)

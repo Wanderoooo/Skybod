@@ -119,6 +119,8 @@ public class Weather implements Writable {
         return json;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -131,6 +133,7 @@ public class Weather implements Writable {
         return isWeatherEqual(weather);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isWeatherEqual(Weather weather) {
         boolean b = currentMetar.equals(weather.currentMetar)
                 && currentTaf.equals(weather.currentTaf)

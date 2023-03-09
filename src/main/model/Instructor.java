@@ -94,6 +94,7 @@ public class Instructor implements Writable {
         return json;
     }
 
+    // EFFECT: returns instructor ratings written to JSONArray object
     private JSONArray ratingsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -104,6 +105,8 @@ public class Instructor implements Writable {
         return jsonArray;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -117,6 +120,7 @@ public class Instructor implements Writable {
         return isInstructorEqual(that);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isInstructorEqual(Instructor that) {
         boolean b = hourlyRate == that.hourlyRate
                 && expYears == that.expYears

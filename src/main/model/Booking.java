@@ -103,6 +103,8 @@ public class Booking implements Writable {
         return json;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -115,6 +117,7 @@ public class Booking implements Writable {
         return isEqualBooking(booking);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isEqualBooking(Booking booking) {
         boolean b = plane.equals(booking.plane)
                 && instructor.equals(booking.instructor)

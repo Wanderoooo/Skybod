@@ -129,6 +129,8 @@ public class Plane implements Writable {
         return json;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -142,6 +144,7 @@ public class Plane implements Writable {
         return isPlaneEqual(plane);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isPlaneEqual(Plane plane) {
         boolean b = hourlyRentalRate == plane.hourlyRentalRate
                 && hourlyFuelRate == plane.hourlyFuelRate

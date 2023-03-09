@@ -71,6 +71,8 @@ public class PlaneDocuments implements Writable {
         return jsonArray;
     }
 
+    // EFFECT: returns true if given object not null, class and every field of given object equals
+    // to object which called this method
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,6 +85,7 @@ public class PlaneDocuments implements Writable {
         return isPlaneDocEqual(that);
     }
 
+    // EFFECT: returns true if all fields of object are equivalent to given object
     private boolean isPlaneDocEqual(PlaneDocuments that) {
         boolean b =  Double.compare(that.weightInfo, weightInfo) == 0
                 && fl.equals(that.fl)

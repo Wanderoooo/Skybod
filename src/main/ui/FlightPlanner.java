@@ -67,6 +67,7 @@ public class FlightPlanner {
     }
 
 
+    // EFFECT: initialize plane, user, and instructor
     private void initializePlaneInstrUser() {
         initializePlaneInstr();
         registerUser();

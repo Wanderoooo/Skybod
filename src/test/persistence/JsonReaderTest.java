@@ -4,7 +4,6 @@ package persistence;
 // CREDIT: code template from WorkRoomApp from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 import model.Pilot;
 import model.Plane;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -75,7 +74,6 @@ public class JsonReaderTest {
 
     @Test
     void testReaderDayTime() {
-        JsonWriter writer = new JsonWriter("./data/testReaderDayTime.json");
         JsonReader reader = new JsonReader("./data/testReaderDayTime.json");
         try {
             Pilot pb = new Pilot();

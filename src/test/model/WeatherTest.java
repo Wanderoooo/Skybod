@@ -178,6 +178,8 @@ public class WeatherTest {
         assertFalse(wx4.equals(wx3));
     }
 
+
+
     @Test
     public void hashCodeTest() {
         assertTrue(wx1.equals(wx2) && wx2.equals(wx1));
