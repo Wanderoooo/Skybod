@@ -2,6 +2,7 @@ package ui;
 
 // Represents main class, where entire program is run.
 
+import model.Pilot;
 import model.Weather;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class Main extends JFrame {
     private static final String SCREEN_DESCRIPTOR = "...screen";
     private JFrame frame;
     private JPanel cards;
-    private Weather weather;
+    private Pilot pilot;
 
     public Main() {
         frame = new JFrame();
