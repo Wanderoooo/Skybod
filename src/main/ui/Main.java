@@ -2,46 +2,63 @@ package ui;
 
 // Represents main class, where entire program is run.
 
+import model.Booking;
 import model.Pilot;
-import model.Weather;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static final String FILE_DESCRIPTOR = "...file";
-    private static final String SCREEN_DESCRIPTOR = "...screen";
     private JFrame frame;
     private JPanel cards;
     private Pilot pilot;
+    private JTextField nameText;
+    private JTextField mednumText;
+    private JTextField ratingsText;
+    private JToggleButton studentStat;
+    private JLabel taf;
+    private JLabel metar;
+    private JTextField tx;
+    private JScrollPane bookingsScroll;
+    private JTextField dayText;
+    private JToggleButton toggle;
+    private JTextField timeText;
+    private JTextField acTypeText;
+    private JTextField instrText;
+    private JList<JLabel> labelList;
+    private DefaultListModel bookedLabels;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private static final String JSON_STORE = "./data/pilot.json";
 
     public Main() {
+        pilot = new Pilot();
+        bookedLabels = new DefaultListModel();
         frame = new JFrame();
         frame.setSize(WIDTH, HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setTitle("Skybod Flight Planner");
         frame.setVisible(true);
         frame.setLayout(new BorderLayout());
+        frame.addWindowListener(new AreYouSure());
 
         setUpDisplay();
     }
 
     private void setUpDisplay() {
         JPanel splashPage = setUpSplash();
-        JPanel regPage = regUserWindow();
-        JTabbedPane menu = createTabbedPane();
-        JPanel book = createBook();
-
         cards = new JPanel(new CardLayout());
-
         cards.add(splashPage, "splashPage");
-        cards.add(regPage, "regPage");
-        cards.add(menu, "menu");
-        cards.add(book, "book");
 
         frame.add(cards);
         frame.pack();
@@ -72,6 +89,18 @@ public class Main extends JFrame {
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Booking b = makeNewBooking();
+
+                String typeOfLesson;
+                if (toggle.isSelected()) {
+                    typeOfLesson = "FLIGHT";
+                } else {
+                    typeOfLesson = "GROUND";
+                }
+
+                b.setTypeOfLesson(typeOfLesson);
+                pilot.addBooking(b);
+                updateBookingScroll(b);
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, "menu");
             }
@@ -83,22 +112,31 @@ public class Main extends JFrame {
         return bookButtonPanel;
     }
 
+    private Booking makeNewBooking() {
+        Booking b = new Booking();
+        b.getPlane().setType(acTypeText.getText());
+        b.setDayBooked(dayText.getText());
+        b.setTimeBooked(timeText.getText());
+        b.getInstructor().setName(instrText.getText());
+        return b;
+    }
+
     private JPanel createInstrPanel() {
         JPanel instrFlightGround = new JPanel();
-        JToggleButton toggle = lessonTypeButton();
+        toggle = lessonTypeButton();
 
-        JTextField acType = new JTextField(15);
-        JTextField instr = new JTextField(15);
+        acTypeText = new JTextField(15);
+        instrText = new JTextField(15);
         JLabel instrName = new JLabel("Instructor name:");
         JLabel acTypeTx = new JLabel("Aircraft type:");
 
         instrFlightGround.add(toggle);
         instrFlightGround.add(new JPanel());
         instrFlightGround.add(acTypeTx);
-        instrFlightGround.add(acType);
+        instrFlightGround.add(acTypeText);
         instrFlightGround.add(new JPanel());
         instrFlightGround.add(instrName);
-        instrFlightGround.add(instr);
+        instrFlightGround.add(instrText);
         return instrFlightGround;
     }
 
@@ -106,13 +144,13 @@ public class Main extends JFrame {
         JPanel dayTimePanel = new JPanel();
         JLabel day = new JLabel("Day:");
         JLabel time = new JLabel("Time:");
-        JTextField dayt = new JTextField(15);
-        JTextField timet = new JTextField(15);
+        dayText = new JTextField(15);
+        timeText = new JTextField(15);
         dayTimePanel.add(day);
-        dayTimePanel.add(dayt);
+        dayTimePanel.add(dayText);
         dayTimePanel.add(new JPanel());
         dayTimePanel.add(time);
-        dayTimePanel.add(timet);
+        dayTimePanel.add(timeText);
         return dayTimePanel;
     }
 
@@ -162,6 +200,11 @@ public class Main extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                loadFromLastSaved();
+                JTabbedPane menu = createTabbedPane();
+                JPanel book = createBook();
+                cards.add(menu, "menu");
+                cards.add(book, "book");
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, "menu");
             }
@@ -171,11 +214,39 @@ public class Main extends JFrame {
         return cont;
     }
 
+    private void loadFromLastSaved() {
+        try {
+            jsonReader = new JsonReader(JSON_STORE);
+            pilot = jsonReader.read();
+
+            for (Booking b : pilot.getBookings()) {
+                bookedLabels.addElement(b.getDayBooked() + " at " + b.getTimeBooked()
+                        + " for " + b.getPlane().getType() + " with instructor " + b.getInstructor().getName()
+                        + " for " + b.getTypeOfLesson() + " lesson ");
+            }
+
+        } catch (IOException ex) {
+            int option2 = JOptionPane.showOptionDialog(
+                    Main.this,
+                    "Unable to load from: " + JSON_STORE,
+                    "Error", JOptionPane.OK_OPTION,
+                    JOptionPane.ERROR_MESSAGE, null, null,
+                    null);
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
     private JButton makeRegButton() {
         JButton reg = new JButton("Register");
         ActionListener regAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanel regPage = regUserWindow();
+                JTabbedPane menu = createTabbedPane();
+                JPanel book = createBook();
+                cards.add(regPage, "regPage");
+                cards.add(menu, "menu");
+                cards.add(book, "book");
                 CardLayout cl = (CardLayout) (cards.getLayout());
                 cl.show(cards, "regPage");
             }
@@ -224,8 +295,18 @@ public class Main extends JFrame {
         ActionListener goToMenu = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CardLayout cl = (CardLayout) (cards.getLayout());
-                cl.show(cards, "menu");
+                setPilotFieldsExceptMednum();
+                try {
+                    pilot.setMedNum(Integer.parseInt(mednumText.getText()));
+                    JTabbedPane menu = createTabbedPane();
+                    JPanel book = createBook();
+                    cards.add(menu, "menu");
+                    cards.add(book, "book");
+                    CardLayout cl = (CardLayout) (cards.getLayout());
+                    cl.show(cards, "menu");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid medical number");
+                }
             }
         };
 
@@ -233,6 +314,12 @@ public class Main extends JFrame {
         nextPanel.add(submit);
 
         return nextPanel;
+    }
+
+    private void setPilotFieldsExceptMednum() {
+        pilot.setName(nameText.getText());
+        pilot.addRating(ratingsText.getText());
+        pilot.setStudent(studentStat.isSelected());
     }
 
     private JPanel makeFormPanel() {
@@ -246,7 +333,6 @@ public class Main extends JFrame {
         JPanel title2 = createTitle2Panel();
         formPanel.add(title2);
 
-
         JPanel textbox2 = createTextbox2Panel();
         formPanel.add(textbox2);
 
@@ -255,8 +341,8 @@ public class Main extends JFrame {
 
     private JPanel createTextbox2Panel() {
         JPanel textbox2 = new JPanel(new GridLayout(1, 2));
-        JToggleButton studentStat = new JToggleButton("Student");
-        JTextField ratingsText = new JTextField(10);
+        studentStat = new JToggleButton("Student");
+        ratingsText = new JTextField(10);
         textbox2.add(new JPanel());
         textbox2.add(ratingsText);
         textbox2.add(new JPanel());
@@ -277,8 +363,8 @@ public class Main extends JFrame {
 
     private JPanel createTextbox1Panel() {
         JPanel textbox1 = new JPanel(new GridLayout(1, 2));
-        JTextField nameText = new JTextField(10);
-        JTextField mednumText = new JTextField(10);
+        nameText = new JTextField(10);
+        mednumText = new JTextField(10);
         textbox1.add(new JPanel());
         textbox1.add(nameText);
         textbox1.add(new JPanel());
@@ -305,20 +391,80 @@ public class Main extends JFrame {
         JPanel pilotInfo = makePilotInfo();
         JPanel bookingInfo = makeBookingPage();
         JPanel weatherInfo = makeWeatherPage();
-        JPanel exitInfo = makeExitPage();
+        // JPanel exitInfo = makeExitPage();
 
-        tp.add("Pilot Info", pilotInfo);
-        tp.add("Bookings", bookingInfo);
         tp.add("Weather", weatherInfo);
-        tp.add("Exit", exitInfo);
+        tp.add("Bookings", bookingInfo);
+        tp.add("Pilot Info", pilotInfo);
+        // tp.add("Exit", exitInfo);
 
         return tp;
     }
 
     private JPanel makePilotInfo() {
-        JPanel pi = new JPanel();
+        JPanel pilotInfoPage = new JPanel(new GridLayout(5, 1));
+        JLabel title = new JLabel("Pilot Information");
+        JPanel titlePanel = new JPanel();
+        titlePanel.add(title);
+        title.setFont(new Font("Serif", Font.BOLD, 40));
+        JPanel makeNameMednumPanel = makeNameMednumPanel();
+        JPanel makeRatingStudent = makeRatingStudent();
 
-        return pi;
+        pilotInfoPage.add(titlePanel);
+        pilotInfoPage.add(makeNameMednumPanel);
+        pilotInfoPage.add(makeRatingStudent);
+        pilotInfoPage.add(new JPanel());
+        pilotInfoPage.add(new JPanel());
+
+        return pilotInfoPage;
+    }
+
+    private JPanel makeRatingStudent() {
+        JPanel returnPage = new JPanel();
+        JLabel rating = new JLabel("Your Rating:");
+        rating.setFont(new Font("Serif", Font.BOLD, 20));
+
+        String rate = "";
+
+        for (String r : pilot.getRatings()) {
+            rate = r;
+        }
+
+        JLabel getRating = new JLabel(rate);
+        getRating.setFont(new Font("Serif", Font.PLAIN, 20));
+        JLabel student = new JLabel("Student Status:");
+        student.setFont(new Font("Serif", Font.BOLD, 20));
+        JLabel getStudentStatus = new JLabel(String.valueOf(pilot.getStudentStatus()));
+        getStudentStatus.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        returnPage.add(rating);
+        returnPage.add(getRating);
+        returnPage.add(new JPanel());
+        returnPage.add(student);
+        returnPage.add(getStudentStatus);
+
+        return returnPage;
+    }
+
+    private JPanel makeNameMednumPanel() {
+        JPanel returnPage = new JPanel();
+        JLabel name = new JLabel("Pilot Name:");
+        name.setFont(new Font("Serif", Font.BOLD, 20));
+        JLabel getName = new JLabel(pilot.getName());
+        getName.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        JLabel med = new JLabel("Medical Number:");
+        med.setFont(new Font("Serif", Font.BOLD, 20));
+        JLabel getMednum = new JLabel(String.valueOf(pilot.getMedNum()));
+        getMednum.setFont(new Font("Serif", Font.PLAIN, 20));
+
+        returnPage.add(name);
+        returnPage.add(getName);
+        returnPage.add(new JPanel());
+        returnPage.add(med);
+        returnPage.add(getMednum);
+
+        return returnPage;
     }
 
     private JPanel makeWeatherPage() {
@@ -328,14 +474,14 @@ public class Main extends JFrame {
         JPanel metarPanel = createMetarPanel();
 
         JPanel enter = new JPanel();
-        JTextField tx = new JTextField(10);
+        tx = new JTextField(10);
         JLabel label = new JLabel("Enter Airport Code:");
         enter.add(label);
         enter.add(tx);
 
         JPanel buttons = new JPanel();
-        JButton checkTaf = new JButton("Update Taf");
-        JButton checkMetar = new JButton("Update Metar");
+        JButton checkTaf = updateTafButton();
+        JButton checkMetar = updateMetarButton();
         buttons.add(checkTaf);
         buttons.add(checkMetar);
 
@@ -348,9 +494,48 @@ public class Main extends JFrame {
         return wx;
     }
 
+    private JButton updateMetarButton() {
+        JButton updateMetar = new JButton("Update Metar");
+        ActionListener a = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pilot.getWx().metarUpdate(tx.getText().toUpperCase());
+                JTabbedPane menu = createTabbedPane();
+                menu.getComponentAt(2);
+                cards.remove(3);
+                cards.add(menu, "menu");
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, "menu");
+            }
+        };
+
+        updateMetar.addActionListener(a);
+
+        return updateMetar;
+    }
+
+    private JButton updateTafButton() {
+        JButton checkTaf = new JButton("Update Taf");
+        ActionListener a = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pilot.getWx().tafUpdate(tx.getText().toUpperCase());
+                JTabbedPane menu = createTabbedPane();
+                menu.getComponentAt(2);
+                cards.remove(3);
+                cards.add(menu, "menu");
+                CardLayout cl = (CardLayout) (cards.getLayout());
+                cl.show(cards, "menu");
+            }
+        };
+
+        checkTaf.addActionListener(a);
+        return checkTaf;
+    }
+
     private JPanel createTafPanel() {
-        JLabel taf = new JLabel("TAF: ");
-        taf.setFont(new Font("Serif", Font.BOLD, 20));
+        taf = new JLabel("TAF: " + "\n" + pilot.getWx().getCurrentTaf());
+        taf.setFont(new Font("Serif", Font.BOLD, 15));
         JPanel tafPanel = new JPanel();
         tafPanel.add(taf);
 
@@ -358,8 +543,8 @@ public class Main extends JFrame {
     }
 
     private JPanel createMetarPanel() {
-        JLabel metar = new JLabel("METAR: ");
-        metar.setFont(new Font("Serif", Font.BOLD, 20));
+        metar = new JLabel("METAR: " + "\n" + pilot.getWx().getCurrentMetar());
+        metar.setFont(new Font("Serif", Font.BOLD, 15));
         JPanel metarPanel = new JPanel();
         metarPanel.add(metar);
 
@@ -413,21 +598,47 @@ public class Main extends JFrame {
         titlePanel.add(title);
         title.setFont(new Font("Serif", Font.BOLD, 40));
 
-        JScrollPane bookings = new JScrollPane();
-        ; // todo
+        labelList = new JList(bookedLabels);
+        labelList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        labelList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+        labelList.setVisibleRowCount(100);
+        labelList.setFont(new Font("Serif", Font.BOLD, 15));
+        bookingsScroll = new JScrollPane(labelList);
 
         JButton bookNew = getBookNewButton();
-        JButton cancel = new JButton("Cancel Booking");
+        JButton cancel = getCancelButton();
+
 
         JPanel buttons = new JPanel();
         buttons.add(bookNew);
         buttons.add(cancel);
 
         booking.add(titlePanel);
-        booking.add(bookings);
+        booking.add(bookingsScroll);
         booking.add(buttons);
 
         return booking;
+    }
+
+    private JButton getCancelButton() {
+        JButton cancel = new JButton("Cancel Booking");
+        ActionListener a = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = labelList.getSelectedIndex();
+                bookedLabels.remove(index);
+                pilot.getBookings().remove(index);
+            }
+        };
+
+        cancel.addActionListener(a);
+        return cancel;
+    }
+
+    private void updateBookingScroll(Booking b) {
+        bookedLabels.addElement(b.getDayBooked() + " at " + b.getTimeBooked()
+                + " for " + b.getPlane().getType() + " with instructor " + b.getInstructor().getName()
+                + " for " + b.getTypeOfLesson() + " lesson ");
     }
 
     private JButton getBookNewButton() {
@@ -439,9 +650,40 @@ public class Main extends JFrame {
                 cl.show(cards, "book");
             }
         };
+
         bookNew.addActionListener(next);
 
         return bookNew;
+    }
+
+    private class AreYouSure extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            int option = JOptionPane.showOptionDialog(
+                    Main.this,
+                    "Would you like to save your progress?", "Exit Dialog", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE, null, null,
+                    null);
+
+            if (option == JOptionPane.YES_OPTION) {
+                try {
+                    jsonWriter = new JsonWriter(JSON_STORE);
+                    jsonWriter.open();
+                    jsonWriter.write(pilot);
+                    jsonWriter.close();
+                } catch (FileNotFoundException ex) {
+                    int option2 = JOptionPane.showOptionDialog(
+                            Main.this,
+                            "Unable to write to file:" + JSON_STORE,
+                            "Error", JOptionPane.OK_OPTION,
+                            JOptionPane.ERROR_MESSAGE, null, null,
+                            null);
+                }
+
+                System.exit(0);
+            } else {
+                System.exit(0);
+            }
+        }
     }
 
     public static void main(String[] args) {
