@@ -51,3 +51,32 @@ file and have the option to do so or not.
 JsonWriter JsonReader classes, along with corresponding tests, Writable interface, implementation
 of toJson in each class in model package all involve code with inspiration/direct usage of
 code template from WorkRoomApp at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
+## Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by:
+1. Complete registration
+2. Navigate to the "Bookings" tab
+3. Click the "Create New Booking" button
+4. Enter the day, time, aircraft type, instructor name, and toggle the type of lesson button
+5. Click "Confirm & Book" button
+6. Now you can see your added booking in the scroll pane in the "Bookings" tab
+
+
+- You can generate the second required action related to adding Xs to a Y (removing X from Y) by:
+1. Single click on the booking you'd like to cancel in the scroll pane in the "Bookings" tab
+2. Click on "Cancel Booking" below
+
+
+- You can locate my visual component by:
+1. My visual component is the image on the splash screen when the gui is first launched
+
+
+- You can save the state of my application by:
+1. Clicking on the X button top right of the window
+2. Click "Yes" on the popup dialogue box
+
+
+- You can reload the state of my application by:
+1. After launching of the gui, single click to exit the splash screen
+2. Click "Continue from last saved" button
