@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-// Represents a flight planner application, allows user to book, cancel booking, check weather
+// Represents a flight planner console application, allows user to book, save, cancel booking, check weather
 // and conduct preflight and postflight documentations. Intakes a user input
 
 // CREDIT: CREDIT: json implementation code template from WorkRoomApp
