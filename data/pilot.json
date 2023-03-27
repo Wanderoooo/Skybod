@@ -1,15 +1,15 @@
 {
     "to postflight": [],
     "wx": {
-        "current METAR": "",
-        "current TAF": ""
+        "current METAR": "SDSD 130012Z CCA 08009KT 2 1/2SM RA BR SCT013 OVC029 06/06 A3006 RMK SC4NS4 SLP181=",
+        "current TAF": "SDSD 042343Z 0500/0505 VRB03KT P6SM BKN100\nRMK NXT FCST BY 051500Z="
     },
-    "medical#": 3,
+    "medical#": 12345,
     "completed bookings": [],
-    "student": false,
-    "ratings": [""],
+    "student": true,
+    "ratings": ["VFR"],
     "list of instructors": [],
-    "name": "",
+    "name": "Alissa",
     "pilot logs": [],
     "list of planes": [],
     "bookings": [{
@@ -38,12 +38,12 @@
                 "friday": [],
                 "monday": []
             },
-            "type": ""
+            "type": "Cessna"
         },
-        "type of lesson": "FLIGHT",
+        "type of lesson": "GROUND",
         "instructor": {
             "ratings": [],
-            "name": "",
+            "name": "me",
             "availability": {
                 "sunday": [],
                 "saturday": [],
@@ -58,8 +58,8 @@
             "years of experience": 0
         },
         "reason cancelled": "",
-        "time": "",
-        "day": "",
+        "time": "1100",
+        "day": "Monday",
         "preflight": {
             "passenger brief": false,
             "doc onboard": false,

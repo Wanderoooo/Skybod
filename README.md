@@ -52,6 +52,9 @@ JsonWriter JsonReader classes, along with corresponding tests, Writable interfac
 of toJson in each class in model package all involve code with inspiration/direct usage of
 code template from WorkRoomApp at https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
+Some java SWING library code were taken from https://docs.oracle.com/javase/tutorial/uiswing/, and Stack
+Overflow user contributions.
+
 ## Instructions for Grader
 
 - You can generate the first required action related to adding Xs to a Y by:
@@ -70,6 +73,7 @@ code template from WorkRoomApp at https://github.students.cs.ubc.ca/CPSC210/Json
 
 - You can locate my visual component by:
 1. My visual component is the image on the splash screen when the gui is first launched
+   (created with Canva.com)
 
 
 - You can save the state of my application by:
