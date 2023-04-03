@@ -34,6 +34,7 @@ public class Weather implements Writable {
     public void metarUpdate(String airport) {
         Random r = new Random();
         currentMetar = airport + " " + metars.get(r.nextInt(8));
+        EventLog.getInstance().logEvent(new Event("Updates last METAR"));
     }
 
     // MODIFIES: this
@@ -41,6 +42,7 @@ public class Weather implements Writable {
     public void tafUpdate(String airport) {
         Random r = new Random();
         currentTaf = airport + " " + tafs.get(r.nextInt(3));
+        EventLog.getInstance().logEvent(new Event("Updates last TAF"));
     }
 
     public String getCurrentTaf() {

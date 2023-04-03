@@ -53,9 +53,10 @@ public class Pilot implements Writable {
         ratings.add(r);
     }
 
-    // EFFECT: add given booking to pilot's bookings
+    // EFFECT: add given booking to pilot's bookings, logs this event
     public void addBooking(Booking b) {
         bookings.add(b);
+        EventLog.getInstance().logEvent(new Event("Created a new booking"));
     }
 
     public LinkedList<Booking> getToPostFlight() {
@@ -96,6 +97,7 @@ public class Pilot implements Writable {
 
     public void setName(String name) {
         this.name = name;
+        EventLog.getInstance().logEvent(new Event("Registers the pilot"));
     }
 
     public void setCompletedBookings(LinkedList<Booking> completedBookings) {
@@ -299,5 +301,11 @@ public class Pilot implements Writable {
     public int hashCode() {
         return Objects.hash(name, ratings, medNum, isStudent, bookings, toPostFlight, completedBookings, cancelled,
                 pl, lop, loi, wx);
+    }
+
+    // EFFECT: removes booking at index in bookings, logs this event
+    public void removeAt(int index) {
+        bookings.remove(index);
+        EventLog.getInstance().logEvent(new Event("Removed a booking from scheduled bookings"));
     }
 }

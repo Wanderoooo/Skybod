@@ -281,4 +281,13 @@ public class PilotTest {
         assertTrue(p1.hashCode() == p2.hashCode());
     }
 
+    @Test
+    public void removeTest() {
+        Booking b = new Booking();
+        p1.addBooking(b);
+        assertTrue(p1.getBookings().contains(b));
+        p1.removeAt(0);
+        assertFalse(p1.getBookings().contains(b));
+    }
+
 }

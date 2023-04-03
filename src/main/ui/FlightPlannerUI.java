@@ -1,6 +1,8 @@
 package ui;
 
 import model.Booking;
+import model.Event;
+import model.EventLog;
 import model.Pilot;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -672,7 +674,7 @@ public class FlightPlannerUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int index = labelList.getSelectedIndex();
                 bookedLabels.remove(index);
-                pilot.getBookings().remove(index);
+                pilot.removeAt(index);
             }
         };
 
@@ -721,17 +723,23 @@ public class FlightPlannerUI extends JFrame {
                     jsonWriter.write(pilot);
                     jsonWriter.close();
                 } catch (FileNotFoundException ex) {
-                    int option2 = JOptionPane.showOptionDialog(
-                            FlightPlannerUI.this,
-                            "Unable to write to file:" + JSON_STORE,
-                            "Error", JOptionPane.OK_OPTION,
-                            JOptionPane.ERROR_MESSAGE, null, null,
-                            null);
+                    int option2 = JOptionPane.showOptionDialog(FlightPlannerUI.this,
+                            "Unable to write to file:" + JSON_STORE, "Error", JOptionPane.OK_OPTION,
+                            JOptionPane.ERROR_MESSAGE, null, null, null);
                 }
+
+                printEventLog();
 
                 System.exit(0);
             } else {
+                printEventLog();
                 System.exit(0);
+            }
+        }
+
+        private void printEventLog() {
+            for (Event event : EventLog.getInstance()) {
+                System.out.println(event.toString());
             }
         }
     }
