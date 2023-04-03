@@ -84,3 +84,19 @@ Overflow user contributions.
 - You can reload the state of my application by:
 1. After launching of the gui, single click to exit the splash screen
 2. Click "Continue from last saved" button
+
+## Phase 4: Task 2
+* Mon Apr 03 15:36:45 PDT 2023
+* Registers the pilot
+* Mon Apr 03 15:36:46 PDT 2023
+* Updates last METAR
+* Mon Apr 03 15:36:47 PDT 2023
+* Updates last TAF
+* Mon Apr 03 15:36:47 PDT 2023
+* Updates last TAF
+* Mon Apr 03 15:36:48 PDT 2023
+* Updates last METAR
+* Mon Apr 03 15:36:50 PDT 2023
+* Created a new booking
+* Mon Apr 03 15:36:52 PDT 2023
+  Removed a booking from scheduled bookingsRemoved a booking from scheduled bookings
