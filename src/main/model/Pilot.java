@@ -56,7 +56,7 @@ public class Pilot implements Writable {
     // EFFECT: add given booking to pilot's bookings, logs this event
     public void addBooking(Booking b) {
         bookings.add(b);
-        EventLog.getInstance().logEvent(new Event("Created a new booking"));
+        EventLog.getInstance().logEvent(new Event("Creates a new booking"));
     }
 
     public LinkedList<Booking> getToPostFlight() {
@@ -97,7 +97,7 @@ public class Pilot implements Writable {
 
     public void setName(String name) {
         this.name = name;
-        EventLog.getInstance().logEvent(new Event("Registers the pilot"));
+        EventLog.getInstance().logEvent(new Event("Initiate the pilot profile"));
     }
 
     public void setCompletedBookings(LinkedList<Booking> completedBookings) {
