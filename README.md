@@ -100,3 +100,24 @@ Overflow user contributions.
 * Created a new booking
 * Mon Apr 03 15:36:52 PDT 2023
   Removed a booking from scheduled bookingsRemoved a booking from scheduled bookings
+
+## Phase 4: Task 3
+
+If I had more time, there are a lot of possible improvements (refactoring) I'd make. 
+For one, my entire project consists of 30 classes, with my model having 14 classes. As
+can be seen in my UML diagram, this resulted in high coupling and low cohesion, with many
+classes involving lots of fields of each other. If I had more time, I'd refactor many of
+the smaller classes, such as PlaneFlightLog and PilotLog, into inner classes of Plane and Pilot
+since no other class requires of them. I'd also split my classes into three different folders:
+piloting, plane, and weather, to better organize them into their respective functionalities,
+and thus increase cohesion within these folders; allowing high cohesion within and low coupling
+between.
+
+The amount of classes I have hindered the scalability and modifiability of my project, which
+led to a difficult phase 2 period as I needed to manually implement the toJson method in every
+class and edit every class to implement the Writable interface. This led to a lot of redundancy
+in code, such as for every list in the model, I have to code an almost identical JSONArray method.
+If I had more time, I would create a new abstract class and subtype classes involving list to it,
+so that I can reuse the same JSONArray list in the appropriate classes and reduce redundancy.
+I would also split the GUI code into more classes, as to assign different responsibility to classes
+and expedite debugging.

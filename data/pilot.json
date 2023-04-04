@@ -1,85 +1,17 @@
 {
     "to postflight": [],
     "wx": {
-        "current METAR": " 130012Z CCA 08009KT 2 1/2SM RA BR SCT013 OVC029 06/06 A3006 RMK SC4NS4 SLP181=",
+        "current METAR": "",
         "current TAF": ""
     },
-    "medical#": 3,
+    "medical#": 4,
     "completed bookings": [],
     "student": true,
-    "ratings": ["s"],
+    "ratings": [""],
     "list of instructors": [],
-    "name": "ss",
+    "name": "",
     "pilot logs": [],
     "list of planes": [],
-    "bookings": [{
-        "plane": {
-            "call sign": "",
-            "hourly fuel rate": 0,
-            "hourly rental rate": 0,
-            "fuel amount": 0,
-            "plane doc": {
-                "insurance": {
-                    "amount": 0,
-                    "validity start": "",
-                    "validity end": "",
-                    "type": ""
-                },
-                "weight": 0,
-                "flight logs": []
-            },
-            "max fuel": 0,
-            "availability": {
-                "sunday": [],
-                "saturday": [],
-                "tuesday": [],
-                "wednesday": [],
-                "thursday": [],
-                "friday": [],
-                "monday": []
-            },
-            "type": ""
-        },
-        "type of lesson": "FLIGHT",
-        "instructor": {
-            "ratings": [],
-            "name": "",
-            "availability": {
-                "sunday": [],
-                "saturday": [],
-                "tuesday": [],
-                "wednesday": [],
-                "thursday": [],
-                "friday": [],
-                "monday": []
-            },
-            "class": "",
-            "hourly rate": 0,
-            "years of experience": 0
-        },
-        "reason cancelled": "",
-        "time": "",
-        "day": "",
-        "preflight": {
-            "passenger brief": false,
-            "doc onboard": false,
-            "walk around": false,
-            "weight & balance": {
-                "aircraft weight": 0,
-                "fuel weight": 0,
-                "fuel gallons": 0,
-                "passenger weight": 0,
-                "within limit": false,
-                "takeoff weight": 0,
-                "pilot weight": 0
-            },
-            "hobbs start": 0,
-            "depart AP": "",
-            "insurance validity": false,
-            "w&b done": false,
-            "fuel enough": false,
-            "check fire extinguisher": false
-        }
-    }],
+    "bookings": [],
     "cancelled bookings": []
 }

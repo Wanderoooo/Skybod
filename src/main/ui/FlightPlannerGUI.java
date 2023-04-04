@@ -21,7 +21,7 @@ import java.io.*;
 // CREDIT: CREDIT: json implementation code template from WorkRoomApp
 // from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 
-public class FlightPlannerUI extends JFrame {
+public class FlightPlannerGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private JFrame frame;
@@ -47,7 +47,7 @@ public class FlightPlannerUI extends JFrame {
     private static final String JSON_STORE = "./data/pilot.json";
 
     // EFFECT: sets up a gui Flight Planner application
-    public FlightPlannerUI() {
+    public FlightPlannerGUI() {
         pilot = new Pilot();
         bookedLabels = new DefaultListModel();
         frame = new JFrame();
@@ -294,9 +294,11 @@ public class FlightPlannerUI extends JFrame {
                         + " for " + b.getTypeOfLesson() + " lesson ");
             }
 
+            EventLog.getInstance().clear();
+
         } catch (IOException ex) {
             int option2 = JOptionPane.showOptionDialog(
-                    FlightPlannerUI.this,
+                    FlightPlannerGUI.this,
                     "Unable to load from: " + JSON_STORE,
                     "Error", JOptionPane.OK_OPTION,
                     JOptionPane.ERROR_MESSAGE, null, null,
@@ -711,7 +713,7 @@ public class FlightPlannerUI extends JFrame {
         // EFFECT: window listener, initialize save progress dialogue box when event detected
         public void windowClosing(WindowEvent e) {
             int option = JOptionPane.showOptionDialog(
-                    FlightPlannerUI.this,
+                    FlightPlannerGUI.this,
                     "Would you like to save your progress?", "Exit Dialog", JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE, null, null,
                     null);
@@ -723,7 +725,7 @@ public class FlightPlannerUI extends JFrame {
                     jsonWriter.write(pilot);
                     jsonWriter.close();
                 } catch (FileNotFoundException ex) {
-                    int option2 = JOptionPane.showOptionDialog(FlightPlannerUI.this,
+                    int option2 = JOptionPane.showOptionDialog(FlightPlannerGUI.this,
                             "Unable to write to file:" + JSON_STORE, "Error", JOptionPane.OK_OPTION,
                             JOptionPane.ERROR_MESSAGE, null, null, null);
                 }

@@ -97,7 +97,7 @@ public class Pilot implements Writable {
 
     public void setName(String name) {
         this.name = name;
-        EventLog.getInstance().logEvent(new Event("Initiate the pilot profile"));
+        EventLog.getInstance().logEvent(new Event("Creates new pilot profile"));
     }
 
     public void setCompletedBookings(LinkedList<Booking> completedBookings) {

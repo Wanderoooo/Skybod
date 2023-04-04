@@ -4,6 +4,6 @@ package ui;
 public class Main {
     // EFFECT: runs the FlightPlannerUI gui
     public static void main(String[] args) {
-        new FlightPlannerUI();
+        new FlightPlannerGUI();
     }
 }
