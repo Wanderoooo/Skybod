@@ -55,6 +55,8 @@ code template from WorkRoomApp at https://github.students.cs.ubc.ca/CPSC210/Json
 Some java SWING library code were taken from https://docs.oracle.com/javase/tutorial/uiswing/, and Stack
 Overflow user contributions.
 
+EventLog and Event classes were adapted from AlarmSystem project in course CPSC210: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+
 ## Instructions for Grader
 
 - You can generate the first required action related to adding Xs to a Y by:

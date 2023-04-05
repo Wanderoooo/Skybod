@@ -1,10 +1,10 @@
 {
     "to postflight": [],
     "wx": {
-        "current METAR": "",
-        "current TAF": ""
+        "current METAR": "12 042300Z 09013G20KT 20SM BKN030 OVC038 09/07 A2989 RMK SC6SC2 SLP123",
+        "current TAF": "12 042340Z 0500/0606 10012G22KT P6SM SCT012 BKN025 TEMPO\n0500/0504 P6SM -RA BKN015\nFM050400 09010KT P6SM SCT020 BKN060\nFM050900 09008KT P6SM SCT060 BKN200 TEMPO 0509/0516 BKN060\nFM051600 08008KT P6SM BKN040 TEMPO 0516/0606 P6SM -RA BKN020\nRMK NXT FCST BY 050300Z"
     },
-    "medical#": 4,
+    "medical#": 3,
     "completed bookings": [],
     "student": true,
     "ratings": [""],
@@ -12,6 +12,74 @@
     "name": "",
     "pilot logs": [],
     "list of planes": [],
-    "bookings": [],
+    "bookings": [{
+        "plane": {
+            "call sign": "",
+            "hourly fuel rate": 0,
+            "hourly rental rate": 0,
+            "fuel amount": 0,
+            "plane doc": {
+                "insurance": {
+                    "amount": 0,
+                    "validity start": "",
+                    "validity end": "",
+                    "type": ""
+                },
+                "weight": 0,
+                "flight logs": []
+            },
+            "max fuel": 0,
+            "availability": {
+                "sunday": [],
+                "saturday": [],
+                "tuesday": [],
+                "wednesday": [],
+                "thursday": [],
+                "friday": [],
+                "monday": []
+            },
+            "type": ""
+        },
+        "type of lesson": "FLIGHT",
+        "instructor": {
+            "ratings": [],
+            "name": "",
+            "availability": {
+                "sunday": [],
+                "saturday": [],
+                "tuesday": [],
+                "wednesday": [],
+                "thursday": [],
+                "friday": [],
+                "monday": []
+            },
+            "class": "",
+            "hourly rate": 0,
+            "years of experience": 0
+        },
+        "reason cancelled": "",
+        "time": "",
+        "day": "",
+        "preflight": {
+            "passenger brief": false,
+            "doc onboard": false,
+            "walk around": false,
+            "weight & balance": {
+                "aircraft weight": 0,
+                "fuel weight": 0,
+                "fuel gallons": 0,
+                "passenger weight": 0,
+                "within limit": false,
+                "takeoff weight": 0,
+                "pilot weight": 0
+            },
+            "hobbs start": 0,
+            "depart AP": "",
+            "insurance validity": false,
+            "w&b done": false,
+            "fuel enough": false,
+            "check fire extinguisher": false
+        }
+    }],
     "cancelled bookings": []
 }
